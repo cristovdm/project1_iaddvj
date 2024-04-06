@@ -1,3 +1,52 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:9094cb035a2ba4223bc815e773af71cbf8cb5d39a03bf1792f8264fe3e7448b2
-size 552
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags: []
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - 
+  - 
+  - Player
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - floor
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: UI
+    uniqueID: 1127590703
+    locked: 0
+  - name: Player
+    uniqueID: 1993836259
+    locked: 0
+  - name: Floor
+    uniqueID: 3484056165
+    locked: 0

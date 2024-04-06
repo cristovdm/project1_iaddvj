@@ -1,3 +1,63 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:b3155f4772ee4aa587c1ebf14eb891baeb5398e1a2c66e2a7700e6799134c0a0
-size 1934
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using TMPro;
+
+public class ShowKeys : MonoBehaviour
+{
+    public float displayDuration = 2f; // How long the text will be displayed
+    [SerializeField] private int value = 100;
+    [SerializeField] private GameObject floatingTextPrefab;
+
+
+    private void Update()
+    {
+        if (Input.anyKeyDown)
+        {
+            foreach (KeyCode keyCode in System.Enum.GetValues(typeof(KeyCode)))
+            {
+                if (Input.GetKeyDown(keyCode))
+                {
+                    string keyName = GetKeyName(keyCode);
+                    if (!string.IsNullOrEmpty(keyName))
+                    {
+                        ShowText(keyName);
+                    }
+                }
+            }
+        }
+    }
+
+    private string GetKeyName(KeyCode keyCode)
+    {
+        if (keyCode >= KeyCode.A && keyCode <= KeyCode.Z)
+        {
+            return keyCode.ToString();
+        }
+        else if (keyCode >= KeyCode.Alpha0 && keyCode <= KeyCode.Alpha9)
+        {
+            return keyCode.ToString().Substring(5);
+        }
+        else if (keyCode >= KeyCode.Keypad0 && keyCode <= KeyCode.Keypad9)
+        {
+            return keyCode.ToString().Substring(7);
+        }
+        else if (keyCode == KeyCode.UpArrow || keyCode == KeyCode.DownArrow || keyCode == KeyCode.LeftArrow || keyCode == KeyCode.RightArrow)
+        {
+            return keyCode.ToString().Replace("Arrow", "");
+        }
+        else
+        {
+            return string.Empty;
+        }
+    }
+
+    private void ShowText(string key)
+    {
+        if (floatingTextPrefab) { 
+        GameObject prefab = Instantiate(floatingTextPrefab, transform.position, Quaternion.identity);
+        prefab.GetComponentInChildren<TextMesh>().text = key;
+        Destroy(prefab.gameObject, displayDuration);
+        }
+    }
+}

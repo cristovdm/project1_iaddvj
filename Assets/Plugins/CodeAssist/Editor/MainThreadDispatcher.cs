@@ -1,3 +1,35 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:a94c35883e33f21d8c32a87d03b20d840717c5e77f195b76b4f7eab2c88b7625
-size 782
+using System.Collections;
+using System.Collections.Generic;
+using System.Collections.Concurrent;
+using UnityEngine;
+using UnityEditor;
+
+
+#nullable enable
+
+
+namespace Meryel.UnityCodeAssist.Editor
+{
+
+    [InitializeOnLoad]
+    public static class MainThreadDispatcher
+    {
+        readonly static ConcurrentBag<System.Action> actions;
+
+        static MainThreadDispatcher()
+        {
+            actions = new ConcurrentBag<System.Action>();
+            EditorApplication.update += Update;
+        }
+
+        static void Update()
+        {
+            while (actions.TryTake(out var action))
+            {
+                action.Invoke();
+            }
+        }
+
+        public static void Add(System.Action action) => actions.Add(action);
+    }
+}

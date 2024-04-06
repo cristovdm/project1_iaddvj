@@ -1,3 +1,22 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:3c64852387a5cebf831761e69b7afc963636a85e0b7225e08ca2d82cf21ac2ab
-size 930
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+#if !NET_UNITY_4_8
+namespace System.Diagnostics.CodeAnalysis
+{
+    /// <summary>Specifies that when a method returns <see cref="ReturnValue"/>, the parameter will not be null even if the corresponding type allows it.</summary>
+    [AttributeUsage(AttributeTargets.Parameter, Inherited = false)]
+    internal sealed class NotNullWhenAttribute : Attribute
+    {
+        /// <summary>Initializes the attribute with the specified return value condition.</summary>
+        /// <param name="returnValue">
+        /// The return value condition. If the method returns this value, the associated parameter will not be null.
+        /// </param>
+        public NotNullWhenAttribute(bool returnValue) => ReturnValue = returnValue;
+
+        /// <summary>Gets the return value condition.</summary>
+        public bool ReturnValue { get; }
+    }
+}
+#endif

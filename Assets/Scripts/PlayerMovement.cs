@@ -1,3 +1,25 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:b33f0630ca77d14f781a12c559d57cff87d8fc84ed6549335faa3f71357eed12
-size 615
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class PlayerMovement : MonoBehaviour
+{
+    public float movementSpeed;
+    float speedX, speedY;
+    Rigidbody2D rb;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        rb = GetComponent<Rigidbody2D>();
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        speedX = Input.GetAxisRaw("Horizontal") * movementSpeed;
+        speedY = Input.GetAxisRaw("Vertical") * movementSpeed;
+        rb.velocity = new Vector2 (speedX, speedY);
+    }
+}
