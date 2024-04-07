@@ -2,13 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.Rendering;
 
 public class ShowKeys : MonoBehaviour
 {
-    public float displayDuration = 2f; // How long the text will be displayed
+    public float displayDuration = 2f;
     [SerializeField] private int value = 100;
     [SerializeField] private GameObject floatingTextPrefab;
-
 
     private void Update()
     {
