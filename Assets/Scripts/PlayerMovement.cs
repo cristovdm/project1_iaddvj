@@ -5,11 +5,13 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     public float movementSpeed;
+    public float slideForce = 1f;
     float speedX, speedY;
+    Vector2 lastMovement;
     Rigidbody2D rb;
     SpriteRenderer spriteRenderer;
+    bool isSliding = false;
 
-    // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -20,14 +22,17 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
     void Update()
     {
-        speedX = Input.GetAxisRaw("Horizontal") * movementSpeed;
-        speedY = Input.GetAxisRaw("Vertical") * movementSpeed;
-        rb.velocity = new Vector2(speedX, speedY);
+        speedX = Input.GetAxisRaw("Horizontal");
+        speedY = Input.GetAxisRaw("Vertical");
 
-        // Flip the sprite based on the movement direction
+        if (speedX != 0 || speedY != 0)
+        {
+            lastMovement = new Vector2(speedX, speedY).normalized;
+            rb.velocity = lastMovement * movementSpeed;
+        }
+
         if (speedX > 0) // Moving right
         {
             spriteRenderer.flipX = true;
@@ -36,13 +41,40 @@ public class PlayerMovement : MonoBehaviour
         {
             spriteRenderer.flipX = false;
         }
+
+        //Slide
+        if (speedX == 0 && speedY == 0 && isSliding)
+        {
+            rb.AddForce(lastMovement * slideForce, ForceMode2D.Force);
+        }
+        
+        else if (!isSliding)
+        {
+            rb.velocity *= 0.8f;
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Wall"))
         {
-            rb.velocity = Vector2.zero;
+            rb.velocity *= 0.8f;
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Water"))
+        {
+            isSliding = true;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.CompareTag("Water"))
+        {
+            isSliding = false;
         }
     }
 }
