@@ -54,6 +54,21 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    public void StopMovement(float stopTime)
+    {
+        StartCoroutine(StopMovementCoroutine(stopTime));
+    }
+
+    IEnumerator StopMovementCoroutine(float stopTime)
+    {
+        float originalSpeed = movementSpeed;
+        movementSpeed = 0f; // Stop the player movement
+
+        yield return new WaitForSeconds(stopTime);
+
+        movementSpeed = originalSpeed; // Restore original movement spee
+    }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Wall"))
