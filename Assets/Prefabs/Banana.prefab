@@ -75,7 +75,7 @@ SpriteRenderer:
   m_SortingLayerID: 1993836259
   m_SortingLayer: 3
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 3dfffe48f4afadd4aae36feae88d8950, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 60faceb6b24a07e46b7bf8e3ef76f26d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -100,7 +100,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stopTime: 1
   disappearDelay: 1
-  slipSound: {fileID: 8300000, guid: 49fa4ddb8a2d5cd4fb45b2c0089060d3, type: 3}
+  slipSound: {fileID: 8300000, guid: 81d28e6eac6e056408dfd46640311aa5, type: 3}
 --- !u!58 &1504320821868106948
 CircleCollider2D:
   m_ObjectHideFlags: 0

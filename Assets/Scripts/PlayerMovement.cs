@@ -10,7 +10,13 @@ public class PlayerMovement : MonoBehaviour
     Vector2 lastMovement;
     Rigidbody2D rb;
     SpriteRenderer spriteRenderer;
+    private Animator anim;
     bool isSliding = false;
+
+    void Awake()
+    {
+        anim = GetComponent<Animator>();
+    }
 
     void Start()
     {
@@ -31,6 +37,12 @@ public class PlayerMovement : MonoBehaviour
         {
             lastMovement = new Vector2(speedX, speedY).normalized;
             rb.velocity = lastMovement * movementSpeed;
+
+            anim.SetBool("isMoving", true);
+        }
+        else
+        {
+            anim.SetBool("isMoving", false);
         }
 
         if (speedX > 0) // Moving right
@@ -42,12 +54,11 @@ public class PlayerMovement : MonoBehaviour
             spriteRenderer.flipX = false;
         }
 
-        //Slide
+        // Slide
         if (speedX == 0 && speedY == 0 && isSliding)
         {
             rb.AddForce(lastMovement * slideForce, ForceMode2D.Force);
         }
-        
         else if (!isSliding)
         {
             rb.velocity *= 0.8f;
@@ -76,7 +87,6 @@ public class PlayerMovement : MonoBehaviour
             rb.velocity *= 0.8f;
         }
     }
-
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Water"))
