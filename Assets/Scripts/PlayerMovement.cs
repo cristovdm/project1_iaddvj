@@ -11,7 +11,7 @@ public class PlayerMovement : MonoBehaviour
     Rigidbody2D rb;
     SpriteRenderer spriteRenderer;
     private Animator anim;
-    bool isSliding = false;
+    public bool isSliding = false;
 
     void Awake()
     {
@@ -58,10 +58,12 @@ public class PlayerMovement : MonoBehaviour
         if (speedX == 0 && speedY == 0 && isSliding)
         {
             rb.AddForce(lastMovement * slideForce, ForceMode2D.Force);
+            anim.SetBool("isSliding", true);
         }
         else if (!isSliding)
         {
             rb.velocity *= 0.8f;
+            anim.SetBool("isSliding", false);
         }
     }
 
@@ -78,6 +80,8 @@ public class PlayerMovement : MonoBehaviour
         yield return new WaitForSeconds(stopTime);
 
         movementSpeed = originalSpeed; // Restore original movement spee
+        // Reset isSliding to false
+        isSliding = false;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Banana : MonoBehaviour
@@ -27,6 +26,9 @@ public class Banana : MonoBehaviour
 
             if (playerMovement != null)
             {
+                // Set isSliding to true in PlayerMovement
+                playerMovement.isSliding = true;
+
                 // Stop player movement
                 playerMovement.StopMovement(stopTime);
 
