@@ -1176,13 +1176,29 @@ PrefabInstance:
       propertyPath: m_Name
       value: Water
       objectReference: {fileID: 0}
+    - target: {fileID: 3785958317832616107, guid: a3fd8d879f2b7ca499907e068a9c566d, type: 3}
+      propertyPath: m_Size.x
+      value: 9.14565
+      objectReference: {fileID: 0}
+    - target: {fileID: 3785958317832616107, guid: a3fd8d879f2b7ca499907e068a9c566d, type: 3}
+      propertyPath: m_Size.y
+      value: 5.922253
+      objectReference: {fileID: 0}
+    - target: {fileID: 3785958317832616107, guid: a3fd8d879f2b7ca499907e068a9c566d, type: 3}
+      propertyPath: m_SortingLayer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3785958317832616107, guid: a3fd8d879f2b7ca499907e068a9c566d, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -1283746445
+      objectReference: {fileID: 0}
     - target: {fileID: 4413154228399037732, guid: a3fd8d879f2b7ca499907e068a9c566d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 30.7
+      value: 34.6129
       objectReference: {fileID: 0}
     - target: {fileID: 4413154228399037732, guid: a3fd8d879f2b7ca499907e068a9c566d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -18.2
+      value: -13.1363
       objectReference: {fileID: 0}
     - target: {fileID: 4413154228399037732, guid: a3fd8d879f2b7ca499907e068a9c566d, type: 3}
       propertyPath: m_LocalPosition.z
