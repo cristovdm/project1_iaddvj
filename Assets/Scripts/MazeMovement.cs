@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+public class MazeMovement : MonoBehaviour
 {
     public float movementSpeed;
     public float slideForce = 1f;
@@ -33,6 +33,7 @@ public class PlayerMovement : MonoBehaviour
     {
         speedX = Input.GetAxisRaw("Horizontal");
         speedY = Input.GetAxisRaw("Vertical");
+
         // Setting isBoosted parameter in Animator
         anim.SetBool("isBoosted", isBoosted);
 

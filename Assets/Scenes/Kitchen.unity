@@ -1403,8 +1403,8 @@ Transform:
   m_GameObject: {fileID: 2062072709}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -24.2, y: 25, z: 1}
-  m_LocalScale: {x: 25, y: 25, z: 1}
+  m_LocalPosition: {x: -22.09, y: 27.83, z: 1}
+  m_LocalScale: {x: 35.4175, y: 38.5425, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -1421,7 +1421,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 918b014153fb2184b8812336a022bee5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timerText: {fileID: 0}
+  timerText: {fileID: 2088185049}
   instructionText: {fileID: 604958806}
   gameTime: 7
   requiredKeys: 
@@ -1640,6 +1640,30 @@ PrefabInstance:
     - target: {fileID: 866452398101000293, guid: a3fd8d879f2b7ca499907e068a9c566d, type: 3}
       propertyPath: m_Name
       value: Water
+      objectReference: {fileID: 0}
+    - target: {fileID: 3768614481219117239, guid: a3fd8d879f2b7ca499907e068a9c566d, type: 3}
+      propertyPath: m_Size.x
+      value: 9.157583
+      objectReference: {fileID: 0}
+    - target: {fileID: 3768614481219117239, guid: a3fd8d879f2b7ca499907e068a9c566d, type: 3}
+      propertyPath: m_Size.y
+      value: 5.897443
+      objectReference: {fileID: 0}
+    - target: {fileID: 3768614481219117239, guid: a3fd8d879f2b7ca499907e068a9c566d, type: 3}
+      propertyPath: m_Offset.x
+      value: -0.009448051
+      objectReference: {fileID: 0}
+    - target: {fileID: 3768614481219117239, guid: a3fd8d879f2b7ca499907e068a9c566d, type: 3}
+      propertyPath: m_Offset.y
+      value: -0.004310131
+      objectReference: {fileID: 0}
+    - target: {fileID: 3768614481219117239, guid: a3fd8d879f2b7ca499907e068a9c566d, type: 3}
+      propertyPath: m_SpriteTilingProperty.newSize.x
+      value: 9.14565
+      objectReference: {fileID: 0}
+    - target: {fileID: 3768614481219117239, guid: a3fd8d879f2b7ca499907e068a9c566d, type: 3}
+      propertyPath: m_SpriteTilingProperty.newSize.y
+      value: 5.922253
       objectReference: {fileID: 0}
     - target: {fileID: 3785958317832616107, guid: a3fd8d879f2b7ca499907e068a9c566d, type: 3}
       propertyPath: m_Size.x

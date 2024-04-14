@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+public class CuisineControlsTEST : MonoBehaviour
 {
     public float movementSpeed;
     public float slideForce = 1f;
@@ -12,7 +12,9 @@ public class PlayerMovement : MonoBehaviour
     SpriteRenderer spriteRenderer;
     private Animator anim;
     public bool isSliding = false;
+    private bool isNearCuttingBoard = false;
     public bool isBoosted = false;
+    private CuttingBoardMiniGame cuttingBoardMiniGame;
 
     void Awake()
     {
@@ -27,6 +29,11 @@ public class PlayerMovement : MonoBehaviour
         {
             Debug.LogError("SpriteRenderer component not found on player GameObject.");
         }
+        cuttingBoardMiniGame = FindObjectOfType<CuttingBoardMiniGame>();
+        if (cuttingBoardMiniGame == null)
+        {
+            Debug.LogError("CuttingBoardMiniGame script not found in the scene.");
+        }
     }
 
     void Update()
@@ -35,6 +42,11 @@ public class PlayerMovement : MonoBehaviour
         speedY = Input.GetAxisRaw("Vertical");
         // Setting isBoosted parameter in Animator
         anim.SetBool("isBoosted", isBoosted);
+
+        if (!cuttingBoardMiniGame.IsReadyToStart() || cuttingBoardMiniGame.IsGameActive())
+        {
+            return; // Player movement is locked during the mini-game
+        }
 
         if (speedX != 0 || speedY != 0)
         {
@@ -68,6 +80,11 @@ public class PlayerMovement : MonoBehaviour
             rb.velocity *= 0.8f;
             anim.SetBool("isSliding", false);
         }
+        // Interaction with the cutting board
+        if (Input.GetKeyDown(KeyCode.E) && cuttingBoardMiniGame != null && cuttingBoardMiniGame.IsReadyToStart())
+        {
+            cuttingBoardMiniGame.StartMiniGame();
+        }
     }
 
     public void StopMovement(float stopTime)
@@ -100,6 +117,10 @@ public class PlayerMovement : MonoBehaviour
         {
             isSliding = true;
         }
+        else if (other.CompareTag("CuttingBoard"))
+        {
+            isNearCuttingBoard = true;
+        }
     }
 
     private void OnTriggerExit2D(Collider2D other)
@@ -107,6 +128,17 @@ public class PlayerMovement : MonoBehaviour
         if (other.CompareTag("Water"))
         {
             isSliding = false;
+        }
+        else if (other.CompareTag("CuttingBoard"))
+        {
+            isNearCuttingBoard = false;
+        }
+    }
+    void FixedUpdate()
+    {
+        if (isNearCuttingBoard && Input.GetKeyDown(KeyCode.E))
+        {
+            cuttingBoardMiniGame.StartMiniGame();
         }
     }
 }
