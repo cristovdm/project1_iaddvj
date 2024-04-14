@@ -1,6 +1,6 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -69,7 +69,6 @@ public class PlayerMovement : MonoBehaviour
             anim.SetBool("isSliding", false);
         }
     }
-
     public void StopMovement(float stopTime)
     {
         StartCoroutine(StopMovementCoroutine(stopTime));
@@ -82,7 +81,7 @@ public class PlayerMovement : MonoBehaviour
 
         yield return new WaitForSeconds(stopTime);
 
-        movementSpeed = originalSpeed; // Restore original movement spee
+        movementSpeed = originalSpeed; // Restore original movement speed
         // Reset isSliding to false
         isSliding = false;
     }
@@ -94,6 +93,7 @@ public class PlayerMovement : MonoBehaviour
             rb.velocity *= 0.8f;
         }
     }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Water"))

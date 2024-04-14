@@ -7,12 +7,12 @@ public class CuttingBoardMiniGame : MonoBehaviour
     public Text timerText;
     public Text instructionText;
     public float gameTime = 7f;
-    public KeyCode[] requiredKeys; // Keys to be pressed in sequence
-    private int keyIndex = 0; // Index of the currently required key
+    public KeyCode[] requiredKeys; 
+    private int keyIndex = 0; 
     private bool gameActive = false;
-    private bool readyToStart = true;
-    public int totalKeyPresses = 10; // Total key presses required
-    private int keyPresses = 0; // Counter for key presses
+    private bool readyToStart = true;  // Keeping it hardcoded as true for now
+    public int totalKeyPresses = 10; 
+    private int keyPresses = 0; 
     private bool isPlayerLocked = false;
 
     void Start()
@@ -26,11 +26,13 @@ public class CuttingBoardMiniGame : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.W) && keyIndex < totalKeyPresses && keyIndex % 2 == 0)
             {
+                Debug.Log("Pressed W");
                 keyPresses++;
                 keyIndex++;
             }
             else if (Input.GetKeyDown(KeyCode.S) && keyIndex < totalKeyPresses && keyIndex % 2 != 0)
             {
+                Debug.Log("Pressed S");
                 keyPresses++;
                 keyIndex++;
             }
@@ -41,16 +43,22 @@ public class CuttingBoardMiniGame : MonoBehaviour
                 EndMiniGame();
             }
         }
+        else
+        {
+            Debug.Log("Game not active or player is locked.");
+        }
     }
 
     public void StartMiniGame()
     {
+        Debug.Log("StartMiniGame method called.");
         instructionText.text = "Get ready...";
         StartCoroutine(CountdownToStart());
     }
 
     IEnumerator CountdownToStart()
     {
+        isPlayerLocked = true;  // Lock the player during countdown
         yield return new WaitForSeconds(1f);
         instructionText.text = "3";
         yield return new WaitForSeconds(1f);
@@ -60,6 +68,7 @@ public class CuttingBoardMiniGame : MonoBehaviour
         yield return new WaitForSeconds(1f);
         instructionText.text = "Go! press W and S in order repeatedly!";
         gameActive = true;
+        isPlayerLocked = false;  // Unlock the player after countdown
         StartCoroutine(StartTimer());
     }
 
@@ -72,7 +81,6 @@ public class CuttingBoardMiniGame : MonoBehaviour
             timerText.text = timer.ToString("F1");
             yield return null;
         }
-        // Game over if timer runs out
         instructionText.text = "Time's up!";
         EndMiniGame();
     }
@@ -80,12 +88,14 @@ public class CuttingBoardMiniGame : MonoBehaviour
     void EndMiniGame()
     {
         gameActive = false;
-        // Add any additional logic for ending the mini-game here
+        isPlayerLocked = false;  // Ensure player is unlocked
     }
+
     public bool IsReadyToStart()
     {
         return readyToStart;
     }
+
     public bool IsGameActive()
     {
         return gameActive;
