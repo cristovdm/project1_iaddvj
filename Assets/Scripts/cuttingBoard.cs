@@ -17,11 +17,18 @@ public class CuttingBoardMiniGame : MonoBehaviour
     private bool isPlayerLocked = true;
     private bool readyToStart = true;  // Keeping it hardcoded as true for now
     private bool win = false;
+    public AudioClip chop;
+    private AudioSource audioSource;
 
     void Start()
     {
         //StartMiniGame();
         SetChildrenActive(ParentObject, false);
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+        {
+            audioSource = gameObject.AddComponent<AudioSource>();
+        }
     }
 
     void Update()
@@ -33,6 +40,7 @@ public class CuttingBoardMiniGame : MonoBehaviour
                 Debug.Log("Pressed W");
                 if (nextKeyPress == 0)
                 {
+                    audioSource.PlayOneShot(chop);
                     //keyPresses++;
                     ToggleKeySprite();
                     nextKeyPress = 1;
@@ -43,6 +51,7 @@ public class CuttingBoardMiniGame : MonoBehaviour
                 Debug.Log("Pressed S");
                 if (nextKeyPress == 1)
                 {
+                    audioSource.PlayOneShot(chop);
                     keyPresses++;
                     ToggleKeySprite();
                     nextKeyPress = 0;

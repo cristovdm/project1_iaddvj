@@ -739,7 +739,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: c0e0fc5531b767e43a1f3f19b90af0d8, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 829c1ea66ebaa7444a99e57141121e93, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.1
   m_Pitch: 1
@@ -1471,6 +1471,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 343747044}
     m_Modifications:
+    - target: {fileID: 1836235846927779940, guid: da0b4b6d07d817a46a92e013dd647b9b, type: 3}
+      propertyPath: chop
+      value: 
+      objectReference: {fileID: 8300000, guid: 1697ef6def83a8b459b3b425f75a3bb4, type: 3}
+    - target: {fileID: 1836235846927779940, guid: da0b4b6d07d817a46a92e013dd647b9b, type: 3}
+      propertyPath: successSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 2cac3b3ab7f8dfd45a1047df3c57f258, type: 3}
+    - target: {fileID: 1886410618891980058, guid: da0b4b6d07d817a46a92e013dd647b9b, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1500
+      objectReference: {fileID: 0}
     - target: {fileID: 2648992548061607600, guid: da0b4b6d07d817a46a92e013dd647b9b, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
