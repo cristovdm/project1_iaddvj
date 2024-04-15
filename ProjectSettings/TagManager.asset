@@ -60,6 +60,9 @@ TagManager:
   - name: Text
     uniqueID: 705122551
     locked: 0
+  - name: Darkness
+    uniqueID: 3734033791
+    locked: 0
   - name: UI
     uniqueID: 1127590703
     locked: 0
