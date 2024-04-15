@@ -1,64 +1,96 @@
 using UnityEngine;
-using UnityEngine.UI;
+using TMPro;
 using System.Collections;
+using System.Threading.Tasks;
 
 public class CuttingBoardMiniGame : MonoBehaviour
 {
-    public Text timerText;
-    public Text instructionText;
-    public float gameTime = 7f;
-    public KeyCode[] requiredKeys; 
-    private int keyIndex = 0; 
+    public GameObject ParentObject;
+    public TextMeshProUGUI instructionText;
+    public GameObject wKeySprite;
+    public GameObject sKeySprite;
+    public int totalKeyPresses = 10;
+    private int totalKeyPairs;
+    private int keyPresses = 0;
+    private int nextKeyPress = 0; // 0 => W; 1 => S
     private bool gameActive = false;
+    private bool isPlayerLocked = true;
     private bool readyToStart = true;  // Keeping it hardcoded as true for now
-    public int totalKeyPresses = 10; 
-    private int keyPresses = 0; 
-    private bool isPlayerLocked = false;
+    private bool win = false;
 
     void Start()
     {
-        instructionText.text = "Press 'E' to start the mini-game.";
+        //StartMiniGame();
+        SetChildrenActive(ParentObject, false);
     }
 
     void Update()
     {
         if (gameActive && !isPlayerLocked)
         {
-            if (Input.GetKeyDown(KeyCode.W) && keyIndex < totalKeyPresses && keyIndex % 2 == 0)
+            if (Input.GetKeyDown(KeyCode.W))
             {
                 Debug.Log("Pressed W");
-                keyPresses++;
-                keyIndex++;
+                if (nextKeyPress == 0)
+                {
+                    //keyPresses++;
+                    ToggleKeySprite();
+                    nextKeyPress = 1;
+                }
             }
-            else if (Input.GetKeyDown(KeyCode.S) && keyIndex < totalKeyPresses && keyIndex % 2 != 0)
+            else if (Input.GetKeyDown(KeyCode.S))
             {
                 Debug.Log("Pressed S");
-                keyPresses++;
-                keyIndex++;
+                if (nextKeyPress == 1)
+                {
+                    keyPresses++;
+                    ToggleKeySprite();
+                    nextKeyPress = 0;
+                }
             }
 
-            if (keyPresses >= totalKeyPresses)
+            if (keyPresses >= totalKeyPairs)
             {
-                instructionText.text = "Mini-game completed!";
-                EndMiniGame();
+                //instructionText.text = "Mini-game completed!";
+                win = true;
+                instructionText.text = "SUCCESS";
+                wKeySprite.SetActive(false);
+                sKeySprite.SetActive(false);
+                //Entregar el item al personaje o algo asi
+                Invoke("EndMiniGame", 2.0f);
             }
         }
-        else
+    }
+
+    void SetChildrenActive(GameObject parent, bool state)
+    {
+        foreach (Transform child in parent.transform)
         {
-            Debug.Log("Game not active or player is locked.");
+            child.gameObject.SetActive(state);
         }
+    }
+
+    void ToggleKeySprite()
+    {
+        wKeySprite.SetActive(!wKeySprite.activeSelf);
+        sKeySprite.SetActive(!sKeySprite.activeSelf);
     }
 
     public void StartMiniGame()
     {
+        totalKeyPairs = totalKeyPresses;
+        SetChildrenActive(ParentObject, true);
+        wKeySprite.SetActive(false);
+        sKeySprite.SetActive(false);
         Debug.Log("StartMiniGame method called.");
+        instructionText.text = "Press W and S in order repeatedly!";
         instructionText.text = "Get ready...";
         StartCoroutine(CountdownToStart());
     }
 
+
     IEnumerator CountdownToStart()
     {
-        isPlayerLocked = true;  // Lock the player during countdown
         yield return new WaitForSeconds(1f);
         instructionText.text = "3";
         yield return new WaitForSeconds(1f);
@@ -66,29 +98,29 @@ public class CuttingBoardMiniGame : MonoBehaviour
         yield return new WaitForSeconds(1f);
         instructionText.text = "1";
         yield return new WaitForSeconds(1f);
-        instructionText.text = "Go! press W and S in order repeatedly!";
+        instructionText.text = "";
+        wKeySprite.SetActive(true);
         gameActive = true;
         isPlayerLocked = false;  // Unlock the player after countdown
-        StartCoroutine(StartTimer());
     }
 
-    IEnumerator StartTimer()
+    private void ResetGame()
     {
-        float timer = gameTime;
-        while (timer > 0)
-        {
-            timer -= Time.deltaTime;
-            timerText.text = timer.ToString("F1");
-            yield return null;
-        }
-        instructionText.text = "Time's up!";
-        EndMiniGame();
-    }
+        totalKeyPairs = totalKeyPresses;
+        keyPresses = 0;
+        nextKeyPress = 0; // 0 => W; 1 => S
+        gameActive = false;
+        isPlayerLocked = true;
+        readyToStart = true;
+        win = false;
+}
 
     void EndMiniGame()
     {
-        gameActive = false;
-        isPlayerLocked = false;  // Ensure player is unlocked
+        ResetGame();
+        wKeySprite.SetActive(false);
+        sKeySprite.SetActive(false);
+        SetChildrenActive(ParentObject, false);
     }
 
     public bool IsReadyToStart()
