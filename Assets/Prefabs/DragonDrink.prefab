@@ -133,6 +133,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35fa1d1b6c891d848a9277ba6c28a74d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pickUpSound: {fileID: 8300000, guid: ffd8c8158dcbd8840880f4a3ba0a69ff, type: 3}
+  pickUpSound: {fileID: 8300000, guid: 65cc70f2f7b121749bb19e1586d321e2, type: 3}
   boostDuration: 15
   boostMultiplier: 1.5
