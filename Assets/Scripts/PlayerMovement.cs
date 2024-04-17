@@ -34,7 +34,10 @@ public class PlayerMovement : MonoBehaviour
         speedX = Input.GetAxisRaw("Horizontal");
         speedY = Input.GetAxisRaw("Vertical");
         // Setting isBoosted parameter in Animator
-        anim.SetBool("isBoosted", isBoosted);
+        
+        // JP: Comenté la linea 'anim.SetBool...' porque tira spam de warning en la consola. 
+        // (Dice que no existe el bool isBoosted)
+        // anim.SetBool("isBoosted", isBoosted);
 
         if (speedX != 0 || speedY != 0)
         {
