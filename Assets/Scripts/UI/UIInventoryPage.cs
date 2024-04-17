@@ -32,6 +32,7 @@ public class UIInventoryPage : MonoBehaviour
     private void HandleItemSelection(UIInventoryItem UIIinventoryItem)
     {
        Debug.Log("hey"); 
+       listOfUIItems[0].Select(); 
         
         /*
         int index = listOfUIItems.IndexOf(inventoryItemUI);
