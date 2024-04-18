@@ -31,7 +31,6 @@ public class InventoryController : MonoBehaviour
     {
         
         inventoryUI.InitializeInventoryUI(inventorySize); 
-        inventoryUI.Hide(); 
         /*PrepareUI();
         PrepareInventoryData(); */
     }

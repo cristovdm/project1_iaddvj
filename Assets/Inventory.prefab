@@ -737,5 +737,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemPrefab: {fileID: 1179637938380177040, guid: d90df31e5a4f50d41a6fc1541740c472, type: 3}
   contentPanel: {fileID: 6847898530814734803}
+  mouseFollower: {fileID: 0}
   image: {fileID: 21300000, guid: 3fc71756a5970584f90ab004a80cbf80, type: 3}
+  image2: {fileID: 0}
   quantity: 1
