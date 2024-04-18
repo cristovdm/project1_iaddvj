@@ -27,13 +27,13 @@ public class UIInventoryItem : MonoBehaviour, IPointerClickHandler,
         itemImage.gameObject.SetActive(false);
         empty = true;
     }
-    
+
     public void Select()
     {
         borderImage.enabled = true;
     }
 
-    private void Deselect()
+    public void Deselect()
     {
         borderImage.enabled = false;
     }

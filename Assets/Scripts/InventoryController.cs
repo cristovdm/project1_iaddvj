@@ -10,8 +10,8 @@ public class InventoryController : MonoBehaviour
     [SerializeField]
     private UIInventoryPage inventoryUI;
 
-    public int inventorySize = 10;
-
+    [SerializeField]
+    private InventorySO inventoryData; 
 
     /*
 
@@ -30,9 +30,9 @@ public class InventoryController : MonoBehaviour
     private void Start()
     {
         
-        inventoryUI.InitializeInventoryUI(inventorySize); 
-        /*PrepareUI();
-        PrepareInventoryData(); */
+        PrepareUI(); 
+        // inventoryData.Initialize();
+       // PrepareInventoryData(); */
     }
 
     /*
@@ -58,7 +58,7 @@ public class InventoryController : MonoBehaviour
                 item.Value.quantity);
         }
     }
-
+    */
     private void PrepareUI()
     {
         inventoryUI.InitializeInventoryUI(inventoryData.Size);
@@ -68,13 +68,14 @@ public class InventoryController : MonoBehaviour
         inventoryUI.OnItemActionRequested += HandleItemActionRequest;
     }
 
+
     private void HandleItemActionRequest(int itemIndex)
     {
         InventoryItem inventoryItem = inventoryData.GetItemAt(itemIndex);
         if (inventoryItem.IsEmpty)
             return;
 
-        IItemAction itemAction = inventoryItem.item as IItemAction;
+        /*IItemAction itemAction = inventoryItem.item as IItemAction;
         if(itemAction != null)
         {
             
@@ -86,7 +87,7 @@ public class InventoryController : MonoBehaviour
         if (destroyableItem != null)
         {
             inventoryUI.AddAction("Drop", () => DropItem(itemIndex, inventoryItem.quantity));
-        }
+        }*/
 
     }
 
@@ -94,9 +95,9 @@ public class InventoryController : MonoBehaviour
     {
         inventoryData.RemoveItem(itemIndex, quantity);
         inventoryUI.ResetSelection();
-        audioSource.PlayOneShot(dropClip);
+        //audioSource.PlayOneShot(dropClip);
     }
-
+    /*
     public void PerformAction(int itemIndex)
     {
         InventoryItem inventoryItem = inventoryData.GetItemAt(itemIndex);
@@ -117,7 +118,8 @@ public class InventoryController : MonoBehaviour
             if (inventoryData.GetItemAt(itemIndex).IsEmpty)
                 inventoryUI.ResetSelection();
         }
-    }
+    } 
+    */
 
     private void HandleDragging(int itemIndex)
     {
@@ -137,17 +139,15 @@ public class InventoryController : MonoBehaviour
         InventoryItem inventoryItem = inventoryData.GetItemAt(itemIndex);
         if (inventoryItem.IsEmpty)
         {
-            inventoryUI.ResetSelection();
+            //inventoryUI.ResetSelection();
             return;
         }
         ItemSO item = inventoryItem.item;
-        string description = PrepareDescription(inventoryItem);
-        inventoryUI.UpdateDescription(itemIndex, item.ItemImage,
-            item.name, description);
     }
+
     
 
-
+    /*
     private string PrepareDescription(InventoryItem inventoryItem)
     {
         StringBuilder sb = new StringBuilder();
@@ -170,13 +170,13 @@ public class InventoryController : MonoBehaviour
             if (inventoryUI.isActiveAndEnabled == false)
             {
                 inventoryUI.Show();
-                /*foreach (var item in inventoryData.GetCurrentInventoryState())
+                foreach (var item in inventoryData.GetCurrentInventoryState())
                 {
                     inventoryUI.UpdateData(item.Key,
                         item.Value.item.ItemImage,
                         item.Value.quantity);
                 }
-                */
+        
             }
             else
             {
