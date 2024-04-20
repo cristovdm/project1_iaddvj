@@ -1,7 +1,6 @@
 using UnityEngine;
 using TMPro;
 using System.Collections;
-using System.Threading.Tasks;
 
 public class CuttingBoardMiniGame : MonoBehaviour
 {
@@ -15,24 +14,46 @@ public class CuttingBoardMiniGame : MonoBehaviour
     private int nextKeyPress = 0; // 0 => W; 1 => S
     private bool gameActive = false;
     private bool isPlayerLocked = true;
-    private bool readyToStart = true;  // Keeping it hardcoded as true for now
+    private bool readyToStart = true;
     private bool win = false;
     public AudioClip chop;
     private AudioSource audioSource;
-
+    public BoxCollider2D interactionArea;
+    private bool hasStartedMiniGame = false;
+    private bool isCooldown = false;
+    public PlayerMovement playerMovement;
     void Start()
     {
-        //StartMiniGame();
         SetChildrenActive(ParentObject, false);
         audioSource = GetComponent<AudioSource>();
         if (audioSource == null)
         {
             audioSource = gameObject.AddComponent<AudioSource>();
         }
+
+        if (interactionArea == null)
+        {
+            interactionArea = GetComponent<BoxCollider2D>();
+        }
     }
 
     void Update()
     {
+        if (isCooldown)
+        {
+            return;
+        }
+
+        // Disable player movement when the mini-game is active
+        if (gameActive)
+        {
+            playerMovement.enabled = false;
+        }
+        else
+        {
+            playerMovement.enabled = true;
+        }
+
         if (gameActive && !isPlayerLocked)
         {
             if (Input.GetKeyDown(KeyCode.W))
@@ -41,7 +62,6 @@ public class CuttingBoardMiniGame : MonoBehaviour
                 if (nextKeyPress == 0)
                 {
                     audioSource.PlayOneShot(chop);
-                    //keyPresses++;
                     ToggleKeySprite();
                     nextKeyPress = 1;
                 }
@@ -60,15 +80,32 @@ public class CuttingBoardMiniGame : MonoBehaviour
 
             if (keyPresses >= totalKeyPairs)
             {
-                //instructionText.text = "Mini-game completed!";
                 win = true;
-                instructionText.text = "SUCCESS";
+                instructionText.text = "COMPLETE";
                 wKeySprite.SetActive(false);
                 sKeySprite.SetActive(false);
-                //Entregar el item al personaje o algo asi
-                Invoke("EndMiniGame", 2.0f);
+                Invoke("EndMiniGame", 1.0f);
             }
         }
+        else
+        {
+            if (!IsGameActive() && !hasStartedMiniGame && Input.GetKeyDown(KeyCode.E) && IsReadyToStart())
+            {
+                StartMiniGame();
+            }
+        }
+    }
+
+    void StartCooldown()
+    {
+        isCooldown = true;
+        StartCoroutine(ResetCooldown());
+    }
+
+    IEnumerator ResetCooldown()
+    {
+        yield return new WaitForSeconds(3f);
+        isCooldown = false;
     }
 
     void SetChildrenActive(GameObject parent, bool state)
@@ -87,34 +124,27 @@ public class CuttingBoardMiniGame : MonoBehaviour
 
     public void StartMiniGame()
     {
+        hasStartedMiniGame = true;
         totalKeyPairs = totalKeyPresses;
         SetChildrenActive(ParentObject, true);
         wKeySprite.SetActive(false);
         sKeySprite.SetActive(false);
-        Debug.Log("StartMiniGame method called.");
-        instructionText.text = "Press W and S in order repeatedly!";
-        instructionText.text = "Get ready...";
+        instructionText.text = "Press W and S in order!";
         StartCoroutine(CountdownToStart());
     }
-
 
     IEnumerator CountdownToStart()
     {
         yield return new WaitForSeconds(1f);
-        instructionText.text = "3";
-        yield return new WaitForSeconds(1f);
-        instructionText.text = "2";
-        yield return new WaitForSeconds(1f);
-        instructionText.text = "1";
-        yield return new WaitForSeconds(1f);
         instructionText.text = "";
         wKeySprite.SetActive(true);
         gameActive = true;
-        isPlayerLocked = false;  // Unlock the player after countdown
+        isPlayerLocked = false;
     }
 
     private void ResetGame()
     {
+        hasStartedMiniGame = false;
         totalKeyPairs = totalKeyPresses;
         keyPresses = 0;
         nextKeyPress = 0; // 0 => W; 1 => S
@@ -122,7 +152,7 @@ public class CuttingBoardMiniGame : MonoBehaviour
         isPlayerLocked = true;
         readyToStart = true;
         win = false;
-}
+    }
 
     void EndMiniGame()
     {
@@ -130,11 +160,44 @@ public class CuttingBoardMiniGame : MonoBehaviour
         wKeySprite.SetActive(false);
         sKeySprite.SetActive(false);
         SetChildrenActive(ParentObject, false);
+        StartCooldown();
+        playerMovement.enabled = true;
+    }
+
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            readyToStart = true;
+        }
+    }
+
+    void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            readyToStart = false;
+        }
     }
 
     public bool IsReadyToStart()
     {
-        return readyToStart;
+        if (interactionArea == null)
+        {
+            Debug.LogError("Interaction Area has not been assigned in the inspector!");
+            return false;
+        }
+
+        Collider2D[] colliders = Physics2D.OverlapBoxAll(interactionArea.bounds.center, interactionArea.bounds.size, 0);
+        foreach (Collider2D collider in colliders)
+        {
+            if (collider.CompareTag("Player"))
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     public bool IsGameActive()
