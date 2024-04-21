@@ -2,16 +2,18 @@ using UnityEngine;
 using TMPro;
 using System.Collections;
 
-public class CuttingBoardMiniGame : MonoBehaviour
+public class SoupMakerMiniGame : MonoBehaviour
 {
     public GameObject ParentObject;
     public TextMeshProUGUI instructionText;
-    public GameObject wKeySprite;
-    public GameObject sKeySprite;
-    public int totalKeyPresses = 10;
+    public GameObject upKeySprite;
+    public GameObject downKeySprite;
+    public GameObject leftKeySprite;
+    public GameObject rightKeySprite;
+    public int totalKeyPresses = 8; // 4 pares de teclas
     private int totalKeyPairs;
     private int keyPresses = 0;
-    private int nextKeyPress = 0; // 0 => W; 1 => S
+    private int nextKeyPress = 0; // 0 => UP; 1 => RIGHT; 2 => DOWN; 3 => LEFT
     private bool gameActive = false;
     private bool isPlayerLocked = true;
     private bool readyToStart = true;
@@ -22,6 +24,7 @@ public class CuttingBoardMiniGame : MonoBehaviour
     private bool hasStartedMiniGame = false;
     private bool isCooldown = false;
     public PlayerMovement playerMovement;
+
     void Start()
     {
         SetChildrenActive(ParentObject, false);
@@ -56,35 +59,21 @@ public class CuttingBoardMiniGame : MonoBehaviour
 
         if (gameActive && !isPlayerLocked)
         {
-            if (Input.GetKeyDown(KeyCode.W))
+            if (Input.GetKeyDown(KeyCode.UpArrow))
             {
-                Debug.Log("Pressed W");
-                if (nextKeyPress == 0)
-                {
-                    audioSource.PlayOneShot(chop);
-                    ToggleKeySprite();
-                    nextKeyPress = 1;
-                }
+                HandleKeyPress(0);
             }
-            else if (Input.GetKeyDown(KeyCode.S))
+            else if (Input.GetKeyDown(KeyCode.RightArrow))
             {
-                Debug.Log("Pressed S");
-                if (nextKeyPress == 1)
-                {
-                    audioSource.PlayOneShot(chop);
-                    keyPresses++;
-                    ToggleKeySprite();
-                    nextKeyPress = 0;
-                }
+                HandleKeyPress(1);
             }
-
-            if (keyPresses >= totalKeyPairs)
+            else if (Input.GetKeyDown(KeyCode.DownArrow))
             {
-                win = true;
-                instructionText.text = "COMPLETE";
-                wKeySprite.SetActive(false);
-                sKeySprite.SetActive(false);
-                Invoke("EndMiniGame", 1.0f);
+                HandleKeyPress(2);
+            }
+            else if (Input.GetKeyDown(KeyCode.LeftArrow))
+            {
+                HandleKeyPress(3);
             }
         }
         else
@@ -93,6 +82,55 @@ public class CuttingBoardMiniGame : MonoBehaviour
             {
                 StartMiniGame();
             }
+        }
+    }
+
+    void HandleKeyPress(int keyIndex)
+    {
+        if (nextKeyPress == keyIndex)
+        {
+            audioSource.PlayOneShot(chop);
+            keyPresses++;
+            ToggleKeySprite(keyIndex);
+            nextKeyPress = (nextKeyPress + 1) % 4;
+
+            if (keyPresses >= totalKeyPairs)
+            {
+                win = true;
+                instructionText.text = "COMPLETE";
+                StartCoroutine(EndMiniGameAfterDelay());
+            }
+        }
+    }
+
+    IEnumerator EndMiniGameAfterDelay()
+    {
+        yield return new WaitForSeconds(1.0f);
+        EndMiniGame();
+    }
+
+    void ToggleKeySprite(int keyIndex)
+    {
+        // Reset all key sprites
+        upKeySprite.SetActive(false);
+        downKeySprite.SetActive(false);
+        leftKeySprite.SetActive(false);
+        rightKeySprite.SetActive(false);
+
+        switch (keyIndex)
+        {
+            case 0:
+                upKeySprite.SetActive(true);
+                break;
+            case 1:
+                rightKeySprite.SetActive(true);
+                break;
+            case 2:
+                downKeySprite.SetActive(true);
+                break;
+            case 3:
+                leftKeySprite.SetActive(true);
+                break;
         }
     }
 
@@ -116,20 +154,13 @@ public class CuttingBoardMiniGame : MonoBehaviour
         }
     }
 
-    void ToggleKeySprite()
-    {
-        wKeySprite.SetActive(!wKeySprite.activeSelf);
-        sKeySprite.SetActive(!sKeySprite.activeSelf);
-    }
-
     public void StartMiniGame()
     {
         hasStartedMiniGame = true;
-        totalKeyPairs = totalKeyPresses;
+        totalKeyPairs = totalKeyPresses / 2;
         SetChildrenActive(ParentObject, true);
-        wKeySprite.SetActive(false);
-        sKeySprite.SetActive(false);
-        instructionText.text = "Press W and S in order!";
+        ResetKeySprites();
+        instructionText.text = "Press UP, RIGHT, DOWN, LEFT in order!";
         StartCoroutine(CountdownToStart());
     }
 
@@ -137,7 +168,7 @@ public class CuttingBoardMiniGame : MonoBehaviour
     {
         yield return new WaitForSeconds(1f);
         instructionText.text = "";
-        wKeySprite.SetActive(true);
+        upKeySprite.SetActive(true);
         gameActive = true;
         isPlayerLocked = false;
     }
@@ -145,9 +176,9 @@ public class CuttingBoardMiniGame : MonoBehaviour
     private void ResetGame()
     {
         hasStartedMiniGame = false;
-        totalKeyPairs = totalKeyPresses;
+        totalKeyPairs = totalKeyPresses / 2;
         keyPresses = 0;
-        nextKeyPress = 0; // 0 => W; 1 => S
+        nextKeyPress = 0; // 0 => UP; 1 => RIGHT; 2 => DOWN; 3 => LEFT
         gameActive = false;
         isPlayerLocked = true;
         readyToStart = true;
@@ -157,13 +188,19 @@ public class CuttingBoardMiniGame : MonoBehaviour
     void EndMiniGame()
     {
         ResetGame();
-        wKeySprite.SetActive(false);
-        sKeySprite.SetActive(false);
+        ResetKeySprites();
         SetChildrenActive(ParentObject, false);
         StartCooldown();
         playerMovement.enabled = true;
     }
 
+    void ResetKeySprites()
+    {
+        upKeySprite.SetActive(false);
+        downKeySprite.SetActive(false);
+        leftKeySprite.SetActive(false);
+        rightKeySprite.SetActive(false);
+    }
 
     void OnTriggerEnter2D(Collider2D other)
     {
@@ -185,6 +222,7 @@ public class CuttingBoardMiniGame : MonoBehaviour
     {
         if (interactionArea == null)
         {
+            Debug.LogError("Interaction Area has not been assigned in the inspector!");
             return false;
         }
 
