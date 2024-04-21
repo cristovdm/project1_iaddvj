@@ -18,7 +18,7 @@ public class SoupMakerMiniGame : MonoBehaviour
     private bool isPlayerLocked = true;
     private bool readyToStart = true;
     private bool win = false;
-    public AudioClip chop;
+    public AudioClip bubble;
     private AudioSource audioSource;
     public BoxCollider2D interactionArea;
     private bool hasStartedMiniGame = false;
@@ -89,7 +89,7 @@ public class SoupMakerMiniGame : MonoBehaviour
     {
         if (nextKeyPress == keyIndex)
         {
-            audioSource.PlayOneShot(chop);
+            audioSource.PlayOneShot(bubble);
             keyPresses++;
             ToggleKeySprite(keyIndex);
             nextKeyPress = (nextKeyPress + 1) % 4;

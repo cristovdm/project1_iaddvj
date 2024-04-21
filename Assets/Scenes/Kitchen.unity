@@ -1268,7 +1268,7 @@ MonoBehaviour:
   leftKeySprite: {fileID: 619800494}
   rightKeySprite: {fileID: 1691460920}
   totalKeyPresses: 8
-  chop: {fileID: 0}
+  bubble: {fileID: 8300000, guid: d644554de30f69b4198ddd51c3e354a5, type: 3}
   interactionArea: {fileID: 1007063933}
   playerMovement: {fileID: 430763162}
 --- !u!1 &1007063930
@@ -1763,7 +1763,7 @@ MonoBehaviour:
   leftKeySprite: {fileID: 619800494}
   rightKeySprite: {fileID: 1691460920}
   totalKeyPresses: 8
-  chop: {fileID: 0}
+  bubble: {fileID: 8300000, guid: d644554de30f69b4198ddd51c3e354a5, type: 3}
   interactionArea: {fileID: 1007063933}
   playerMovement: {fileID: 430763162}
 --- !u!1001 &1459636471
