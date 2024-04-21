@@ -12,7 +12,7 @@ namespace Inventory.Model {
         private List<InventoryItem> inventoryItems;
 
         [SerializeField]
-        public int Size { get; private set; } = 10;
+        public int Size { get; private set; } = 3;
 
         public event Action<Dictionary<int, InventoryItem>> OnInventoryUpdated; 
 
