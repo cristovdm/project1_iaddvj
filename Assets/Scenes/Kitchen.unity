@@ -364,7 +364,7 @@ Transform:
   m_GameObject: {fileID: 287683490}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -38.7, y: 1, z: 0}
+  m_LocalPosition: {x: 53.9, y: -12, z: 0}
   m_LocalScale: {x: 1.3641, y: 1.2427, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1680,7 +1680,7 @@ MonoBehaviour:
   downKeySprite: {fileID: 506200915}
   leftKeySprite: {fileID: 619800494}
   rightKeySprite: {fileID: 1691460920}
-  totalKeyPresses: 8
+  totalKeySequences: 4
   bubble: {fileID: 8300000, guid: d644554de30f69b4198ddd51c3e354a5, type: 3}
   interactionArea: {fileID: 1007063933}
   playerMovement: {fileID: 430763162}
@@ -2443,7 +2443,7 @@ MonoBehaviour:
   downKeySprite: {fileID: 506200915}
   leftKeySprite: {fileID: 619800494}
   rightKeySprite: {fileID: 1691460920}
-  totalKeyPresses: 8
+  totalKeySequences: 4
   bubble: {fileID: 8300000, guid: d644554de30f69b4198ddd51c3e354a5, type: 3}
   interactionArea: {fileID: 1007063933}
   playerMovement: {fileID: 430763162}
@@ -3559,7 +3559,7 @@ MonoBehaviour:
   downKeySprite: {fileID: 524119562}
   leftKeySprite: {fileID: 882542470}
   rightKeySprite: {fileID: 1948917781}
-  ScrubtotalKeySequences: 4
+  ScrubtotalKeySequences: 5
   WashtotalKeySequences: 2
   bubble: {fileID: 8300000, guid: 1697ef6def83a8b459b3b425f75a3bb4, type: 3}
   interactionArea: {fileID: 287683493}
