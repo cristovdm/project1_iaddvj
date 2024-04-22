@@ -1,20 +1,29 @@
-using UnityEngine;
-using TMPro;
 using System.Collections;
+using System.Collections.Generic;
+using TMPro;
+using UnityEngine;
 
-public class SoupMakerMiniGame : MonoBehaviour
+public class WashingMiniGame : MonoBehaviour
 {
     public GameObject ParentObject;
     public TextMeshProUGUI instructionText;
+    public TextMeshProUGUI modeText;
     public GameObject upKeySprite;
     public GameObject downKeySprite;
     public GameObject leftKeySprite;
     public GameObject rightKeySprite;
 
-    public int totalKeySequences = 4; //Cantidad total de sequencias a completar
+    public int ScrubtotalKeySequences = 4; //Cantidad total de sequencias a completar Scrub
+    public int WashtotalKeySequences = 4; //Cantidad total de sequencias a completar Wash
+    private int ScrubtotalKeyPairs; //Variable que cumple el mismo objetivo que "totalKeySequences", para evitar modificar este mencionado.
+    private int WashtotalKeyPairs;
 
-    private int totalKeyPairs;
-    private int nextKeyPress = 0; // 0 => UP; 1 => RIGHT; 2 => DOWN; 3 => LEFT
+    private bool scrub = false;
+    private bool wash = false;
+
+    private int scrubNextKeyPress = 0; // 0 => RIGHT; 1 => LEFT;
+    private int washNextKeyPress = 0; // 0 => UP; 1 => RIGHT; 2 => DOWN; 3 => LEFT
+    
     private bool gameActive = false;
     private bool isPlayerLocked = true;
     private bool readyToStart = true;
@@ -25,6 +34,7 @@ public class SoupMakerMiniGame : MonoBehaviour
     private bool hasStartedMiniGame = false;
     private bool isCooldown = false;
     public PlayerMovement playerMovement;
+
 
     void Start()
     {
@@ -60,22 +70,14 @@ public class SoupMakerMiniGame : MonoBehaviour
 
         if (gameActive && !isPlayerLocked)
         {
-            if (Input.GetKeyDown(KeyCode.UpArrow))
+            if (scrub)
             {
-                HandleKeyPress(0, false);
+                scrubSequence();
             }
-            else if (Input.GetKeyDown(KeyCode.RightArrow))
-            {
-                HandleKeyPress(1, false);
+            else if (wash) {
+                washSequence();
             }
-            else if (Input.GetKeyDown(KeyCode.DownArrow))
-            {
-                HandleKeyPress(2, false);
-            }
-            else if (Input.GetKeyDown(KeyCode.LeftArrow))
-            {
-                HandleKeyPress(3, true);
-            }
+            
         }
         else
         {
@@ -86,31 +88,104 @@ public class SoupMakerMiniGame : MonoBehaviour
         }
     }
 
-    void HandleKeyPress(int keyIndex, bool endSequence)
+    void scrubSequence()
     {
-        if (nextKeyPress == keyIndex)
+        if (Input.GetKeyDown(KeyCode.RightArrow))
         {
+            HandleKeyPressScrub(0, false);
+        }
+        else if (Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+            HandleKeyPressScrub(1, true);
+        }
+    }
 
+    void washSequence()
+    {
+        if (Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            HandleKeyPressWash(0, false);
+        }
+        else if (Input.GetKeyDown(KeyCode.RightArrow))
+        {
+            HandleKeyPressWash(1, false);
+        }
+        else if (Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            HandleKeyPressWash(2, false);
+        }
+        else if (Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+            HandleKeyPressWash(3, true);
+        }
+    }
+
+    void HandleKeyPressScrub(int keyIndex, bool endSequence)
+    {
+        if (scrubNextKeyPress == keyIndex)
+        {
             audioSource.PlayOneShot(bubble);
-            nextKeyPress = (nextKeyPress + 1);
-            ToggleKeySprite(nextKeyPress);
+            scrubNextKeyPress = (scrubNextKeyPress + 1);
+            ToggleKeySpriteScrub(scrubNextKeyPress);
             if (endSequence)
             {
-                nextKeyPress = 0;
-                totalKeyPairs++;
-                ToggleKeySprite(nextKeyPress);
-                if (totalKeyPairs >= totalKeySequences)
+                scrubNextKeyPress = 0;
+                ScrubtotalKeyPairs++;
+                ToggleKeySpriteScrub(scrubNextKeyPress);
+                if (ScrubtotalKeyPairs >= ScrubtotalKeySequences)
                 {
                     upKeySprite.SetActive(false);
                     downKeySprite.SetActive(false);
                     leftKeySprite.SetActive(false);
                     rightKeySprite.SetActive(false);
-                    win = true;
+                    modeText.text = "WASH!";
+                    instructionText.text = "Press UP, RIGHT, DOWN, LEFT in order!";
+                    scrub = false;
+                    wash = true;
+                    gameActive = false;
+                    ResetKeySprites();
+                    StartCoroutine(CountdownToChange());
+                    upKeySprite.SetActive(true);
+                }
+            }
+        }
+    }
+IEnumerator CountdownToChange()
+{
+    instructionText.text = "";
+    yield return new WaitForSeconds(1f);
+    
+    upKeySprite.SetActive(true);
+    gameActive = true;
+}
+
+
+
+void HandleKeyPressWash(int keyIndex, bool endSequence)
+    {
+        if (washNextKeyPress == keyIndex)
+        {
+            audioSource.PlayOneShot(bubble);
+            washNextKeyPress = (washNextKeyPress + 1);
+            ToggleKeySpriteWash(washNextKeyPress);
+            if (endSequence)
+            {
+                washNextKeyPress = 0;
+                WashtotalKeyPairs++;
+                ToggleKeySpriteWash(washNextKeyPress);
+                if (WashtotalKeyPairs >= WashtotalKeySequences)
+                {
+                    upKeySprite.SetActive(false);
+                    downKeySprite.SetActive(false);
+                    leftKeySprite.SetActive(false);
+                    rightKeySprite.SetActive(false);
+                    modeText.text = "";
                     instructionText.text = "COMPLETE";
+                    scrub = false;
+                    wash = false;
                     StartCoroutine(EndMiniGameAfterDelay());
                 }
             }
-                
         }
     }
 
@@ -120,7 +195,26 @@ public class SoupMakerMiniGame : MonoBehaviour
         EndMiniGame();
     }
 
-    void ToggleKeySprite(int keyIndex)
+    void ToggleKeySpriteScrub(int keyIndex)
+    {
+        // Reset all key sprites
+        upKeySprite.SetActive(false);
+        downKeySprite.SetActive(false);
+        leftKeySprite.SetActive(false);
+        rightKeySprite.SetActive(false);
+
+        switch (keyIndex)
+        {
+            case 0:
+                rightKeySprite.SetActive(true);
+                break;
+            case 1:
+                leftKeySprite.SetActive(true);
+                break;
+        }
+    }
+
+    void ToggleKeySpriteWash(int keyIndex)
     {
         // Reset all key sprites
         upKeySprite.SetActive(false);
@@ -167,10 +261,13 @@ public class SoupMakerMiniGame : MonoBehaviour
 
     public void StartMiniGame()
     {
+        scrub = true;
+        wash = false;
         hasStartedMiniGame = true;
         SetChildrenActive(ParentObject, true);
         ResetKeySprites();
-        instructionText.text = "Press UP, RIGHT, DOWN, LEFT in order!";
+        instructionText.text = "Press RIGHT, LEFT in order!";
+        modeText.text = "SCRUB!";
         StartCoroutine(CountdownToStart());
     }
 
@@ -178,7 +275,7 @@ public class SoupMakerMiniGame : MonoBehaviour
     {
         yield return new WaitForSeconds(1f);
         instructionText.text = "";
-        upKeySprite.SetActive(true);
+        rightKeySprite.SetActive(true);
         gameActive = true;
         isPlayerLocked = false;
     }
@@ -186,12 +283,16 @@ public class SoupMakerMiniGame : MonoBehaviour
     private void ResetGame()
     {
         hasStartedMiniGame = false;
-        totalKeyPairs = 0;
-        nextKeyPress = 0; // 0 => UP; 1 => RIGHT; 2 => DOWN; 3 => LEFT
+        scrubNextKeyPress = 0;
+        washNextKeyPress = 0;
         gameActive = false;
         isPlayerLocked = true;
         readyToStart = true;
         win = false;
+        scrub = false;
+        wash = false;
+        ScrubtotalKeyPairs = 0;
+        WashtotalKeyPairs = 0;
     }
 
     void EndMiniGame()
