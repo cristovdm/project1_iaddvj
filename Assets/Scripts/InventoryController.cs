@@ -146,7 +146,6 @@ namespace Inventory
                 return;
             }
             ItemSO item = inventoryItem.item;
-            Debug.Log("Jeu"); 
         }
 
         

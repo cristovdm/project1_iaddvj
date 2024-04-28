@@ -31379,13 +31379,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inventoryUI: {fileID: 1706022501}
   inventoryData: {fileID: 11400000, guid: 4b89f0ca11505e541b6dcd7517706844, type: 2}
-  initialItems:
-  - quantity: 5
-    item: {fileID: 11400000, guid: f73fc60b21d1b6e4e8527f73437f6511, type: 2}
-  - quantity: 0
-    item: {fileID: 0}
-  - quantity: 1
-    item: {fileID: 11400000, guid: 59b74cbba6182604a8b9d5b4d2397376, type: 2}
+  initialItems: []
 --- !u!114 &1903010183
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -31395,7 +31389,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 481989710}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a33c03e7bdeea04bbb8e65f1a91ca38, type: 3}
+  m_Script: {fileID: 11500000, guid: abbd5bb1f98ac7a4aad2f1cd6af08e39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   inventoryData: {fileID: 11400000, guid: 4b89f0ca11505e541b6dcd7517706844, type: 2}

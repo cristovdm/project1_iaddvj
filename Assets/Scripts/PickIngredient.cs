@@ -1,52 +1,23 @@
+using Inventory.Model;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PickIngredient : MonoBehaviour
+public class PickUpSystem : MonoBehaviour
 {
-    public AudioClip pickUpSound;
-    private AudioSource audioSource;
-    private SpriteRenderer spriteRenderer;
+    [SerializeField]
+    private InventorySO inventoryData;
 
-    void Start()
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        audioSource = GetComponent<AudioSource>();
-        if (audioSource == null)
+        Item item = collision.GetComponent<Item>();
+        if (item != null)
         {
-            audioSource = gameObject.AddComponent<AudioSource>();
+            int reminder = inventoryData.AddItem(item.InventoryItem, item.Quantity);
+            if (reminder == 0)
+                item.DestroyItem();
+            else
+                item.Quantity = reminder;
         }
-
-        spriteRenderer = GetComponent<SpriteRenderer>();
-        if (spriteRenderer == null)
-        {
-            spriteRenderer = gameObject.GetComponentInChildren<SpriteRenderer>();
-        }
-    }
-
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            if (pickUpSound != null)
-            {
-                audioSource.PlayOneShot(pickUpSound);
-                HideSprite();
-                StartCoroutine(DestroyAfterSound());
-            }
-        }
-    }
-
-    void HideSprite()
-    {
-        if (spriteRenderer != null)
-        {
-            spriteRenderer.enabled = false; // Hide the sprite
-        }
-    }
-
-    IEnumerator DestroyAfterSound()
-    {
-        yield return new WaitForSeconds(pickUpSound.length); // Wait for the sound to finish playing
-        Destroy(gameObject);
     }
 }
