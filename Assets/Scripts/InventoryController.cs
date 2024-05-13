@@ -19,6 +19,7 @@ namespace Inventory
 
         public List<InventoryItem> initialItems = new List<InventoryItem>();  
 
+
         /*
 
         [SerializeField]
@@ -173,6 +174,7 @@ namespace Inventory
                 if (inventoryUI.isActiveAndEnabled == false)
                 {
                     inventoryUI.Show();
+
                     foreach (var item in inventoryData.GetCurrentInventoryState())
                     {
                         inventoryUI.UpdateData(item.Key,
