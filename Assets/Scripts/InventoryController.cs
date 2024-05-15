@@ -1,11 +1,10 @@
+using Inventory.Model;
+using Inventory.UI;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
-using Inventory.UI;
-using Inventory.Model;  
-
 
 namespace Inventory
 {
@@ -15,33 +14,22 @@ namespace Inventory
         private UIInventoryPage inventoryUI;
 
         [SerializeField]
-        private InventorySO inventoryData; 
-
-        public List<InventoryItem> initialItems = new List<InventoryItem>();  
-
-
-        /*
-
-        [SerializeField]
         private InventorySO inventoryData;
 
-        
         public List<InventoryItem> initialItems = new List<InventoryItem>();
 
         [SerializeField]
         private AudioClip dropClip;
 
         [SerializeField]
-        private AudioSource audioSource; */
+        private AudioSource audioSource;
 
         private void Start()
         {
-            
-            PrepareUI(); 
-            PrepareInventoryData(); 
+            PrepareUI();
+            PrepareInventoryData();
         }
 
-    
         private void PrepareInventoryData()
         {
             inventoryData.Initialize();
@@ -54,7 +42,6 @@ namespace Inventory
             }
         }
 
-        
         private void UpdateInventoryUI(Dictionary<int, InventoryItem> inventoryState)
         {
             inventoryUI.ResetAllItems();
@@ -64,7 +51,7 @@ namespace Inventory
                     item.Value.quantity);
             }
         }
-        
+
         private void PrepareUI()
         {
             inventoryUI.InitializeInventoryUI(inventoryData.Size);
@@ -80,19 +67,12 @@ namespace Inventory
             if (inventoryItem.IsEmpty)
                 return;
 
-            /*IItemAction itemAction = inventoryItem.item as IItemAction;
-            if(itemAction != null)
-            {
-                
-                inventoryUI.ShowItemAction(itemIndex);
-                inventoryUI.AddAction(itemAction.ActionName, () => PerformAction(itemIndex));
-            }
 
             IDestroyableItem destroyableItem = inventoryItem.item as IDestroyableItem;
             if (destroyableItem != null)
             {
                 inventoryUI.AddAction("Drop", () => DropItem(itemIndex, inventoryItem.quantity));
-            }*/
+            }
 
         }
 
@@ -100,9 +80,9 @@ namespace Inventory
         {
             inventoryData.RemoveItem(itemIndex, quantity);
             inventoryUI.ResetSelection();
-            //audioSource.PlayOneShot(dropClip);
+            audioSource.PlayOneShot(dropClip);
         }
-        /*
+
         public void PerformAction(int itemIndex)
         {
             InventoryItem inventoryItem = inventoryData.GetItemAt(itemIndex);
@@ -114,17 +94,7 @@ namespace Inventory
             {
                 inventoryData.RemoveItem(itemIndex, 1);
             }
-
-            IItemAction itemAction = inventoryItem.item as IItemAction;
-            if (itemAction != null)
-            {
-                itemAction.PerformAction(gameObject, inventoryItem.itemState);
-                audioSource.PlayOneShot(itemAction.actionSFX);
-                if (inventoryData.GetItemAt(itemIndex).IsEmpty)
-                    inventoryUI.ResetSelection();
-            }
-        } 
-        */
+        }
 
         private void HandleDragging(int itemIndex)
         {
@@ -142,31 +112,15 @@ namespace Inventory
         private void HandleDescriptionRequest(int itemIndex)
         {
             InventoryItem inventoryItem = inventoryData.GetItemAt(itemIndex);
-            if (inventoryItem.IsEmpty){
-                //inventoryUI.ResetSelection();
+            if (inventoryItem.IsEmpty)
+            {
+                inventoryUI.ResetSelection();
                 return;
             }
             ItemSO item = inventoryItem.item;
         }
 
-        
 
-        /*
-        private string PrepareDescription(InventoryItem inventoryItem)
-        {
-            StringBuilder sb = new StringBuilder();
-            sb.Append(inventoryItem.item.Description);
-            sb.AppendLine();
-            for (int i = 0; i < inventoryItem.itemState.Count; i++)
-            {
-                sb.Append($"{inventoryItem.itemState[i].itemParameter.ParameterName} " +
-                    $": {inventoryItem.itemState[i].value} / " +
-                    $"{inventoryItem.item.DefaultParametersList[i].value}");
-                sb.AppendLine();
-            }
-            return sb.ToString();
-        }
-        */ 
         public void Update()
         {
             if (Input.GetKeyDown(KeyCode.I))
@@ -174,14 +128,12 @@ namespace Inventory
                 if (inventoryUI.isActiveAndEnabled == false)
                 {
                     inventoryUI.Show();
-
                     foreach (var item in inventoryData.GetCurrentInventoryState())
                     {
                         inventoryUI.UpdateData(item.Key,
                             item.Value.item.ItemImage,
                             item.Value.quantity);
                     }
-            
                 }
                 else
                 {
@@ -190,7 +142,5 @@ namespace Inventory
 
             }
         }
-
-        
     }
 }
