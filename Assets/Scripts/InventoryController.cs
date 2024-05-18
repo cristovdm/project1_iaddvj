@@ -1,5 +1,6 @@
 using Inventory.Model;
 using Inventory.UI;
+using UnityEngine.UI;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -28,6 +29,16 @@ namespace Inventory
         {
             PrepareUI();
             PrepareInventoryData();
+            ButtonInventory();
+        }
+
+        private void ButtonInventory()
+        {
+            GameObject buttonObject = GameObject.FindWithTag("Inventory");
+            
+            Button button = buttonObject.GetComponent<Button>();
+            button.onClick.AddListener(ToggleInventory);
+          
         }
 
         private void PrepareInventoryData()
@@ -125,21 +136,25 @@ namespace Inventory
         {
             if (Input.GetKeyDown(KeyCode.I))
             {
-                if (inventoryUI.isActiveAndEnabled == false)
+                ToggleInventory();
+            }
+        }
+        
+        public void ToggleInventory()
+        {
+            if (inventoryUI.isActiveAndEnabled == false)
+            {
+                inventoryUI.Show();
+                foreach (var item in inventoryData.GetCurrentInventoryState())
                 {
-                    inventoryUI.Show();
-                    foreach (var item in inventoryData.GetCurrentInventoryState())
-                    {
-                        inventoryUI.UpdateData(item.Key,
-                            item.Value.item.ItemImage,
-                            item.Value.quantity);
-                    }
+                    inventoryUI.UpdateData(item.Key,
+                        item.Value.item.ItemImage,
+                        item.Value.quantity);
                 }
-                else
-                {
-                    inventoryUI.Hide();
-                }
-
+            }
+            else
+            {
+                inventoryUI.Hide();
             }
         }
     }

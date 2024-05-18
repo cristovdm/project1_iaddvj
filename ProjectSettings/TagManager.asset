@@ -8,6 +8,7 @@ TagManager:
   - Water
   - CuttingBoard
   - CuttingBoardMiniGame
+  - Inventory
   layers:
   - Default
   - TransparentFX
