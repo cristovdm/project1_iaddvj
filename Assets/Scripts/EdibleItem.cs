@@ -11,7 +11,7 @@ namespace Inventory.Model
         [SerializeField]
         private List<ModifierData> modifiersData = new List<ModifierData>();
 
-        public string ActionName => "Consume";
+        public string ActionName => "Drop";
 
         [field: SerializeField]
         public AudioClip actionSFX {get; private set;}

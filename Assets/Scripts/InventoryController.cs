@@ -75,11 +75,11 @@ namespace Inventory
                 inventoryUI.AddAction(itemAction.ActionName, () => PerformAction(itemIndex));
             }
 
-            IDestroyableItem destroyableItem = inventoryItem.item as IDestroyableItem;
+            /*IDestroyableItem destroyableItem = inventoryItem.item as IDestroyableItem;
             if (destroyableItem != null)
             {
                 inventoryUI.AddAction("Drop", () => DropItem(itemIndex, inventoryItem.quantity));
-            }
+            }*/
 
         }
 
