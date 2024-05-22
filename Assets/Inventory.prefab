@@ -738,3 +738,4 @@ MonoBehaviour:
   itemPrefab: {fileID: 1179637938380177040, guid: d90df31e5a4f50d41a6fc1541740c472, type: 3}
   contentPanel: {fileID: 6847898530814734803}
   mouseFollower: {fileID: 0}
+  actionPanel: {fileID: 0}

@@ -3,12 +3,14 @@ using UnityEngine;
 
 public class ImagePlacer : MonoBehaviour
 {
-    public GameObject bananaPrefab; // Prefab de la banana
-    public GameObject boostPrefab; // Prefab del boost
-    public GameObject rottenTomatoPrefab; // Prefab del rottenTomato
-    public GameObject rottenPanPrefab; // Prefab del rottenPan
-
-    // Lista de posiciones donde se colocarán los objetos
+    public GameObject bananaPrefab; 
+    public GameObject boostPrefab; 
+    public GameObject rottenTomatoPrefab;
+    public GameObject rottenPanPrefab; 
+    public GameObject rottenCarrotPrefab; 
+    public GameObject rottenCornerPrefab;
+    public GameObject rottenFishPrefab;
+    // Lista de posiciones donde se colocarï¿½n los objetos
     private List<Vector2> positions = new List<Vector2>
     {
         new Vector2(330, 132),
@@ -31,11 +33,15 @@ public class ImagePlacer : MonoBehaviour
         new Vector2(160, 240),
     };
 
-    // Números a colocar (total 14)
+    // Nï¿½meros a colocar (total 14)
     private int bananasCount = 3;
     private int boostCount = 4;
     private int rottenTomatoCount = 4;
     private int rottenPanCount = 3;
+    private int rottenCarrotCount = 1;
+    private int rottenCornerCount = 1;
+    private int rottenFishCount = 1;
+
 
     void Start()
     {
@@ -69,13 +75,31 @@ public class ImagePlacer : MonoBehaviour
             Vector2 position = GetRandomPosition(availablePositions);
             Instantiate(rottenPanPrefab, position, Quaternion.identity);
         }
+        
+        for (int i = 0; i < rottenCarrotCount; i++)
+        {
+            Vector2 position = GetRandomPosition(availablePositions);
+            Instantiate(rottenCarrotPrefab, position, Quaternion.identity);
+        }
+
+        for (int i = 0; i < rottenCornerCount; i++)
+        {
+            Vector2 position = GetRandomPosition(availablePositions);
+            Instantiate(rottenCornerPrefab, position, Quaternion.identity);
+        }
+
+        for (int i = 0; i < rottenFishCount; i++)
+        {
+            Vector2 position = GetRandomPosition(availablePositions);
+            Instantiate(rottenFishPrefab, position, Quaternion.identity);
+        }
     }
 
     private Vector2 GetRandomPosition(List<Vector2> availablePositions)
     {
         if (availablePositions.Count == 0)
         {
-            Debug.LogError("No hay más posiciones disponibles para colocar objetos.");
+            Debug.LogError("No hay mï¿½s posiciones disponibles para colocar objetos.");
             return Vector2.zero;
         }
         int index = Random.Range(0, availablePositions.Count);
