@@ -38,7 +38,7 @@ namespace Inventory.UI
 
         public void InitializeInventoryUI(int inventorysize)
         {
-            for (int i = 0; i < 1; i++)
+            for (int i = 0; i < 9; i++)
             {
                 UIInventoryItem uiItem =
                     Instantiate(itemPrefab, Vector3.zero, Quaternion.identity);
