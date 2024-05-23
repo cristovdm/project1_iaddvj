@@ -12,7 +12,6 @@ public class TrashInventory : MonoBehaviour
     bool currentState = false;
     public PlayerMovement playerMovement;
 
-    private bool isPlayerInRange = false;
 
     void Start()
     {   

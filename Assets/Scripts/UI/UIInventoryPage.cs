@@ -41,7 +41,7 @@ namespace Inventory.UI
         {
             string sceneName = SceneManager.GetActiveScene().name;
             if (sceneName == "Kitchen"){
-                inventorysize = 1; 
+                inventorysize = 5; 
             }
             for (int i = 0; i < inventorysize; i++)
             {
