@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Inventory.UI
 {
@@ -38,7 +39,11 @@ namespace Inventory.UI
 
         public void InitializeInventoryUI(int inventorysize)
         {
-            for (int i = 0; i < 9; i++)
+            string sceneName = SceneManager.GetActiveScene().name;
+            if (sceneName == "Kitchen"){
+                inventorysize = 1; 
+            }
+            for (int i = 0; i < inventorysize; i++)
             {
                 UIInventoryItem uiItem =
                     Instantiate(itemPrefab, Vector3.zero, Quaternion.identity);
