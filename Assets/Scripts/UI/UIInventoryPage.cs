@@ -14,6 +14,8 @@ namespace Inventory.UI
         [SerializeField]
         private RectTransform contentPanel;
 
+        public bool userInventory; 
+
 
         [SerializeField]
         private MouseFollower mouseFollower;
@@ -40,8 +42,11 @@ namespace Inventory.UI
         public void InitializeInventoryUI(int inventorysize)
         {
             string sceneName = SceneManager.GetActiveScene().name;
-            if (sceneName == "Kitchen"){
+            if (sceneName == "Kitchen" && !userInventory){
                 inventorysize = 5; 
+            }
+            else if (sceneName == "Kitchen" && userInventory){
+                inventorysize = 1; 
             }
             for (int i = 0; i < inventorysize; i++)
             {

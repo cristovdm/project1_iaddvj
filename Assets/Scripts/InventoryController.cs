@@ -5,7 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
-
+using UnityEngine.SceneManagement; 
 namespace Inventory
 {
     public class InventoryController : MonoBehaviour
@@ -23,8 +23,7 @@ namespace Inventory
         private InventorySO trashinventoryData;
 
         public List<InventoryItem> initialItems = new List<InventoryItem>();
-        public List<InventoryItem> trashInitialItems = new List<InventoryItem>();
-
+         public List<InventoryItem> TrashInitialItems = new List<InventoryItem>();
 
         [SerializeField]
         private AudioClip dropClip;
@@ -36,7 +35,12 @@ namespace Inventory
         {
             PrepareUI();
             PrepareInventoryData();
-            PrepareTrashInventoryData();
+
+            string sceneName = SceneManager.GetActiveScene().name;
+            if (sceneName == "Kitchen")
+            {
+                PrepareTrashInventoryData();
+            }
         }
 
         private void PrepareInventoryData()
@@ -55,7 +59,7 @@ namespace Inventory
         {
             trashinventoryData.Initialize();
             trashinventoryData.OnInventoryUpdated += UpdateTrashInventoryUI;
-            foreach (InventoryItem item in trashInitialItems)
+            foreach (InventoryItem item in TrashInitialItems)
             {
                 if (item.IsEmpty)
                     continue;
@@ -91,11 +95,15 @@ namespace Inventory
             inventoryUI.OnStartDragging += HandleDragging;
             inventoryUI.OnItemActionRequested += HandleItemActionRequest;
 
-            trashinventoryUI.InitializeInventoryUI(trashinventoryData.Size);
-            trashinventoryUI.OnDescriptionRequested += HandleTrashDescriptionRequest;
-            trashinventoryUI.OnSwapItems += HandleTrashSwapItems;
-            trashinventoryUI.OnStartDragging += HandleTrashDragging;
-            trashinventoryUI.OnItemActionRequested += HandleTrashItemActionRequest;
+            string sceneName = SceneManager.GetActiveScene().name;
+            if (sceneName == "Kitchen")
+            {
+                trashinventoryUI.InitializeInventoryUI(trashinventoryData.Size);
+                trashinventoryUI.OnDescriptionRequested += HandleTrashDescriptionRequest;
+                trashinventoryUI.OnSwapItems += HandleTrashSwapItems;
+                trashinventoryUI.OnStartDragging += HandleTrashDragging;
+                trashinventoryUI.OnItemActionRequested += HandleTrashItemActionRequest;
+            }
         }
 
         private void HandleItemActionRequest(int itemIndex)
@@ -114,6 +122,9 @@ namespace Inventory
 
         private void HandleTrashItemActionRequest(int itemIndex)
         {
+            string sceneName = SceneManager.GetActiveScene().name;
+            if (sceneName != "Kitchen") return;
+
             InventoryItem inventoryItem = trashinventoryData.GetItemAt(itemIndex);
             if (inventoryItem.IsEmpty)
                 return;
@@ -135,6 +146,9 @@ namespace Inventory
 
         private void DropTrashItem(int itemIndex, int quantity)
         {
+            string sceneName = SceneManager.GetActiveScene().name;
+            if (sceneName != "Kitchen") return;
+
             trashinventoryData.RemoveItem(itemIndex, quantity);
             trashinventoryUI.ResetSelection();
             audioSource.PlayOneShot(dropClip);
@@ -164,6 +178,9 @@ namespace Inventory
 
         public void PerformTrashAction(int itemIndex)
         {
+            string sceneName = SceneManager.GetActiveScene().name;
+            if (sceneName != "Kitchen") return;
+
             InventoryItem inventoryItem = trashinventoryData.GetItemAt(itemIndex);
             if (inventoryItem.IsEmpty)
                 return;
@@ -194,6 +211,9 @@ namespace Inventory
 
         private void HandleTrashDragging(int itemIndex)
         {
+            string sceneName = SceneManager.GetActiveScene().name;
+            if (sceneName != "Kitchen") return;
+
             InventoryItem inventoryItem = trashinventoryData.GetItemAt(itemIndex);
             if (inventoryItem.IsEmpty)
                 return;
@@ -207,6 +227,9 @@ namespace Inventory
 
         private void HandleTrashSwapItems(int itemIndex_1, int itemIndex_2)
         {
+            string sceneName = SceneManager.GetActiveScene().name;
+            if (sceneName != "Kitchen") return;
+
             trashinventoryData.SwapItems(itemIndex_1, itemIndex_2);
         }
 
@@ -226,6 +249,9 @@ namespace Inventory
 
         private void HandleTrashDescriptionRequest(int itemIndex)
         {
+            string sceneName = SceneManager.GetActiveScene().name;
+            if (sceneName != "Kitchen") return;
+
             InventoryItem inventoryItem = trashinventoryData.GetItemAt(itemIndex);
             if (inventoryItem.IsEmpty)
             {
@@ -275,19 +301,23 @@ namespace Inventory
 
             if (Input.GetKeyDown(KeyCode.T))
             {
-                if (!trashinventoryUI.isActiveAndEnabled)
+                string sceneName = SceneManager.GetActiveScene().name;
+                if (sceneName == "Kitchen")
                 {
-                    trashinventoryUI.Show();
-                    foreach (var item in trashinventoryData.GetCurrentInventoryState())
+                    if (!trashinventoryUI.isActiveAndEnabled)
                     {
-                        trashinventoryUI.UpdateData(item.Key,
-                            item.Value.item.ItemImage,
-                            item.Value.quantity);
+                        trashinventoryUI.Show();
+                        foreach (var item in trashinventoryData.GetCurrentInventoryState())
+                        {
+                            trashinventoryUI.UpdateData(item.Key,
+                                item.Value.item.ItemImage,
+                                item.Value.quantity);
+                        }
                     }
-                }
-                else
-                {
-                    trashinventoryUI.Hide();
+                    else
+                    {
+                        trashinventoryUI.Hide();
+                    }
                 }
             }
         }
