@@ -396,5 +396,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemPrefab: {fileID: 0}
   contentPanel: {fileID: 6405848736239365262}
+  userInventory: 0
   mouseFollower: {fileID: 0}
   actionPanel: {fileID: 0}

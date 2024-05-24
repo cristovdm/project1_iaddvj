@@ -24,7 +24,7 @@ namespace Inventory
         private InventorySO trashinventoryData;
 
         public List<InventoryItem> initialItems = new List<InventoryItem>();
-         public List<InventoryItem> TrashInitialItems = new List<InventoryItem>();
+        public List<InventoryItem> TrashInitialItems = new List<InventoryItem>();
 
         [SerializeField]
         private AudioClip dropClip;
