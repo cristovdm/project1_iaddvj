@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using Inventory;
+using Inventory.Model;
 
 public class WashingMiniGame : MonoBehaviour
 {
@@ -35,9 +37,12 @@ public class WashingMiniGame : MonoBehaviour
     private bool isCooldown = false;
     public PlayerMovement playerMovement;
 
+    private InventoryController inventory;
+    private ItemSO cleanedItem;
 
     void Start()
     {
+        inventory = FindObjectOfType<InventoryController>();
         SetChildrenActive(ParentObject, false);
         audioSource = GetComponent<AudioSource>();
         if (audioSource == null)
@@ -81,7 +86,7 @@ public class WashingMiniGame : MonoBehaviour
         }
         else
         {
-            if (!IsGameActive() && !hasStartedMiniGame && Input.GetKeyDown(KeyCode.E) && IsReadyToStart())
+            if (!IsGameActive() && !hasStartedMiniGame && Input.GetKeyDown(KeyCode.E) && IsReadyToStart() && IsFoodAvailable())
             {
                 StartMiniGame();
             }
@@ -142,7 +147,7 @@ public class WashingMiniGame : MonoBehaviour
                     instructionText.text = "Press UP, RIGHT, DOWN, LEFT in order!";
                     scrub = false;
                     wash = true;
-                    gameActive = false;
+                    gameActive = true;
                     ResetKeySprites();
                     StartCoroutine(CountdownToChange());
                     upKeySprite.SetActive(true);
@@ -261,6 +266,7 @@ void HandleKeyPressWash(int keyIndex, bool endSequence)
 
     public void StartMiniGame()
     {
+        inventory.TakeOutFirstItem();
         scrub = true;
         wash = false;
         hasStartedMiniGame = true;
@@ -302,6 +308,13 @@ void HandleKeyPressWash(int keyIndex, bool endSequence)
         SetChildrenActive(ParentObject, false);
         StartCooldown();
         playerMovement.enabled = true;
+        InventoryItem item = new InventoryItem
+        {
+            item = cleanedItem,
+            quantity = 1,
+            itemState = new List<ItemParameter>()
+        };
+        inventory.AddInventoryItem(item);
     }
 
     void ResetKeySprites()
@@ -345,6 +358,41 @@ void HandleKeyPressWash(int keyIndex, bool endSequence)
             }
         }
         return false;
+    }
+    public bool IsFoodAvailable()
+    {
+        //Revisar si hay comida lavable
+        InventoryItem inventoryItem = inventory.GetInventoryFirstItem();
+
+        if (!inventoryItem.IsEmpty)
+        {
+            Debug.Log(inventoryItem.item.Name);
+            switch (inventoryItem.item.Name)
+            {
+                case "Rotten Carrot":
+                    cleanedItem = ResourceManager.LoadResource<EdibleItemSO>("Carrot");
+                    return true;
+
+                case "Rotten Corn":
+                    cleanedItem = ResourceManager.LoadResource<EdibleItemSO>("Corn");
+                    return true;
+
+                case "Rotten Fish":
+
+                    cleanedItem = ResourceManager.LoadResource<EdibleItemSO>("Fish");
+                    return true;
+
+                case "Rotten Pan":
+                    cleanedItem = ResourceManager.LoadResource<EdibleItemSO>("Bread");
+                    return true;
+
+                case "Rotten Tomato":
+                    cleanedItem = ResourceManager.LoadResource<EdibleItemSO>("Tomato");
+                    return true;
+            }
+            return false;
+        }
+        else return false;
     }
 
     public bool IsGameActive()

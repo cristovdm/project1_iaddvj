@@ -1,6 +1,9 @@
 using UnityEngine;
 using TMPro;
 using System.Collections;
+using Inventory;
+using Inventory.Model;
+using System.Collections.Generic;
 
 public class CuttingBoardMiniGame : MonoBehaviour
 {
@@ -22,8 +25,12 @@ public class CuttingBoardMiniGame : MonoBehaviour
     private bool hasStartedMiniGame = false;
     private bool isCooldown = false;
     public PlayerMovement playerMovement;
+    private InventoryController inventory;
+    private ItemSO cutItem;
+
     void Start()
     {
+        inventory = FindObjectOfType<InventoryController>();
         SetChildrenActive(ParentObject, false);
         audioSource = GetComponent<AudioSource>();
         if (audioSource == null)
@@ -54,7 +61,7 @@ public class CuttingBoardMiniGame : MonoBehaviour
             playerMovement.enabled = true;
         }
 
-        if (gameActive && !isPlayerLocked)
+        if (gameActive && !isPlayerLocked && !win)
         {
             if (Input.GetKeyDown(KeyCode.W))
             {
@@ -89,7 +96,7 @@ public class CuttingBoardMiniGame : MonoBehaviour
         }
         else
         {
-            if (!IsGameActive() && !hasStartedMiniGame && Input.GetKeyDown(KeyCode.E) && IsReadyToStart())
+            if (!IsGameActive() && !hasStartedMiniGame && Input.GetKeyDown(KeyCode.E) && IsReadyToStart() && IsFoodAvailable())
             {
                 StartMiniGame();
             }
@@ -124,6 +131,8 @@ public class CuttingBoardMiniGame : MonoBehaviour
 
     public void StartMiniGame()
     {
+        playerMovement.enabled = false;
+        inventory.TakeOutFirstItem();
         hasStartedMiniGame = true;
         totalKeyPairs = totalKeyPresses;
         SetChildrenActive(ParentObject, true);
@@ -150,7 +159,7 @@ public class CuttingBoardMiniGame : MonoBehaviour
         nextKeyPress = 0; // 0 => W; 1 => S
         gameActive = false;
         isPlayerLocked = true;
-        readyToStart = true;
+        readyToStart = false;
         win = false;
     }
 
@@ -162,6 +171,14 @@ public class CuttingBoardMiniGame : MonoBehaviour
         SetChildrenActive(ParentObject, false);
         StartCooldown();
         playerMovement.enabled = true;
+
+        InventoryItem item = new InventoryItem
+        {
+            item = cutItem,
+            quantity = 1,
+            itemState = new List<ItemParameter>()
+        };
+        inventory.AddInventoryItem(item);
     }
 
 
@@ -197,6 +214,29 @@ public class CuttingBoardMiniGame : MonoBehaviour
             }
         }
         return false;
+    }
+
+    public bool IsFoodAvailable()
+    {
+        //Revisar si hay comida lavable
+        InventoryItem inventoryItem = inventory.GetInventoryFirstItem();
+
+        if (!inventoryItem.IsEmpty)
+        {
+            Debug.Log(inventoryItem.item.Name);
+            switch (inventoryItem.item.Name)
+            {
+                case "Carrot":
+                    cutItem = ResourceManager.LoadResource<EdibleItemSO>("CutCarrot");
+                    return true;
+
+                case "Tomato":
+                    cutItem = ResourceManager.LoadResource<EdibleItemSO>("CutTomato");
+                    return true;
+            }
+            return false;
+        }
+        else return false;
     }
 
     public bool IsGameActive()

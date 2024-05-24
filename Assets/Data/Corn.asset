@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 49f57aa2271c34e4387c23da9a548d25, type: 3}
-  m_Name: RottenCorner
+  m_Name: Corn
   m_EditorClassIdentifier: 
   <isStackable>k__BackingField: 1
-  <MaxStackSize>k__BackingField: 99
-  <Name>k__BackingField: Rotten Corner
-  <Description>k__BackingField: 
-  <ItemImage>k__BackingField: {fileID: 21300000, guid: bfcd15b27aa5ae145ab7e920572f4e4e, type: 3}
+  <MaxStackSize>k__BackingField: 1
+  <Name>k__BackingField: Corn
+  <Description>k__BackingField: Fresh Corn
+  <ItemImage>k__BackingField: {fileID: 21300000, guid: 2f22fe49c114c7d4a95be1d0ffe695d2, type: 3}
   <DefaultParametersList>k__BackingField: []
   modifiersData: []
   <actionSFX>k__BackingField: {fileID: 8300000, guid: 1697ef6def83a8b459b3b425f75a3bb4, type: 3}

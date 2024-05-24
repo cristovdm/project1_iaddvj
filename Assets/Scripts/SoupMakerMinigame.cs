@@ -58,7 +58,7 @@ public class SoupMakerMiniGame : MonoBehaviour
             playerMovement.enabled = true;
         }
 
-        if (gameActive && !isPlayerLocked)
+        if (gameActive && !isPlayerLocked && !win)
         {
             if (Input.GetKeyDown(KeyCode.UpArrow))
             {
@@ -107,7 +107,8 @@ public class SoupMakerMiniGame : MonoBehaviour
                     rightKeySprite.SetActive(false);
                     win = true;
                     instructionText.text = "COMPLETE";
-                    StartCoroutine(EndMiniGameAfterDelay());
+                    Invoke("EndMiniGame", 1.0f);
+                    //StartCoroutine(EndMiniGameAfterDelay());
                 }
             }
                 
@@ -190,7 +191,7 @@ public class SoupMakerMiniGame : MonoBehaviour
         nextKeyPress = 0; // 0 => UP; 1 => RIGHT; 2 => DOWN; 3 => LEFT
         gameActive = false;
         isPlayerLocked = true;
-        readyToStart = true;
+        readyToStart = false;
         win = false;
     }
 

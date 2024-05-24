@@ -4,6 +4,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement; 
 namespace Inventory
@@ -63,6 +64,7 @@ namespace Inventory
             {
                 if (item.IsEmpty)
                     continue;
+                
                 trashinventoryData.AddItem(item);
             }
         }
@@ -277,6 +279,24 @@ namespace Inventory
                 sb.AppendLine();
             }
             return sb.ToString();
+        }
+
+        public InventoryItem GetInventoryFirstItem()
+        {
+            InventoryItem inventoryItem = inventoryData.GetItemAt(0);
+            return inventoryItem;
+        }
+
+        public void TakeOutFirstItem()
+        {
+            inventoryData.RemoveItem(0, 1);
+            inventoryUI.ResetSelection();
+            audioSource.PlayOneShot(dropClip);
+        }
+
+        public void AddInventoryItem(InventoryItem inventoryItem)
+        {
+            inventoryData.AddItem(inventoryItem);
         }
 
         public void Update()
