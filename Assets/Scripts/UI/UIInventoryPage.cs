@@ -43,7 +43,7 @@ namespace Inventory.UI
         {
             string sceneName = SceneManager.GetActiveScene().name;
             if (sceneName == "Kitchen" && !userInventory){
-                inventorysize = 5; 
+                inventorysize = 6; 
             }
             else if (sceneName == "Kitchen" && userInventory){
                 inventorysize = 1; 

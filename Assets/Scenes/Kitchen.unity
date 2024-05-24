@@ -3137,7 +3137,7 @@ Transform:
   m_GameObject: {fileID: 1132633408}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -34.6092, y: -15.3873005, z: 0}
+  m_LocalPosition: {x: -34.6, y: -15.38, z: 0}
   m_LocalScale: {x: 50, y: 50, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -6886,10 +6886,7 @@ MonoBehaviour:
   trashinventoryUI: {fileID: 36618407}
   inventoryData: {fileID: 11400000, guid: 4b89f0ca11505e541b6dcd7517706844, type: 2}
   trashinventoryData: {fileID: 11400000, guid: fd6f3fd9d83ebb941913ec687467fa9e, type: 2}
-  initialItems:
-  - quantity: 1
-    item: {fileID: 11400000, guid: a68a018b3ab17064fa41a7c2be4c863b, type: 2}
-    itemState: []
+  initialItems: []
   TrashInitialItems:
   - quantity: 3
     item: {fileID: 11400000, guid: 056364c8924e10f41926501c82329d2c, type: 2}
