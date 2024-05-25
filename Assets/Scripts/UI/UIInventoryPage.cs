@@ -14,7 +14,11 @@ namespace Inventory.UI
         [SerializeField]
         private RectTransform contentPanel;
 
+        public int lastDraggedIndex = 0; 
+
         public bool userInventory; 
+
+        private InventoryController inventoryController;
 
 
         [SerializeField]
@@ -36,6 +40,7 @@ namespace Inventory.UI
         private void Awake()
         {
             Hide();
+            inventoryController = FindObjectOfType<InventoryController>();
             mouseFollower.Toggle(false);
         }
 
@@ -126,12 +131,14 @@ namespace Inventory.UI
             currentlyDraggedItemIndex = index;
             HandleItemSelection(inventoryItemUI);
             OnStartDragging?.Invoke(index);
+            //inventoryController.getItem(inventoryItemUI); 
         }
 
-        public void CreateDraggedItem(Sprite sprite, int quantity)
+        public void CreateDraggedItem(Sprite sprite, int quantity, int itemIndex)
         {
             mouseFollower.Toggle(true);
             mouseFollower.SetData(sprite, quantity);
+            inventoryController.Testing(itemIndex); 
         }
 
         private void HandleItemSelection(UIInventoryItem inventoryItemUI)

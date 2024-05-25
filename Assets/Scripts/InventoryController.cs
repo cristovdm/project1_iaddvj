@@ -23,6 +23,8 @@ namespace Inventory
         [SerializeField]
         private InventorySO trashinventoryData;
 
+        bool playerInventoryEmpty = false; 
+
         public List<InventoryItem> initialItems = new List<InventoryItem>();
         public List<InventoryItem> TrashInitialItems = new List<InventoryItem>();
 
@@ -31,6 +33,8 @@ namespace Inventory
 
         [SerializeField]
         private AudioSource audioSource;
+
+        public int lastDraggedIndex = 0; 
 
         private void Start()
         {
@@ -208,7 +212,7 @@ namespace Inventory
             InventoryItem inventoryItem = inventoryData.GetItemAt(itemIndex);
             if (inventoryItem.IsEmpty)
                 return;
-            inventoryUI.CreateDraggedItem(inventoryItem.item.ItemImage, inventoryItem.quantity);
+            inventoryUI.CreateDraggedItem(inventoryItem.item.ItemImage, inventoryItem.quantity, itemIndex);
         }
 
         private void HandleTrashDragging(int itemIndex)
@@ -219,12 +223,29 @@ namespace Inventory
             InventoryItem inventoryItem = trashinventoryData.GetItemAt(itemIndex);
             if (inventoryItem.IsEmpty)
                 return;
-            trashinventoryUI.CreateDraggedItem(inventoryItem.item.ItemImage, inventoryItem.quantity);
+            trashinventoryUI.CreateDraggedItem(inventoryItem.item.ItemImage, inventoryItem.quantity, itemIndex);
         }
 
         private void HandleSwapItems(int itemIndex_1, int itemIndex_2)
         {
-            inventoryData.SwapItems(itemIndex_1, itemIndex_2);
+            if (inventoryData.SwapItems(itemIndex_1, itemIndex_2)){
+            }
+            else{
+                // agregar aca el item borrado en base al indice que obtuve
+
+                if (playerInventoryEmpty){
+                    InventoryItem trashItem = inventoryData.GetItemAt(0); 
+                    trashinventoryData.AddItem(trashItem); 
+                    DropItem(0,1); 
+                }
+
+                InventoryItem newItem = trashinventoryData.GetItemAt(lastDraggedIndex);
+                newItem.quantity = 1; 
+                AddInventoryItem(newItem); 
+                DropTrashItem(lastDraggedIndex, 1); 
+                playerInventoryEmpty = true; 
+                
+            }
         }
 
         private void HandleTrashSwapItems(int itemIndex_1, int itemIndex_2)
@@ -341,5 +362,11 @@ namespace Inventory
                 }
             }
         }
+
+        public void Testing(int itemIndex){
+            lastDraggedIndex = itemIndex; 
+        }
+
+
     }
 }

@@ -36,5 +36,6 @@ public class MouseFollower : MonoBehaviour
     {
         Debug.Log($"Item toggled {val}");
         gameObject.SetActive(val);
+        Debug.Log(item.name); 
     }
 }

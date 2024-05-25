@@ -146,27 +146,29 @@ namespace Inventory.Model
             return inventoryItems[itemIndex];
         }
 
-    public void SwapItems(int itemIndex_1, int itemIndex_2)
+    public bool SwapItems(int itemIndex_1, int itemIndex_2)
     {
         try
         {
             if (itemIndex_1 < 0 || itemIndex_1 >= inventoryItems.Count ||
                 itemIndex_2 < 0 || itemIndex_2 >= inventoryItems.Count)
             {
-                Debug.Log("Cambiarme a inventario jugador"); 
-                return;
+                return false;
             }
 
             InventoryItem item1 = inventoryItems[itemIndex_1];
             inventoryItems[itemIndex_1] = inventoryItems[itemIndex_2];
             inventoryItems[itemIndex_2] = item1;
             InformAboutChange();
+            return true; // Intercambio exitoso
         }
         catch (ArgumentOutOfRangeException ex)
         {
             Debug.LogError($"Error al intercambiar elementos del inventario: {ex.Message}");
+            return false; // Error durante el intercambio
         }
     }
+
 
 
         private void InformAboutChange()
