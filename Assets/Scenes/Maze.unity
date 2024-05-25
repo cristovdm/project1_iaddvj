@@ -31883,10 +31883,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inventoryUI: {fileID: 1706022501}
+  trashinventoryUI: {fileID: 0}
   inventoryData: {fileID: 11400000, guid: 4b89f0ca11505e541b6dcd7517706844, type: 2}
+  trashinventoryData: {fileID: 0}
   initialItems: []
+  TrashInitialItems: []
   dropClip: {fileID: 8300000, guid: 1697ef6def83a8b459b3b425f75a3bb4, type: 3}
   audioSource: {fileID: 1903010190}
+  lastDraggedIndex: 0
 --- !u!114 &1903010183
 MonoBehaviour:
   m_ObjectHideFlags: 0
