@@ -16,7 +16,7 @@ namespace Inventory.UI
 
         public int lastDraggedIndex = 0; 
 
-        public bool userInventory; 
+        public int userInventory = 0; 
 
         private InventoryController inventoryController;
 
@@ -47,11 +47,15 @@ namespace Inventory.UI
         public void InitializeInventoryUI(int inventorysize)
         {
             string sceneName = SceneManager.GetActiveScene().name;
-            if (sceneName == "Kitchen" && !userInventory){
+            if (sceneName == "Kitchen" && userInventory == 1){
                 inventorysize = 6; 
             }
-            else if (sceneName == "Kitchen" && userInventory){
+            else if (sceneName == "Kitchen" && userInventory == 0){
                 inventorysize = 1; 
+            }
+
+            else if (sceneName == "Kitchen" && userInventory == 2){
+                inventorysize = 2; 
             }
             for (int i = 0; i < inventorysize; i++)
             {
@@ -134,11 +138,11 @@ namespace Inventory.UI
             //inventoryController.getItem(inventoryItemUI); 
         }
 
-        public void CreateDraggedItem(Sprite sprite, int quantity, int itemIndex)
+        public void CreateDraggedItem(Sprite sprite, int quantity, int itemIndex, string inventoryName)
         {
             mouseFollower.Toggle(true);
             mouseFollower.SetData(sprite, quantity);
-            inventoryController.Testing(itemIndex); 
+            inventoryController.Testing(itemIndex, inventoryName); 
         }
 
         private void HandleItemSelection(UIInventoryItem inventoryItemUI)
