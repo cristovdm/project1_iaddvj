@@ -18,21 +18,30 @@ namespace Inventory
         private UIInventoryPage trashinventoryUI; // Este es el inventario del basurero, aplicar misma lógica al refri.
 
         [SerializeField]
+        private UIInventoryPage plateinventoryUI;
+
+        [SerializeField]
         private InventorySO inventoryData;
 
         [SerializeField]
         private InventorySO trashinventoryData;
 
+        [SerializeField]
+        private InventorySO plateinventoryData;
+
         bool playerInventoryEmpty = false; 
 
         public List<InventoryItem> initialItems = new List<InventoryItem>();
         public List<InventoryItem> TrashInitialItems = new List<InventoryItem>();
+        public List<InventoryItem> PlateInitialItems = new List<InventoryItem>();
 
         [SerializeField]
         private AudioClip dropClip;
 
         [SerializeField]
         private AudioSource audioSource;
+
+        public string name;
 
         public int lastDraggedIndex = 0; 
 
@@ -45,6 +54,7 @@ namespace Inventory
             if (sceneName == "Kitchen")
             {
                 PrepareTrashInventoryData();
+                PreparePlateInventoryData();
             }
         }
 
@@ -72,6 +82,18 @@ namespace Inventory
                 trashinventoryData.AddItem(item);
             }
         }
+        private void PreparePlateInventoryData()
+        {
+            plateinventoryData.Initialize();
+            plateinventoryData.OnInventoryUpdated += UpdatePlateInventoryUI;
+            foreach (InventoryItem item in PlateInitialItems)
+            {
+                if (item.IsEmpty)
+                    continue;
+
+                plateinventoryData.AddItem(item);
+            }
+        }
 
         private void UpdateInventoryUI(Dictionary<int, InventoryItem> inventoryState)
         {
@@ -92,6 +114,15 @@ namespace Inventory
                     item.Value.quantity);
             }
         }
+        private void UpdatePlateInventoryUI(Dictionary<int, InventoryItem> inventoryState)
+        {
+            plateinventoryUI.ResetAllItems();
+            foreach (var item in inventoryState)
+            {
+                plateinventoryUI.UpdateData(item.Key, item.Value.item.ItemImage,
+                    item.Value.quantity);
+            }
+        }
 
         private void PrepareUI()
         {
@@ -109,6 +140,14 @@ namespace Inventory
                 trashinventoryUI.OnSwapItems += HandleTrashSwapItems;
                 trashinventoryUI.OnStartDragging += HandleTrashDragging;
                 trashinventoryUI.OnItemActionRequested += HandleTrashItemActionRequest;
+
+                plateinventoryUI.InitializeInventoryUI(plateinventoryData.Size);
+                plateinventoryUI.OnDescriptionRequested += HandlePlateDescriptionRequest;
+                plateinventoryUI.OnSwapItems += HandlePlateSwapItems;
+                plateinventoryUI.OnStartDragging += HandlePlateDragging;
+                plateinventoryUI.OnItemActionRequested += HandlePlateItemActionRequest;
+
+
             }
         }
 
@@ -143,6 +182,23 @@ namespace Inventory
             }
         }
 
+        private void HandlePlateItemActionRequest(int itemIndex)
+        {
+            string sceneName = SceneManager.GetActiveScene().name;
+            if (sceneName != "Kitchen") return;
+
+            InventoryItem inventoryItem = plateinventoryData.GetItemAt(itemIndex);
+            if (inventoryItem.IsEmpty)
+                return;
+
+            IItemAction itemAction = inventoryItem.item as IItemAction;
+            if (itemAction != null)
+            {
+                plateinventoryUI.ShowItemAction(itemIndex);
+                plateinventoryUI.AddAction(itemAction.ActionName, () => PerformPlateAction(itemIndex));
+            }
+        }
+
         private void DropItem(int itemIndex, int quantity)
         {
             inventoryData.RemoveItem(itemIndex, quantity);
@@ -157,6 +213,16 @@ namespace Inventory
 
             trashinventoryData.RemoveItem(itemIndex, quantity);
             trashinventoryUI.ResetSelection();
+            audioSource.PlayOneShot(dropClip);
+        }
+
+        private void DropPlateItem(int itemIndex, int quantity)
+        {
+            string sceneName = SceneManager.GetActiveScene().name;
+            if (sceneName != "Kitchen") return;
+
+            plateinventoryData.RemoveItem(itemIndex, quantity);
+            plateinventoryUI.ResetSelection();
             audioSource.PlayOneShot(dropClip);
         }
 
@@ -207,12 +273,37 @@ namespace Inventory
             }
         }
 
+        public void PerformPlateAction(int itemIndex)
+        {
+            string sceneName = SceneManager.GetActiveScene().name;
+            if (sceneName != "Kitchen") return;
+
+            InventoryItem inventoryItem = plateinventoryData.GetItemAt(itemIndex);
+            if (inventoryItem.IsEmpty)
+                return;
+
+            IDestroyableItem destroyableItem = inventoryItem.item as IDestroyableItem;
+            if (destroyableItem != null)
+            {
+                plateinventoryData.RemoveItem(itemIndex, 1);
+            }
+
+            IItemAction itemAction = inventoryItem.item as IItemAction;
+            if (itemAction != null)
+            {
+                itemAction.PerformAction(gameObject, inventoryItem.itemState);
+                audioSource.PlayOneShot(itemAction.actionSFX);
+                if (plateinventoryData.GetItemAt(itemIndex).IsEmpty)
+                    plateinventoryUI.ResetSelection();
+            }
+        }
+
         private void HandleDragging(int itemIndex)
         {
             InventoryItem inventoryItem = inventoryData.GetItemAt(itemIndex);
             if (inventoryItem.IsEmpty)
                 return;
-            inventoryUI.CreateDraggedItem(inventoryItem.item.ItemImage, inventoryItem.quantity, itemIndex);
+            inventoryUI.CreateDraggedItem(inventoryItem.item.ItemImage, inventoryItem.quantity, itemIndex, inventoryData.name);
         }
 
         private void HandleTrashDragging(int itemIndex)
@@ -223,28 +314,57 @@ namespace Inventory
             InventoryItem inventoryItem = trashinventoryData.GetItemAt(itemIndex);
             if (inventoryItem.IsEmpty)
                 return;
-            trashinventoryUI.CreateDraggedItem(inventoryItem.item.ItemImage, inventoryItem.quantity, itemIndex);
+            trashinventoryUI.CreateDraggedItem(inventoryItem.item.ItemImage, inventoryItem.quantity, itemIndex, trashinventoryData.name);
+        }
+
+        private void HandlePlateDragging(int itemIndex)
+        {
+            string sceneName = SceneManager.GetActiveScene().name;
+            if (sceneName != "Kitchen") return;
+
+            InventoryItem inventoryItem = plateinventoryData.GetItemAt(itemIndex);
+            if (inventoryItem.IsEmpty)
+                return;
+            plateinventoryUI.CreateDraggedItem(inventoryItem.item.ItemImage, inventoryItem.quantity, itemIndex, plateinventoryData.name);
         }
 
         private void HandleSwapItems(int itemIndex_1, int itemIndex_2)
         {
             if (inventoryData.SwapItems(itemIndex_1, itemIndex_2)){
             }
-            else{
-                // agregar aca el item borrado en base al indice que obtuve
+            else if (inventoryData.name == "PlayerInventory"){
 
-                if (playerInventoryEmpty){
-                    InventoryItem trashItem = inventoryData.GetItemAt(0); 
-                    trashinventoryData.AddItem(trashItem); 
-                    DropItem(0,1); 
+                if (name == "TrashInventory")
+                {
+                    if (playerInventoryEmpty)
+                    {
+                        InventoryItem trashItem = inventoryData.GetItemAt(0);
+                        trashinventoryData.AddItem(trashItem);
+                        DropItem(0, 1);
+                    }
+
+                    InventoryItem newItem = trashinventoryData.GetItemAt(lastDraggedIndex);
+                    newItem.quantity = 1;
+                    AddInventoryItem(newItem);
+                    DropTrashItem(lastDraggedIndex, 1);
+                    playerInventoryEmpty = true;
+
                 }
+                else if (name == "PlateInventory")
+                {
+                    if (playerInventoryEmpty)
+                    {
+                        InventoryItem plateItem = inventoryData.GetItemAt(0);
+                        plateinventoryData.AddItem(plateItem);
+                        DropItem(0, 1);
+                    }
 
-                InventoryItem newItem = trashinventoryData.GetItemAt(lastDraggedIndex);
-                newItem.quantity = 1; 
-                AddInventoryItem(newItem); 
-                DropTrashItem(lastDraggedIndex, 1); 
-                playerInventoryEmpty = true; 
-                
+                    InventoryItem newItem = plateinventoryData.GetItemAt(lastDraggedIndex);
+                    newItem.quantity = 1;
+                    AddInventoryItem(newItem);
+                    DropPlateItem(lastDraggedIndex, 1);
+                    playerInventoryEmpty = true;
+                }  
             }
         }
 
@@ -254,6 +374,14 @@ namespace Inventory
             if (sceneName != "Kitchen") return;
 
             trashinventoryData.SwapItems(itemIndex_1, itemIndex_2);
+        }
+
+        private void HandlePlateSwapItems(int itemIndex_1, int itemIndex_2)
+        {
+            string sceneName = SceneManager.GetActiveScene().name;
+            if (sceneName != "Kitchen") return;
+
+            plateinventoryData.SwapItems(itemIndex_1, itemIndex_2);
         }
 
         private void HandleDescriptionRequest(int itemIndex)
@@ -284,6 +412,23 @@ namespace Inventory
             ItemSO item = inventoryItem.item;
             string description = PrepareDescription(inventoryItem);
             trashinventoryUI.UpdateDescription(itemIndex, item.ItemImage,
+                item.name, description);
+        }
+
+        private void HandlePlateDescriptionRequest(int itemIndex)
+        {
+            string sceneName = SceneManager.GetActiveScene().name;
+            if (sceneName != "Kitchen") return;
+
+            InventoryItem inventoryItem = plateinventoryData.GetItemAt(itemIndex);
+            if (inventoryItem.IsEmpty)
+            {
+                plateinventoryUI.ResetSelection();
+                return;
+            }
+            ItemSO item = inventoryItem.item;
+            string description = PrepareDescription(inventoryItem);
+            plateinventoryUI.UpdateDescription(itemIndex, item.ItemImage,
                 item.name, description);
         }
 
@@ -359,11 +504,26 @@ namespace Inventory
                     {
                         trashinventoryUI.Hide();
                     }
+                    if (plateinventoryUI.isActiveAndEnabled)
+                    {
+                        plateinventoryUI.Show();
+                        foreach (var item in plateinventoryData.GetCurrentInventoryState())
+                        {
+                            plateinventoryUI.UpdateData(item.Key,
+                                item.Value.item.ItemImage,
+                                item.Value.quantity);
+                        }
+                    }
+                    else
+                    {
+                        plateinventoryUI.Hide();
+                    }
                 }
             }
         }
 
-        public void Testing(int itemIndex){
+        public void Testing(int itemIndex, string inventoryName){
+            name = inventoryName;
             lastDraggedIndex = itemIndex; 
         }
 
