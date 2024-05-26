@@ -1,6 +1,5 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -33,11 +32,6 @@ public class PlayerMovement : MonoBehaviour
     {
         speedX = Input.GetAxisRaw("Horizontal");
         speedY = Input.GetAxisRaw("Vertical");
-        // Setting isBoosted parameter in Animator
-        
-        // JP: Comenté la linea 'anim.SetBool...' porque tira spam de warning en la consola. 
-        // (Dice que no existe el bool isBoosted)
-        // anim.SetBool("isBoosted", isBoosted);
 
         if (speedX != 0 || speedY != 0)
         {
@@ -72,6 +66,7 @@ public class PlayerMovement : MonoBehaviour
             anim.SetBool("isSliding", false);
         }
     }
+
     public void StopMovement(float stopTime)
     {
         StartCoroutine(StopMovementCoroutine(stopTime));
