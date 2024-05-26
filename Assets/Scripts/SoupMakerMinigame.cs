@@ -1,6 +1,9 @@
 using UnityEngine;
 using TMPro;
 using System.Collections;
+using Inventory;
+using Inventory.Model;
+using System.Collections.Generic;
 
 public class SoupMakerMiniGame : MonoBehaviour
 {
@@ -25,9 +28,12 @@ public class SoupMakerMiniGame : MonoBehaviour
     private bool hasStartedMiniGame = false;
     private bool isCooldown = false;
     public PlayerMovement playerMovement;
+    private InventoryController inventory;
+    private ItemSO cutItem;
 
     void Start()
     {
+        inventory = FindObjectOfType<InventoryController>();
         SetChildrenActive(ParentObject, false);
         audioSource = GetComponent<AudioSource>();
         if (audioSource == null)
@@ -79,7 +85,7 @@ public class SoupMakerMiniGame : MonoBehaviour
         }
         else
         {
-            if (!IsGameActive() && !hasStartedMiniGame && Input.GetKeyDown(KeyCode.E) && IsReadyToStart())
+            if (!IsGameActive() && !hasStartedMiniGame && Input.GetKeyDown(KeyCode.E) && IsReadyToStart() && IsFoodAvailable())
             {
                 StartMiniGame();
             }
@@ -168,6 +174,7 @@ public class SoupMakerMiniGame : MonoBehaviour
 
     public void StartMiniGame()
     {
+        inventory.TakeOutFirstItem();
         hasStartedMiniGame = true;
         SetChildrenActive(ParentObject, true);
         ResetKeySprites();
@@ -202,6 +209,15 @@ public class SoupMakerMiniGame : MonoBehaviour
         SetChildrenActive(ParentObject, false);
         StartCooldown();
         playerMovement.enabled = true;
+
+        InventoryItem item = new InventoryItem
+        {
+            item = cutItem,
+            quantity = 1,
+            itemState = new List<ItemParameter>()
+        };
+        inventory.AddInventoryItem(item);
+
     }
 
     void ResetKeySprites()
@@ -245,6 +261,29 @@ public class SoupMakerMiniGame : MonoBehaviour
             }
         }
         return false;
+    }
+
+    public bool IsFoodAvailable()
+    {
+        //Revisar si hay comida lavable
+        InventoryItem inventoryItem = inventory.GetInventoryFirstItem();
+
+        if (!inventoryItem.IsEmpty)
+        {
+            Debug.Log(inventoryItem.item.Name);
+            switch (inventoryItem.item.Name)
+            {
+                case "Cut Tomato":
+                    cutItem = ResourceManager.LoadResource<EdibleItemSO>("TomatoSoup");
+                    return true;
+
+                case "Corn":
+                    cutItem = ResourceManager.LoadResource<EdibleItemSO>("CornSoup");
+                    return true;
+            }
+            return false;
+        }
+        else return false;
     }
 
     public bool IsGameActive()
