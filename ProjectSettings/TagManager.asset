@@ -10,6 +10,7 @@ TagManager:
   - CuttingBoardMiniGame
   - Inventory
   - Food
+  - Plate
   layers:
   - Default
   - TransparentFX

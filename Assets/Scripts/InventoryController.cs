@@ -330,6 +330,7 @@ namespace Inventory
 
         private void HandleSwapItems(int itemIndex_1, int itemIndex_2)
         {
+            
             if (inventoryData.SwapItems(itemIndex_1, itemIndex_2)){
             }
             else if (inventoryData.name == "PlayerInventory"){

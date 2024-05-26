@@ -3591,7 +3591,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08648079150484c43acfd89ffed0b0f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventoryPrefab: {fileID: 0}
+  inventoryPrefab: {fileID: 1220752196}
   interactionArea: {fileID: 1737344986}
   ParentObject: {fileID: 923371579}
   playerMovement: {fileID: 430763162}
@@ -3938,6 +3938,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1220752196 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8553916881838880384, guid: 04030031cd9a72847bfd75b67453cebb, type: 3}
+  m_PrefabInstance: {fileID: 1625470884}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1244007481
 GameObject:
   m_ObjectHideFlags: 0
@@ -5445,7 +5450,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3593293932697848893, guid: 04030031cd9a72847bfd75b67453cebb, type: 3}
   m_PrefabInstance: {fileID: 1625470884}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1220752196}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4cbc8eb824d526c43a0d38f144fc815e, type: 3}
@@ -8094,7 +8099,7 @@ MonoBehaviour:
   plateinventoryUI: {fileID: 1625470887}
   inventoryData: {fileID: 11400000, guid: 4b89f0ca11505e541b6dcd7517706844, type: 2}
   trashinventoryData: {fileID: 11400000, guid: fd6f3fd9d83ebb941913ec687467fa9e, type: 2}
-  plateinventoryData: {fileID: 0}
+  plateinventoryData: {fileID: 11400000, guid: 6edf9253a33e95249a9c3da50d925c17, type: 2}
   initialItems: []
   TrashInitialItems:
   - quantity: 3
@@ -8106,7 +8111,13 @@ MonoBehaviour:
   - quantity: 5
     item: {fileID: 11400000, guid: eb363ce4a859dee41a8a43bed23f86c8, type: 2}
     itemState: []
-  PlateInitialItems: []
+  PlateInitialItems:
+  - quantity: 1
+    item: {fileID: 11400000, guid: a68a018b3ab17064fa41a7c2be4c863b, type: 2}
+    itemState: []
+  - quantity: 1
+    item: {fileID: 11400000, guid: 59b74cbba6182604a8b9d5b4d2397376, type: 2}
+    itemState: []
   dropClip: {fileID: 8300000, guid: 1697ef6def83a8b459b3b425f75a3bb4, type: 3}
   audioSource: {fileID: 8667536452772664776}
   name: 

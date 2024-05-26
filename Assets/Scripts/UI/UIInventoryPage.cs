@@ -135,7 +135,6 @@ namespace Inventory.UI
             currentlyDraggedItemIndex = index;
             HandleItemSelection(inventoryItemUI);
             OnStartDragging?.Invoke(index);
-            //inventoryController.getItem(inventoryItemUI); 
         }
 
         public void CreateDraggedItem(Sprite sprite, int quantity, int itemIndex, string inventoryName)
