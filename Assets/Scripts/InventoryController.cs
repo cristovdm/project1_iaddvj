@@ -1,12 +1,11 @@
 using Inventory.Model;
 using Inventory.UI;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Text;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.SceneManagement; 
+using UnityEngine.SceneManagement;
+
 namespace Inventory
 {
     public class InventoryController : MonoBehaviour
@@ -15,7 +14,7 @@ namespace Inventory
         private UIInventoryPage inventoryUI;
 
         [SerializeField]
-        private UIInventoryPage trashinventoryUI; // Este es el inventario del basurero, aplicar misma lógica al refri.
+        private UIInventoryPage trashinventoryUI;
 
         [SerializeField]
         private UIInventoryPage plateinventoryUI;
@@ -29,7 +28,7 @@ namespace Inventory
         [SerializeField]
         private InventorySO plateinventoryData;
 
-        bool playerInventoryEmpty = false; 
+        private bool playerInventoryEmpty = false; 
 
         public List<InventoryItem> initialItems = new List<InventoryItem>();
         public List<InventoryItem> TrashInitialItems = new List<InventoryItem>();
@@ -41,9 +40,9 @@ namespace Inventory
         [SerializeField]
         private AudioSource audioSource;
 
-        public string name;
+        private string name;
 
-        public int lastDraggedIndex = 0; 
+        private int lastDraggedIndex = 0; 
 
         private void Start()
         {
@@ -53,10 +52,30 @@ namespace Inventory
             string sceneName = SceneManager.GetActiveScene().name;
             if (sceneName == "Kitchen")
             {
-                PrepareTrashInventoryData();
                 PreparePlateInventoryData();
+                foreach (var item in trashinventoryData.GetCurrentInventoryState())
+                {
+                    TrashInitialItems.Add(new InventoryItem { item = item.Value.item, quantity = item.Value.quantity });
+                    
+                }
             }
+
+
+            PrepareTrashInventoryData(); 
         }
+
+        private void SaveInventoryData()
+        {
+            TrashInitialItems.Clear();
+            foreach (var item in inventoryData.GetCurrentInventoryState())
+            {
+                InventoryItem add_variable = new InventoryItem { item = item.Value.item, quantity = item.Value.quantity };
+                trashinventoryData.AddItem(add_variable);
+                
+            }
+
+        }
+
 
         private void PrepareInventoryData()
         {
@@ -82,6 +101,7 @@ namespace Inventory
                 trashinventoryData.AddItem(item);
             }
         }
+        
         private void PreparePlateInventoryData()
         {
             plateinventoryData.Initialize();
@@ -103,6 +123,7 @@ namespace Inventory
                 inventoryUI.UpdateData(item.Key, item.Value.item.ItemImage,
                     item.Value.quantity);
             }
+            SaveInventoryData(); 
         }
 
         private void UpdateTrashInventoryUI(Dictionary<int, InventoryItem> inventoryState)
@@ -114,6 +135,7 @@ namespace Inventory
                     item.Value.quantity);
             }
         }
+        
         private void UpdatePlateInventoryUI(Dictionary<int, InventoryItem> inventoryState)
         {
             plateinventoryUI.ResetAllItems();
@@ -146,8 +168,6 @@ namespace Inventory
                 plateinventoryUI.OnSwapItems += HandlePlateSwapItems;
                 plateinventoryUI.OnStartDragging += HandlePlateDragging;
                 plateinventoryUI.OnItemActionRequested += HandlePlateItemActionRequest;
-
-
             }
         }
 
@@ -330,11 +350,12 @@ namespace Inventory
 
         private void HandleSwapItems(int itemIndex_1, int itemIndex_2)
         {
-            
-            if (inventoryData.SwapItems(itemIndex_1, itemIndex_2)){
+            if (inventoryData.SwapItems(itemIndex_1, itemIndex_2))
+            {
+                // Lógica adicional si el intercambio fue exitoso
             }
-            else if (inventoryData.name == "PlayerInventory"){
-
+            else if (inventoryData.name == "PlayerInventory")
+            {
                 if (name == "TrashInventory")
                 {
                     if (playerInventoryEmpty)
@@ -349,7 +370,6 @@ namespace Inventory
                     AddInventoryItem(newItem);
                     DropTrashItem(lastDraggedIndex, 1);
                     playerInventoryEmpty = true;
-
                 }
                 else if (name == "PlateInventory")
                 {
@@ -365,7 +385,7 @@ namespace Inventory
                     AddInventoryItem(newItem);
                     DropPlateItem(lastDraggedIndex, 1);
                     playerInventoryEmpty = true;
-                }  
+                }
             }
         }
 
@@ -395,8 +415,7 @@ namespace Inventory
             }
             ItemSO item = inventoryItem.item;
             string description = PrepareDescription(inventoryItem);
-            inventoryUI.UpdateDescription(itemIndex, item.ItemImage,
-                item.name, description);
+            inventoryUI.UpdateDescription(itemIndex, item.ItemImage, item.name, description);
         }
 
         private void HandleTrashDescriptionRequest(int itemIndex)
@@ -412,8 +431,7 @@ namespace Inventory
             }
             ItemSO item = inventoryItem.item;
             string description = PrepareDescription(inventoryItem);
-            trashinventoryUI.UpdateDescription(itemIndex, item.ItemImage,
-                item.name, description);
+            trashinventoryUI.UpdateDescription(itemIndex, item.ItemImage, item.name, description);
         }
 
         private void HandlePlateDescriptionRequest(int itemIndex)
@@ -429,8 +447,7 @@ namespace Inventory
             }
             ItemSO item = inventoryItem.item;
             string description = PrepareDescription(inventoryItem);
-            plateinventoryUI.UpdateDescription(itemIndex, item.ItemImage,
-                item.name, description);
+            plateinventoryUI.UpdateDescription(itemIndex, item.ItemImage, item.name, description);
         }
 
         private string PrepareDescription(InventoryItem inventoryItem)
@@ -475,9 +492,7 @@ namespace Inventory
                     inventoryUI.Show();
                     foreach (var item in inventoryData.GetCurrentInventoryState())
                     {
-                        inventoryUI.UpdateData(item.Key,
-                            item.Value.item.ItemImage,
-                            item.Value.quantity);
+                        inventoryUI.UpdateData(item.Key, item.Value.item.ItemImage, item.Value.quantity);
                     }
                 }
                 else
@@ -487,11 +502,10 @@ namespace Inventory
             }
         }
 
-        public void Testing(int itemIndex, string inventoryName){
+        public void Testing(int itemIndex, string inventoryName)
+        {
             name = inventoryName;
             lastDraggedIndex = itemIndex; 
         }
-
-
     }
 }

@@ -8243,16 +8243,7 @@ MonoBehaviour:
   trashinventoryData: {fileID: 11400000, guid: fd6f3fd9d83ebb941913ec687467fa9e, type: 2}
   plateinventoryData: {fileID: 11400000, guid: 6edf9253a33e95249a9c3da50d925c17, type: 2}
   initialItems: []
-  TrashInitialItems:
-  - quantity: 3
-    item: {fileID: 11400000, guid: 056364c8924e10f41926501c82329d2c, type: 2}
-    itemState: []
-  - quantity: 1
-    item: {fileID: 11400000, guid: 59b74cbba6182604a8b9d5b4d2397376, type: 2}
-    itemState: []
-  - quantity: 5
-    item: {fileID: 11400000, guid: eb363ce4a859dee41a8a43bed23f86c8, type: 2}
-    itemState: []
+  TrashInitialItems: []
   PlateInitialItems:
   - quantity: 1
     item: {fileID: 11400000, guid: a68a018b3ab17064fa41a7c2be4c863b, type: 2}
@@ -8262,8 +8253,6 @@ MonoBehaviour:
     itemState: []
   dropClip: {fileID: 8300000, guid: 1697ef6def83a8b459b3b425f75a3bb4, type: 3}
   audioSource: {fileID: 8667536452772664776}
-  name: 
-  lastDraggedIndex: 0
 --- !u!4 &8667536452772664783 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3670795837735245664, guid: 03e5cab9626f2a6469364b5966c45cfa, type: 3}

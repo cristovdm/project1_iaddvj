@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: TrashInventory
   m_EditorClassIdentifier: 
   inventoryItems:
-  - quantity: 1
-    item: {fileID: 11400000, guid: 59b74cbba6182604a8b9d5b4d2397376, type: 2}
+  - quantity: 0
+    item: {fileID: 0}
     itemState: []
   - quantity: 0
     item: {fileID: 0}
