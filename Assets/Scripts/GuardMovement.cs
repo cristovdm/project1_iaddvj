@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GuardMovement : MonoBehaviour
 {
@@ -54,7 +55,7 @@ public class GuardMovement : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            Destroy(collision.gameObject);
+            SceneManager.LoadScene("Kitchen");
         }
         else if (collision.gameObject.CompareTag("Wall"))
         {
