@@ -60,6 +60,7 @@ public class DeliverFood : MonoBehaviour
         stageDeliveriesList = ShuffleList(stageDeliveriesList);
         currentDelivery = stageDeliveriesList.First();
         stageDeliveriesList.RemoveAt(0);
+        stageDeliveriesList.RemoveAt(0); //BORRAR PARA QUE FUNCIONE NORMALMENTE
         ShowFoodCloud();
     }
 
@@ -117,12 +118,12 @@ public class DeliverFood : MonoBehaviour
             switch (inventoryItem.item.Name)
             {
                 case "Tomato Soup":
-                    Debug.Log("FOOOOD");
                     textboxAnimator.ShowTextbox("$25");
 
                     return true;
 
                 case "Corn Soup":
+                    textboxAnimator.ShowTextbox("$25");
                     return true;
             }
             return false;

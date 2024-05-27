@@ -8617,7 +8617,13 @@ MonoBehaviour:
   trashinventoryData: {fileID: 11400000, guid: fd6f3fd9d83ebb941913ec687467fa9e, type: 2}
   plateinventoryData: {fileID: 11400000, guid: 6edf9253a33e95249a9c3da50d925c17, type: 2}
   initialItems: []
-  TrashInitialItems: []
+  TrashInitialItems:
+  - quantity: 1
+    item: {fileID: 11400000, guid: 774d22630d93b2f438ba92c6290ab3ba, type: 2}
+    itemState: []
+  - quantity: 1
+    item: {fileID: 11400000, guid: 6ae03f932616ac7469a67c9ea7e16d2f, type: 2}
+    itemState: []
   PlateInitialItems:
   - quantity: 1
     item: {fileID: 11400000, guid: a68a018b3ab17064fa41a7c2be4c863b, type: 2}
