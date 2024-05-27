@@ -5,9 +5,9 @@ using UnityEngine;
 
 public class TrashInventory : MonoBehaviour
 {
-    public GameObject inventoryPrefab;  // Prefab del inventario
-    private GameObject inventoryInstance; // Instancia del inventario
-    public BoxCollider2D interactionArea; // Área de interacción
+    public GameObject inventoryPrefab;  
+    private GameObject inventoryInstance; 
+    public BoxCollider2D interactionArea; 
     public GameObject ParentObject;
     bool currentState = false;
     public PlayerMovement playerMovement;
@@ -24,10 +24,10 @@ public class TrashInventory : MonoBehaviour
 
     void Update()
     {
-        // Si el jugador está en el área y presiona 'E', mostramos/ocultamos el inventario
+        
         if (Input.GetKeyDown(KeyCode.E) && IsReadyToStart())
         {
-            playerMovement.enabled = currentState; // deberia desactivar el movimiento mientras ve el inventario, revisar porque no funciona
+            playerMovement.enabled = currentState; 
             currentState = !currentState;
             ToggleInventory();
         }

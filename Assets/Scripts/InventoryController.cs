@@ -352,7 +352,7 @@ namespace Inventory
         {
             if (inventoryData.SwapItems(itemIndex_1, itemIndex_2))
             {
-                // Lógica adicional si el intercambio fue exitoso
+                // add
             }
             else if (inventoryData.name == "PlayerInventory")
             {

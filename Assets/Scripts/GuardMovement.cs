@@ -12,7 +12,7 @@ public class GuardMovement : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        rb.freezeRotation = true; // Fijar rotación
+        rb.freezeRotation = true; 
 
         StartCoroutine(ChangeDirectionRoutine());
     }

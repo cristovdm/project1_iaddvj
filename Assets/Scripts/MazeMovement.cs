@@ -34,7 +34,6 @@ public class MazeMovement : MonoBehaviour
         speedX = Input.GetAxisRaw("Horizontal");
         speedY = Input.GetAxisRaw("Vertical");
 
-        // Setting isBoosted parameter in Animator
         anim.SetBool("isBoosted", isBoosted);
 
         if (speedX != 0 || speedY != 0)
@@ -49,16 +48,16 @@ public class MazeMovement : MonoBehaviour
             anim.SetBool("isMoving", false);
         }
 
-        if (speedX > 0) // Moving right
+        if (speedX > 0)  
         {
             spriteRenderer.flipX = true;
         }
-        else if (speedX < 0) // Moving left
+        else if (speedX < 0) 
         {
             spriteRenderer.flipX = false;
         }
 
-        // Slide
+
         if (speedX == 0 && speedY == 0 && isSliding)
         {
             rb.AddForce(lastMovement * slideForce, ForceMode2D.Force);
@@ -79,12 +78,11 @@ public class MazeMovement : MonoBehaviour
     IEnumerator StopMovementCoroutine(float stopTime)
     {
         float originalSpeed = movementSpeed;
-        movementSpeed = 0f; // Stop the player movement
+        movementSpeed = 0f; 
 
         yield return new WaitForSeconds(stopTime);
 
-        movementSpeed = originalSpeed; // Restore original movement spee
-        // Reset isSliding to false
+        movementSpeed = originalSpeed; 
         isSliding = false;
     }
 

@@ -7,7 +7,7 @@ public class TextboxAnimator : MonoBehaviour
     public float duration = 2f;
     public float moveDistance = 50f;
 
-    private Color originalColor = Color.yellow; // Amarillo
+    private Color originalColor = Color.yellow; 
     private Vector3 originalPosition;
     private float elapsedTime = 0f;
     private bool isAnimating = false;

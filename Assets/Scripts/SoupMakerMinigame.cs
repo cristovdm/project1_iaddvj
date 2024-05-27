@@ -14,10 +14,10 @@ public class SoupMakerMiniGame : MonoBehaviour
     public GameObject leftKeySprite;
     public GameObject rightKeySprite;
 
-    public int totalKeySequences = 4; //Cantidad total de sequencias a completar
+    public int totalKeySequences = 4;
 
     private int totalKeyPairs;
-    private int nextKeyPress = 0; // 0 => UP; 1 => RIGHT; 2 => DOWN; 3 => LEFT
+    private int nextKeyPress = 0; 
     private bool gameActive = false;
     private bool isPlayerLocked = true;
     private bool readyToStart = true;
@@ -54,7 +54,6 @@ public class SoupMakerMiniGame : MonoBehaviour
             return;
         }
 
-        // Disable player movement when the mini-game is active
         if (gameActive)
         {
             playerMovement.enabled = false;
@@ -114,7 +113,6 @@ public class SoupMakerMiniGame : MonoBehaviour
                     win = true;
                     instructionText.text = "COMPLETE";
                     Invoke("EndMiniGame", 1.0f);
-                    //StartCoroutine(EndMiniGameAfterDelay());
                 }
             }
                 
@@ -129,7 +127,6 @@ public class SoupMakerMiniGame : MonoBehaviour
 
     void ToggleKeySprite(int keyIndex)
     {
-        // Reset all key sprites
         upKeySprite.SetActive(false);
         downKeySprite.SetActive(false);
         leftKeySprite.SetActive(false);
@@ -195,7 +192,7 @@ public class SoupMakerMiniGame : MonoBehaviour
     {
         hasStartedMiniGame = false;
         totalKeyPairs = 0;
-        nextKeyPress = 0; // 0 => UP; 1 => RIGHT; 2 => DOWN; 3 => LEFT
+        nextKeyPress = 0; 
         gameActive = false;
         isPlayerLocked = true;
         readyToStart = false;
@@ -265,7 +262,6 @@ public class SoupMakerMiniGame : MonoBehaviour
 
     public bool IsFoodAvailable()
     {
-        //Revisar si hay comida lavable
         InventoryItem inventoryItem = inventory.GetInventoryFirstItem();
 
         if (!inventoryItem.IsEmpty)

@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class FoodSpawner : MonoBehaviour
 {
-    public GameObject[] foodPrefabs; // Array de prefabs de comida
-    public int[] foodQuantities; // Cantidades de cada prefab de comida a instanciar
-    public Vector2 mazeBoundsMin; // Coordenadas mínimas del laberinto
-    public Vector2 mazeBoundsMax; // Coordenadas máximas del laberinto
-    public float checkRadius = 0.5f; // Radio para verificar colisiones
+    public GameObject[] foodPrefabs; 
+    public int[] foodQuantities;
+    public Vector2 mazeBoundsMin; 
+    public Vector2 mazeBoundsMax;
+    public float checkRadius = 0.5f;
 
     void Start()
     {

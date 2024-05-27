@@ -10,7 +10,7 @@ public class Boost : MonoBehaviour
     private AudioSource audioSource;
     private PlayerMovement playerMovement;
     private SpriteRenderer spriteRenderer;
-    private bool hasBeenPickedUp = false; // To track if the boost has been picked up
+    private bool hasBeenPickedUp = false; 
 
     void Start()
     {
@@ -39,13 +39,13 @@ public class Boost : MonoBehaviour
                 ApplyBoost();
                 StartCoroutine(DestroyAfterDuration());
 
-                // Hide sprite and set flag to prevent picking up again
+
                 if (spriteRenderer != null)
                 {
                     spriteRenderer.enabled = false;
                 }
 
-                hasBeenPickedUp = true; // Set to true to prevent picking up again
+                hasBeenPickedUp = true; 
             }
         }
     }

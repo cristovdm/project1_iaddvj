@@ -15,16 +15,16 @@ public class WashingMiniGame : MonoBehaviour
     public GameObject leftKeySprite;
     public GameObject rightKeySprite;
 
-    public int ScrubtotalKeySequences = 4; //Cantidad total de sequencias a completar Scrub
-    public int WashtotalKeySequences = 4; //Cantidad total de sequencias a completar Wash
-    private int ScrubtotalKeyPairs; //Variable que cumple el mismo objetivo que "totalKeySequences", para evitar modificar este mencionado.
+    public int ScrubtotalKeySequences = 4; 
+    public int WashtotalKeySequences = 4; 
+    private int ScrubtotalKeyPairs; 
     private int WashtotalKeyPairs;
 
     private bool scrub = false;
     private bool wash = false;
 
-    private int scrubNextKeyPress = 0; // 0 => RIGHT; 1 => LEFT;
-    private int washNextKeyPress = 0; // 0 => UP; 1 => RIGHT; 2 => DOWN; 3 => LEFT
+    private int scrubNextKeyPress = 0; 
+    private int washNextKeyPress = 0; 
     
     private bool gameActive = false;
     private bool isPlayerLocked = true;
@@ -63,7 +63,6 @@ public class WashingMiniGame : MonoBehaviour
             return;
         }
 
-        // Disable player movement when the mini-game is active
         if (gameActive)
         {
             playerMovement.enabled = false;
@@ -202,7 +201,6 @@ void HandleKeyPressWash(int keyIndex, bool endSequence)
 
     void ToggleKeySpriteScrub(int keyIndex)
     {
-        // Reset all key sprites
         upKeySprite.SetActive(false);
         downKeySprite.SetActive(false);
         leftKeySprite.SetActive(false);
@@ -221,7 +219,6 @@ void HandleKeyPressWash(int keyIndex, bool endSequence)
 
     void ToggleKeySpriteWash(int keyIndex)
     {
-        // Reset all key sprites
         upKeySprite.SetActive(false);
         downKeySprite.SetActive(false);
         leftKeySprite.SetActive(false);
@@ -361,7 +358,6 @@ void HandleKeyPressWash(int keyIndex, bool endSequence)
     }
     public bool IsFoodAvailable()
     {
-        //Revisar si hay comida lavable
         InventoryItem inventoryItem = inventory.GetInventoryFirstItem();
 
         if (!inventoryItem.IsEmpty)

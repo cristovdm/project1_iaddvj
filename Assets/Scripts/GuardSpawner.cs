@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class GuardSpawner : MonoBehaviour
 {
-    public GameObject guardPrefab; // Prefab del guardia
-    public int numberOfGuards = 10; // Número de guardias a instanciar
-    public Vector2 mazeBoundsMin; // Coordenadas mínimas del laberinto
-    public Vector2 mazeBoundsMax; // Coordenadas máximas del laberinto
-    public float checkRadius = 0.5f; // Radio para verificar colisiones
+    public GameObject guardPrefab;
+    public int numberOfGuards = 10; 
+    public Vector2 mazeBoundsMin; 
+    public Vector2 mazeBoundsMax; 
+    public float checkRadius = 0.5f; 
 
     void Start()
     {

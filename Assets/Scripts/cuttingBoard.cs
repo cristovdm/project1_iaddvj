@@ -14,7 +14,7 @@ public class CuttingBoardMiniGame : MonoBehaviour
     public int totalKeyPresses = 10;
     private int totalKeyPairs;
     private int keyPresses = 0;
-    private int nextKeyPress = 0; // 0 => W; 1 => S
+    private int nextKeyPress = 0;  
     private bool gameActive = false;
     private bool isPlayerLocked = true;
     private bool readyToStart = true;
@@ -51,7 +51,6 @@ public class CuttingBoardMiniGame : MonoBehaviour
             return;
         }
 
-        // Disable player movement when the mini-game is active
         if (gameActive)
         {
             playerMovement.enabled = false;
@@ -156,7 +155,7 @@ public class CuttingBoardMiniGame : MonoBehaviour
         hasStartedMiniGame = false;
         totalKeyPairs = totalKeyPresses;
         keyPresses = 0;
-        nextKeyPress = 0; // 0 => W; 1 => S
+        nextKeyPress = 0; 
         gameActive = false;
         isPlayerLocked = true;
         readyToStart = false;
@@ -218,7 +217,6 @@ public class CuttingBoardMiniGame : MonoBehaviour
 
     public bool IsFoodAvailable()
     {
-        //Revisar si hay comida lavable
         InventoryItem inventoryItem = inventory.GetInventoryFirstItem();
 
         if (!inventoryItem.IsEmpty)

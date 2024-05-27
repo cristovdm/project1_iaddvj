@@ -160,12 +160,12 @@ namespace Inventory.Model
             inventoryItems[itemIndex_1] = inventoryItems[itemIndex_2];
             inventoryItems[itemIndex_2] = item1;
             InformAboutChange();
-            return true; // Intercambio exitoso
+            return true;
         }
         catch (ArgumentOutOfRangeException ex)
         {
             Debug.LogError($"Error al intercambiar elementos del inventario: {ex.Message}");
-            return false; // Error durante el intercambio
+            return false;  
         }
     }
 
