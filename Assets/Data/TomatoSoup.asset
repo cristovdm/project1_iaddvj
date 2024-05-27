@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49f57aa2271c34e4387c23da9a548d25, type: 3}
   m_Name: TomatoSoup
   m_EditorClassIdentifier: 
-  <isStackable>k__BackingField: 1
+  <isStackable>k__BackingField: 0
   <MaxStackSize>k__BackingField: 1
   <Name>k__BackingField: Tomato Soup
   <Description>k__BackingField: Tomato Soup
