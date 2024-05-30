@@ -67,7 +67,7 @@ namespace Inventory.Model
             return 0;
         }
 
-        private bool IsInventoryFull()
+        public bool IsInventoryFull()
             => inventoryItems.Where(item => item.IsEmpty).Any() == false;
 
         private int AddStackableItem(ItemSO item, int quantity)

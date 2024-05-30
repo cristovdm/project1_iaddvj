@@ -58,10 +58,12 @@ namespace Inventory
                     TrashInitialItems.Add(new InventoryItem { item = item.Value.item, quantity = item.Value.quantity });
                     
                 }
+                inventoryUI.Show();
             }
 
-
             PrepareTrashInventoryData(); 
+
+
         }
 
         private void SaveInventoryData()
@@ -123,7 +125,10 @@ namespace Inventory
                 inventoryUI.UpdateData(item.Key, item.Value.item.ItemImage,
                     item.Value.quantity);
             }
-            SaveInventoryData(); 
+            string sceneName = SceneManager.GetActiveScene().name;
+            if (sceneName != "Kitchen"){
+                SaveInventoryData(); 
+            }
         }
 
         private void UpdateTrashInventoryUI(Dictionary<int, InventoryItem> inventoryState)
@@ -230,7 +235,7 @@ namespace Inventory
         {
             string sceneName = SceneManager.GetActiveScene().name;
             if (sceneName != "Kitchen") return;
-
+            
             trashinventoryData.RemoveItem(itemIndex, quantity);
             trashinventoryUI.ResetSelection();
             audioSource.PlayOneShot(dropClip);
@@ -352,7 +357,6 @@ namespace Inventory
         {
             if (inventoryData.SwapItems(itemIndex_1, itemIndex_2))
             {
-                // add
             }
             else if (inventoryData.name == "PlayerInventory")
             {
@@ -362,9 +366,9 @@ namespace Inventory
                     {
                         InventoryItem trashItem = inventoryData.GetItemAt(0);
                         trashinventoryData.AddItem(trashItem);
-                        DropItem(0, 1);
+                        DropItem(0, 1); 
                     }
-
+                    
                     InventoryItem newItem = trashinventoryData.GetItemAt(lastDraggedIndex);
                     newItem.quantity = 1;
                     AddInventoryItem(newItem);
@@ -394,7 +398,21 @@ namespace Inventory
             string sceneName = SceneManager.GetActiveScene().name;
             if (sceneName != "Kitchen") return;
 
-            trashinventoryData.SwapItems(itemIndex_1, itemIndex_2);
+            if (trashinventoryData.SwapItems(itemIndex_1, itemIndex_2)){
+            }
+
+            else {
+                if (trashinventoryData.IsInventoryFull()){
+                    //HandleSwapItems(itemIndex_1, itemIndex_2); 
+                    //playerInventoryEmpty = false; 
+                }
+                else{
+                 InventoryItem trashItem = inventoryData.GetItemAt(0);
+                 trashinventoryData.AddItem(trashItem);
+                 DropItem(0, 1);
+                 playerInventoryEmpty = false; 
+                }
+            }
         }
 
         private void HandlePlateSwapItems(int itemIndex_1, int itemIndex_2)
@@ -402,7 +420,20 @@ namespace Inventory
             string sceneName = SceneManager.GetActiveScene().name;
             if (sceneName != "Kitchen") return;
 
-            plateinventoryData.SwapItems(itemIndex_1, itemIndex_2);
+            if (plateinventoryData.SwapItems(itemIndex_1, itemIndex_2)){
+            }
+
+            else {
+                 if (plateinventoryData.IsInventoryFull()){
+                    Debug.Log("plato lleno"); 
+                 }
+                 else{
+                    InventoryItem plateItem = inventoryData.GetItemAt(0);
+                    plateinventoryData.AddItem(plateItem);
+                    DropItem(0, 1);
+                    playerInventoryEmpty = false; 
+                 }
+            }
         }
 
         private void HandleDescriptionRequest(int itemIndex)
@@ -485,19 +516,22 @@ namespace Inventory
 
         public void Update()
         {
-            if (Input.GetKeyDown(KeyCode.I))
-            {
-                if (!inventoryUI.isActiveAndEnabled)
+            string sceneName = SceneManager.GetActiveScene().name;
+            if (sceneName != "Kitchen"){
+                if (Input.GetKeyDown(KeyCode.I))
                 {
-                    inventoryUI.Show();
-                    foreach (var item in inventoryData.GetCurrentInventoryState())
+                    if (!inventoryUI.isActiveAndEnabled)
                     {
-                        inventoryUI.UpdateData(item.Key, item.Value.item.ItemImage, item.Value.quantity);
+                        inventoryUI.Show();
+                        foreach (var item in inventoryData.GetCurrentInventoryState())
+                        {
+                            inventoryUI.UpdateData(item.Key, item.Value.item.ItemImage, item.Value.quantity);
+                        }
                     }
-                }
-                else
-                {
-                    inventoryUI.Hide();
+                    else
+                    {
+                        inventoryUI.Hide();
+                    }
                 }
             }
         }

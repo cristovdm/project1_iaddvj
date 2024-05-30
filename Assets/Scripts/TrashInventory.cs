@@ -5,16 +5,15 @@ using UnityEngine;
 
 public class TrashInventory : MonoBehaviour
 {
-    public GameObject inventoryPrefab;  
-    private GameObject inventoryInstance; 
-    public BoxCollider2D interactionArea; 
+    public GameObject inventoryPrefab;
+    private GameObject inventoryInstance;
+    public BoxCollider2D interactionArea;
     public GameObject ParentObject;
     bool currentState = false;
     public PlayerMovement playerMovement;
 
-
     void Start()
-    {   
+    {
         SetChildrenActive(ParentObject, false);
         if (interactionArea == null)
         {
@@ -24,21 +23,26 @@ public class TrashInventory : MonoBehaviour
 
     void Update()
     {
-        
-        if (Input.GetKeyDown(KeyCode.E) && IsReadyToStart())
+        if (Input.GetKeyDown(KeyCode.E) && IsPlayerInInteractionArea())
         {
-            playerMovement.enabled = currentState; 
             currentState = !currentState;
             ToggleInventory();
         }
+
+        if (currentState && !IsPlayerInInteractionArea())
+        {
+            currentState = false;
+            ToggleInventory();
+        }
+        playerMovement.enabled = !currentState;
     }
 
     void ToggleInventory()
-    {  
+    {
         SetChildrenActive(ParentObject, currentState);
     }
 
-    public bool IsReadyToStart()
+    private bool IsPlayerInInteractionArea()
     {
         if (interactionArea == null)
         {

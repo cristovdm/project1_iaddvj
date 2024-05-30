@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: RottenTomato
   m_EditorClassIdentifier: 
   <isStackable>k__BackingField: 1
-  <MaxStackSize>k__BackingField: 99
+  <MaxStackSize>k__BackingField: 9
   <Name>k__BackingField: Rotten Tomato
   <Description>k__BackingField: 
   <ItemImage>k__BackingField: {fileID: 21300000, guid: 0de9a2e019931134b93d328dee73c543, type: 3}
