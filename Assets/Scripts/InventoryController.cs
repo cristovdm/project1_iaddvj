@@ -28,7 +28,8 @@ namespace Inventory
         [SerializeField]
         private InventorySO plateinventoryData;
 
-        private bool playerInventoryEmpty = false; 
+        private bool playerInventoryFilled = false; 
+        private bool fullPlateInventory = true; 
 
         public List<InventoryItem> initialItems = new List<InventoryItem>();
         public List<InventoryItem> TrashInitialItems = new List<InventoryItem>();
@@ -68,15 +69,16 @@ namespace Inventory
 
         private void SaveInventoryData()
         {
+            
             TrashInitialItems.Clear();
             foreach (var item in inventoryData.GetCurrentInventoryState())
             {
-                InventoryItem add_variable = new InventoryItem { item = item.Value.item, quantity = item.Value.quantity };
+                InventoryItem add_variable = new InventoryItem { item = item.Value.item, quantity = 1 };
                 trashinventoryData.AddItem(add_variable);
                 
             }
-
         }
+
 
 
         private void PrepareInventoryData()
@@ -229,6 +231,7 @@ namespace Inventory
             inventoryData.RemoveItem(itemIndex, quantity);
             inventoryUI.ResetSelection();
             audioSource.PlayOneShot(dropClip);
+            playerInventoryFilled = false; 
         }
 
         private void DropTrashItem(int itemIndex, int quantity)
@@ -253,6 +256,7 @@ namespace Inventory
 
         public void PerformAction(int itemIndex)
         {
+            playerInventoryFilled = false; 
             InventoryItem inventoryItem = inventoryData.GetItemAt(itemIndex);
             if (inventoryItem.IsEmpty)
                 return;
@@ -353,88 +357,216 @@ namespace Inventory
             plateinventoryUI.CreateDraggedItem(inventoryItem.item.ItemImage, inventoryItem.quantity, itemIndex, plateinventoryData.name);
         }
 
-        private void HandleSwapItems(int itemIndex_1, int itemIndex_2)
+private void HandleSwapItems(int itemIndex_1, int itemIndex_2)
+{
+    if (inventoryData.SwapItems(itemIndex_1, itemIndex_2))
+    {
+        // Acciones si se intercambian los items
+    }
+    else if (inventoryData.name == "PlayerInventory")
+    {
+        if (name == "TrashInventory")
         {
-            if (inventoryData.SwapItems(itemIndex_1, itemIndex_2))
+            if (playerInventoryFilled)
             {
-            }
-            else if (inventoryData.name == "PlayerInventory")
-            {
-                if (name == "TrashInventory")
+                InventoryItem trashItem = inventoryData.GetItemAt(0);
+                if (!trashinventoryData.IsInventoryFull())
                 {
-                    if (playerInventoryEmpty)
-                    {
-                        InventoryItem trashItem = inventoryData.GetItemAt(0);
-                        trashinventoryData.AddItem(trashItem);
-                        DropItem(0, 1); 
-                    }
-                    
-                    InventoryItem newItem = trashinventoryData.GetItemAt(lastDraggedIndex);
-                    newItem.quantity = 1;
-                    AddInventoryItem(newItem);
+                    trashinventoryData.AddItem(trashItem);
+                    trashItem.quantity = 1;
+                    DropItem(0, 1);
+                    playerInventoryFilled = false;
+                }
+            }
+            if (trashinventoryData.IsInventoryFull() && playerInventoryFilled)
+            {
+                InventoryItem forInventory = inventoryData.GetItemAt(0);
+                InventoryItem forPlayer = trashinventoryData.GetItemAt(lastDraggedIndex);
+                if (forInventory.quantity == 1 && forPlayer.quantity == 1)
+                {
+                    forInventory.quantity = 1;
+                    forPlayer.quantity = 1;
                     DropTrashItem(lastDraggedIndex, 1);
-                    playerInventoryEmpty = true;
+                    trashinventoryData.AddItem(forInventory);
+                    DropItem(0, 1);
+                    inventoryData.AddItem(forPlayer);
                 }
-                else if (name == "PlateInventory")
+                else
                 {
-                    if (playerInventoryEmpty)
-                    {
-                        InventoryItem plateItem = inventoryData.GetItemAt(0);
-                        plateinventoryData.AddItem(plateItem);
-                        DropItem(0, 1);
-                    }
-
-                    InventoryItem newItem = plateinventoryData.GetItemAt(lastDraggedIndex);
-                    newItem.quantity = 1;
-                    AddInventoryItem(newItem);
-                    DropPlateItem(lastDraggedIndex, 1);
-                    playerInventoryEmpty = true;
+                    Debug.Log("El basurero está lleno, vacía tu inventario primero.");
                 }
             }
+            else
+            {
+                InventoryItem newItem = trashinventoryData.GetItemAt(lastDraggedIndex);
+                newItem.quantity = 1;
+                AddInventoryItem(newItem);
+                DropTrashItem(lastDraggedIndex, 1);
+            }
+            playerInventoryFilled = true;
         }
-
-        private void HandleTrashSwapItems(int itemIndex_1, int itemIndex_2)
+        else if (name == "PlateInventory")
         {
-            string sceneName = SceneManager.GetActiveScene().name;
-            if (sceneName != "Kitchen") return;
-
-            if (trashinventoryData.SwapItems(itemIndex_1, itemIndex_2)){
-            }
-
-            else {
-                if (trashinventoryData.IsInventoryFull()){
-                    //HandleSwapItems(itemIndex_1, itemIndex_2); 
-                    //playerInventoryEmpty = false; 
+            if (playerInventoryFilled)
+            {
+                InventoryItem plateItem = inventoryData.GetItemAt(0);
+                if (!plateinventoryData.IsInventoryFull())
+                {
+                    plateinventoryData.AddItem(plateItem);
+                    plateItem.quantity = 1;
+                    DropItem(0, 1);
+                    playerInventoryFilled = false;
                 }
-                else{
-                 InventoryItem trashItem = inventoryData.GetItemAt(0);
-                 trashinventoryData.AddItem(trashItem);
-                 DropItem(0, 1);
-                 playerInventoryEmpty = false; 
+            }
+            if (plateinventoryData.IsInventoryFull() && playerInventoryFilled)
+            {
+                InventoryItem forInventory = inventoryData.GetItemAt(0);
+                InventoryItem forPlayer = plateinventoryData.GetItemAt(lastDraggedIndex);
+                if (forInventory.quantity == 1 && forPlayer.quantity == 1)
+                {
+                    forInventory.quantity = 1;
+                    forPlayer.quantity = 1;
+                    DropPlateItem(lastDraggedIndex, 1);
+                    plateinventoryData.AddItem(forInventory);
+                    DropItem(0, 1);
+                    inventoryData.AddItem(forPlayer);
+                }
+                else
+                {
+                    Debug.Log("El plato está lleno, vacía tu inventario primero.");
+                }
+            }
+            else
+            {
+                InventoryItem newItem = plateinventoryData.GetItemAt(lastDraggedIndex);
+                newItem.quantity = 1;
+                AddInventoryItem(newItem);
+                DropPlateItem(lastDraggedIndex, 1);
+            }
+            playerInventoryFilled = true;
+        }
+    }
+}
+
+private void HandleTrashSwapItems(int itemIndex_1, int itemIndex_2)
+{
+    string sceneName = SceneManager.GetActiveScene().name;
+    if (sceneName != "Kitchen") return;
+
+    if (trashinventoryData.SwapItems(itemIndex_1, itemIndex_2))
+    {
+        // Acciones si se intercambian los items
+    }
+    else
+    {
+        if (trashinventoryData.IsInventoryFull())
+        {
+            InventoryItem forInventory = inventoryData.GetItemAt(0);
+            InventoryItem forPlayer = trashinventoryData.GetItemAt(lastDraggedIndex);
+            if (forInventory.quantity == 1 && forPlayer.quantity == 1)
+            {
+                forInventory.quantity = 1;
+                forPlayer.quantity = 1;
+                DropTrashItem(lastDraggedIndex, 1);
+                trashinventoryData.AddItem(forInventory);
+                DropItem(0, 1);
+                inventoryData.AddItem(forPlayer);
+                playerInventoryFilled = true;
+            }
+            else
+            {
+                bool itemFound = false;
+                for (int i = 0; i < trashinventoryData.Size; i++)
+                {
+                    InventoryItem item = trashinventoryData.GetItemAt(i);
+                    if (item.quantity < 9 && item.item.Name == forInventory.item.Name)
+                    {
+                        int quantity = item.quantity;
+                        DropTrashItem(i, quantity);
+                        quantity++;
+                        item.quantity = quantity;
+                        trashinventoryData.AddItem(item);
+                        DropItem(0, 1);
+                        itemFound = true;
+                        break;
+                    }
+                }
+                if (!itemFound)
+                {
+                    Debug.Log("El basurero está lleno, no puedes vaciar tu inventario acá!");
                 }
             }
         }
+        else
+        {
+            InventoryItem trashItem = inventoryData.GetItemAt(0);
+            trashinventoryData.AddItem(trashItem);
+            DropItem(0, 1);
+            playerInventoryFilled = false;
+        }
+    }
+}
 
         private void HandlePlateSwapItems(int itemIndex_1, int itemIndex_2)
         {
             string sceneName = SceneManager.GetActiveScene().name;
             if (sceneName != "Kitchen") return;
 
-            if (plateinventoryData.SwapItems(itemIndex_1, itemIndex_2)){
+            if (plateinventoryData.SwapItems(itemIndex_1, itemIndex_2))
+            {
+                // Acciones si se intercambian los items
             }
-
-            else {
-                 if (plateinventoryData.IsInventoryFull()){
-                    Debug.Log("plato lleno"); 
-                 }
-                 else{
+            else
+            {
+                if (plateinventoryData.IsInventoryFull())
+                {
+                    InventoryItem forInventory = inventoryData.GetItemAt(0);
+                    InventoryItem forPlayer = plateinventoryData.GetItemAt(lastDraggedIndex);
+                    if (forInventory.quantity == 1 && forPlayer.quantity == 1)
+                    {
+                        DropPlateItem(lastDraggedIndex, 1);
+                        plateinventoryData.AddItem(forInventory);
+                        DropItem(0, 1);
+                        inventoryData.AddItem(forPlayer);
+                        playerInventoryFilled = true;
+                        forInventory.quantity = 1;
+                        forPlayer.quantity = 1;
+                    }
+                    else
+                    {
+                        bool itemFound = false;
+                        for (int i = 0; i < plateinventoryData.Size; i++)
+                        {
+                            InventoryItem item = plateinventoryData.GetItemAt(i);
+                            if (item.quantity < 9 && item.item.Name == forInventory.item.Name)
+                            {
+                                int quantity = item.quantity;
+                                DropPlateItem(i, quantity);
+                                quantity++;
+                                item.quantity = quantity;
+                                plateinventoryData.AddItem(item);
+                                DropItem(0, 1);
+                                itemFound = true;
+                                break;
+                            }
+                        }
+                        if (!itemFound)
+                        {
+                            Debug.Log("El plato está lleno, no puedes vaciar tu inventario acá!");
+                        }
+                    }
+                }
+                else
+                {
                     InventoryItem plateItem = inventoryData.GetItemAt(0);
+                    plateItem.quantity = 1;
                     plateinventoryData.AddItem(plateItem);
                     DropItem(0, 1);
-                    playerInventoryEmpty = false; 
-                 }
+                    playerInventoryFilled = false;
+                }
             }
         }
+
 
         private void HandleDescriptionRequest(int itemIndex)
         {

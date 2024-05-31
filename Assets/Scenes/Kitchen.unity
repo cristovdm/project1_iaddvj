@@ -8361,7 +8361,13 @@ MonoBehaviour:
   - quantity: 1
     item: {fileID: 11400000, guid: 6ae03f932616ac7469a67c9ea7e16d2f, type: 2}
     itemState: []
-  PlateInitialItems: []
+  PlateInitialItems:
+  - quantity: 1
+    item: {fileID: 11400000, guid: 59b74cbba6182604a8b9d5b4d2397376, type: 2}
+    itemState: []
+  - quantity: 1
+    item: {fileID: 11400000, guid: bbf96c271ac747f4fb05079bd786bb42, type: 2}
+    itemState: []
   dropClip: {fileID: 8300000, guid: 1697ef6def83a8b459b3b425f75a3bb4, type: 3}
   audioSource: {fileID: 8667536452772664776}
 --- !u!4 &8667536452772664783 stripped

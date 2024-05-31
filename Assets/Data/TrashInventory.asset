@@ -12,5 +12,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa99adfe7ed173340b2b8ac500c07935, type: 3}
   m_Name: TrashInventory
   m_EditorClassIdentifier: 
-  inventoryItems: []
-  <Size>k__BackingField: 10
+  inventoryItems:
+  - quantity: 1
+    item: {fileID: 11400000, guid: 774d22630d93b2f438ba92c6290ab3ba, type: 2}
+    itemState: []
+  - quantity: 3
+    item: {fileID: 11400000, guid: cc09d63be6fb9f44da5e432a8fa7bec1, type: 2}
+    itemState: []
+  - quantity: 4
+    item: {fileID: 11400000, guid: 6ae03f932616ac7469a67c9ea7e16d2f, type: 2}
+    itemState: []
+  - quantity: 0
+    item: {fileID: 0}
+    itemState: []
+  - quantity: 0
+    item: {fileID: 0}
+    itemState: []
+  - quantity: 0
+    item: {fileID: 0}
+    itemState: []
+  <Size>k__BackingField: 6
