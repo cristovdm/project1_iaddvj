@@ -11,6 +11,7 @@ TagManager:
   - Inventory
   - Food
   - Plate
+  - Guard
   layers:
   - Default
   - TransparentFX
