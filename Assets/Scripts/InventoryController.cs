@@ -48,36 +48,24 @@ namespace Inventory
         private void Start()
         {
             PrepareUI();
-            PrepareInventoryData();
 
             string sceneName = SceneManager.GetActiveScene().name;
             if (sceneName == "Kitchen")
             {
                 PreparePlateInventoryData();
-                foreach (var item in trashinventoryData.GetCurrentInventoryState())
+                foreach (var item in inventoryData.GetCurrentInventoryState())
                 {
                     TrashInitialItems.Add(new InventoryItem { item = item.Value.item, quantity = item.Value.quantity });
                     
                 }
                 inventoryUI.Show();
             }
-
+            PrepareInventoryData(); 
             PrepareTrashInventoryData(); 
 
 
         }
 
-        private void SaveInventoryData()
-        {
-            
-            TrashInitialItems.Clear();
-            foreach (var item in inventoryData.GetCurrentInventoryState())
-            {
-                InventoryItem add_variable = new InventoryItem { item = item.Value.item, quantity = 1 };
-                trashinventoryData.AddItem(add_variable);
-                
-            }
-        }
 
 
 
@@ -126,10 +114,6 @@ namespace Inventory
             {
                 inventoryUI.UpdateData(item.Key, item.Value.item.ItemImage,
                     item.Value.quantity);
-            }
-            string sceneName = SceneManager.GetActiveScene().name;
-            if (sceneName != "Kitchen"){
-                SaveInventoryData(); 
             }
         }
 
