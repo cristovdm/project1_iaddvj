@@ -1,5 +1,5 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;  // Necesario para cambiar escenas
+using UnityEngine.SceneManagement;
 
 public class EnemyAI2D : MonoBehaviour
 {
@@ -8,8 +8,20 @@ public class EnemyAI2D : MonoBehaviour
     [SerializeField] private LayerMask wallLayer;
     [SerializeField] private float detectionRange = 1f;
     [SerializeField] private AudioClip alertSound;
-    [SerializeField] private CircleCollider2D triggerCollider;  // Referencia al collider
+    [SerializeField] private CircleCollider2D triggerCollider; // Referencia al collider
+    [SerializeField] private float destructionRange = 10.0f; // Ajusta según sea necesario
+
     private AudioSource audioSource;
+
+    void OnEnable()
+    {
+        Mine.OnMineExploded += HandleMineExploded;
+    }
+
+    void OnDisable()
+    {
+        Mine.OnMineExploded -= HandleMineExploded;
+    }
 
     void Start()
     {
@@ -29,6 +41,7 @@ public class EnemyAI2D : MonoBehaviour
         if (triggerCollider != null)
         {
             triggerCollider.isTrigger = true;
+            Debug.Log("Trigger collider radius: " + triggerCollider.radius);
         }
     }
 
@@ -74,5 +87,29 @@ public class EnemyAI2D : MonoBehaviour
         {
             SceneManager.LoadScene("Kitchen");
         }
+    }
+
+    void HandleMineExploded(Vector2 minePosition)
+    {
+        Debug.Log("EXPLODED");
+        float distanceToMine = Vector2.Distance(transform.position, minePosition);
+        Debug.Log("Distance to mine: " + distanceToMine);
+
+        if (distanceToMine <= destructionRange)
+        {
+            Debug.Log("Enemy within destruction range, destroying.");
+            Destroy(gameObject);
+        }
+        else
+        {
+            Debug.Log("Enemy out of destruction range.");
+        }
+    }
+
+    // Mostrar el rango de destrucción en el editor
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(transform.position, destructionRange);
     }
 }

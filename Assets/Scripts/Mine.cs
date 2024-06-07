@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.SceneManagement;
+using System;
 
 public class Mine : MonoBehaviour
 {
@@ -15,8 +16,12 @@ public class Mine : MonoBehaviour
     [SerializeField] private float proximityThreshold = 2f; // Proximidad para el cambio de escena
     [SerializeField] private float checkInterval = 0.5f; // Intervalo entre comprobaciones de proximidad
 
+    [SerializeField] private float explosionRadius = 2f; // Rango de la explosión editable
+
     private bool isActive = false;
     private CircleCollider2D mineCollider;
+
+    public static event Action<Vector2> OnMineExploded; // Evento estático
 
     void Start()
     {
@@ -109,27 +114,24 @@ public class Mine : MonoBehaviour
 
         yield return new WaitForSeconds(0.5f);
 
-        // Destruir objetos en el rango con tag "Food" y "Guard"
-        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, mineCollider.radius);
-        foreach (var hitCollider in hitColliders)
-        {
-            if (hitCollider.CompareTag("Food") || hitCollider.CompareTag("Guard"))
-            {
-                Destroy(hitCollider.gameObject);
-            }
-        }
+        // Emitir el evento de explosión
+        OnMineExploded?.Invoke(transform.position);
 
         // Calcular la distancia al jugador y cambiar de escena si está dentro del umbral
-        if (player != null && player.CompareTag("Player"))
+        float distanceToPlayer = Vector2.Distance(transform.position, player.transform.position);
+        if (distanceToPlayer <= proximityThreshold)
         {
-            float distanceToPlayer = Vector2.Distance(transform.position, player.transform.position);
-            if (distanceToPlayer <= proximityThreshold)
-            {
-                SceneManager.LoadScene("Kitchen");
-            }
+            SceneManager.LoadScene("Kitchen");
         }
 
         Destroy(gameObject);
+    }
+
+    // Mostrar el rango de la explosión en el editor
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, explosionRadius);
     }
 
     // Este método será llamado al final de la animación de explosión.

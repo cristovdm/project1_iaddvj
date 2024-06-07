@@ -12,6 +12,7 @@ TagManager:
   - Food
   - Plate
   - Guard
+  - Enemy
   layers:
   - Default
   - TransparentFX
