@@ -12,6 +12,8 @@ public class Mine : MonoBehaviour
     [SerializeField] private AudioClip explosionSound;
     [SerializeField] private AudioClip beepSound;
     [SerializeField] private Animator animator;
+    [SerializeField] private float proximityThreshold = 2f; // Proximidad para el cambio de escena
+    [SerializeField] private float checkInterval = 0.5f; // Intervalo entre comprobaciones de proximidad
 
     private bool isActive = false;
     private CircleCollider2D mineCollider;
@@ -57,14 +59,24 @@ public class Mine : MonoBehaviour
 
         if (isActive)
         {
-            // Comprobar si el jugador está en el rango de la mina al activarse
-            Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, mineCollider.radius);
-            foreach (var hitCollider in hitColliders)
+            StartCoroutine(CheckProximityAndExplode());
+        }
+    }
+
+    private IEnumerator CheckProximityAndExplode()
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            yield return new WaitForSeconds(checkInterval);
+
+            GameObject player = GameObject.FindGameObjectWithTag("Player");
+            if (player != null)
             {
-                if (hitCollider.CompareTag("Player"))
+                float distanceToPlayer = Vector2.Distance(transform.position, player.transform.position);
+                if (distanceToPlayer <= proximityThreshold)
                 {
-                    StartCoroutine(BeepAndExplode(hitCollider.gameObject));
-                    break;
+                    StartCoroutine(BeepAndExplode(player));
+                    yield break; // Termina el bucle si se cumple la condición
                 }
             }
         }
@@ -97,21 +109,24 @@ public class Mine : MonoBehaviour
 
         yield return new WaitForSeconds(0.5f);
 
-        // Destruir objetos en el rango con tag "Food", "Guard", y "Wall"
+        // Destruir objetos en el rango con tag "Food" y "Guard"
         Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, mineCollider.radius);
         foreach (var hitCollider in hitColliders)
         {
-            Debug.Log(hitCollider);
             if (hitCollider.CompareTag("Food") || hitCollider.CompareTag("Guard"))
             {
                 Destroy(hitCollider.gameObject);
             }
         }
 
-        // Verificar si el jugador está en el rango después de la explosión
-        if (player != null && player.CompareTag("Player") && mineCollider.IsTouching(player.GetComponent<Collider2D>()))
+        // Calcular la distancia al jugador y cambiar de escena si está dentro del umbral
+        if (player != null && player.CompareTag("Player"))
         {
-            SceneManager.LoadScene("Kitchen");
+            float distanceToPlayer = Vector2.Distance(transform.position, player.transform.position);
+            if (distanceToPlayer <= proximityThreshold)
+            {
+                SceneManager.LoadScene("Kitchen");
+            }
         }
 
         Destroy(gameObject);
