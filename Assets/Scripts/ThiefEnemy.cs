@@ -7,12 +7,12 @@ public class ThiefEnemy : MonoBehaviour
 {
     public float stealInterval = 20f;
     public float horizontalFlipInterval = 1f;
-    public int killKeyPressCount = 10; // Número de pulsaciones necesarias para matar al enemigo
-    private int currentKeyPressCount = 0; // Contador de pulsaciones actuales
+    public int killKeyPressCount = 10;
+    private int currentKeyPressCount = 0;
 
     private InventoryController inventoryController;
     private SpriteRenderer spriteRenderer;
-    private bool isPlayerNear = false; // Indica si el jugador está cerca
+    private bool isPlayerNear = false;
 
     void Start()
     {
