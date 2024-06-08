@@ -68,4 +68,6 @@ public class TrashInventory : MonoBehaviour
             child.gameObject.SetActive(state);
         }
     }
+
+    
 }

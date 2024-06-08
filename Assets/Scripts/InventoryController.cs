@@ -25,6 +25,11 @@ namespace Inventory
         [SerializeField]
         private InventorySO trashinventoryData;
 
+        public InventorySO GetTrashInventoryData()
+        {
+            return trashinventoryData;
+        }
+
         [SerializeField]
         private InventorySO plateinventoryData;
 
