@@ -16,12 +16,12 @@ public class PlayerMovement : MonoBehaviour
     public bool isBoosted = false;
     public bool canCollideWithBanana = true;
 
-    
+
     public float punchDuration = 0.5f;
 
- 
+
     public GameObject exitMenu;
-    public Button yesButton; 
+    public Button yesButton;
     public Button noButton;
 
     void Awake()
@@ -38,13 +38,13 @@ public class PlayerMovement : MonoBehaviour
             Debug.LogError("SpriteRenderer component not found on player GameObject.");
         }
 
-        
+
         if (exitMenu != null)
         {
             exitMenu.SetActive(false);
         }
 
-      
+
         yesButton.onClick.AddListener(OnYesButtonClicked);
         noButton.onClick.AddListener(OnNoButtonClicked);
     }
@@ -181,7 +181,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnYesButtonClicked()
     {
-        Time.timeScale = 1f; 
+        Time.timeScale = 1f;
         SceneManager.LoadScene("Maze");
     }
 
@@ -189,4 +189,5 @@ public class PlayerMovement : MonoBehaviour
     {
         HideExitMenu();
     }
+
 }
