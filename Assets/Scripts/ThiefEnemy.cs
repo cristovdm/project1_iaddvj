@@ -8,16 +8,24 @@ public class ThiefEnemy : MonoBehaviour
     public float stealInterval = 20f;
     public float horizontalFlipInterval = 1f;
     public int killKeyPressCount = 10;
-    private int currentKeyPressCount = 0;
+    public AudioClip hitSound;
 
+    private int currentKeyPressCount = 0;
     private InventoryController inventoryController;
     private SpriteRenderer spriteRenderer;
     private bool isPlayerNear = false;
+    private AudioSource audioSource;
 
     void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         inventoryController = FindObjectOfType<InventoryController>();
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+        {
+            audioSource = gameObject.AddComponent<AudioSource>();
+        }
+
         StartCoroutine(StealItemRoutine());
         StartCoroutine(HorizontalFlipRoutine());
     }
@@ -27,6 +35,7 @@ public class ThiefEnemy : MonoBehaviour
         if (isPlayerNear && Input.GetKeyDown(KeyCode.K))
         {
             currentKeyPressCount++;
+            PlayHitSound();
             if (currentKeyPressCount >= killKeyPressCount)
             {
                 DestroyEnemy();
@@ -71,6 +80,14 @@ public class ThiefEnemy : MonoBehaviour
     void DestroyEnemy()
     {
         Destroy(gameObject);
+    }
+
+    void PlayHitSound()
+    {
+        if (hitSound != null && audioSource != null)
+        {
+            audioSource.PlayOneShot(hitSound);
+        }
     }
 
     void OnTriggerEnter2D(Collider2D other)

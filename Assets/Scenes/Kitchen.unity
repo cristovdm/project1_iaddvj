@@ -7166,6 +7166,52 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1241242813514061167, guid: 7c4be7480c2b81d4cbd8d13f73b467bf, type: 3}
   m_PrefabInstance: {fileID: 1513102818}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2022998369
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2022998370}
+  - component: {fileID: 2022998371}
+  m_Layer: 0
+  m_Name: SeaUrchinSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2022998370
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2022998369}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 5.853553, y: 8.684479, z: -0.4343018}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2022998371
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2022998369}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 748ceb2d36053ba409b4993570e4522d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  seaUrchinPrefab: {fileID: 1122965805514792844, guid: 4563f89d1c657b54fa084d6d3cd9d770, type: 3}
+  spawnPosition: {x: 20, y: 12}
 --- !u!1001 &2038903428
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8471,3 +8517,4 @@ SceneRoots:
   - {fileID: 69260750}
   - {fileID: 1311023389}
   - {fileID: 260870705}
+  - {fileID: 2022998370}

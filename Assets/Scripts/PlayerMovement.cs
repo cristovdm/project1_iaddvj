@@ -54,13 +54,12 @@ public class PlayerMovement : MonoBehaviour
             spriteRenderer.flipX = false;
         }
 
-
-        if (speedX == 0 && speedY == 0 && isSliding)
+        if (isSliding)
         {
             rb.AddForce(lastMovement * slideForce, ForceMode2D.Force);
             anim.SetBool("isSliding", true);
         }
-        else if (!isSliding)
+        else
         {
             rb.velocity *= 0.8f;
             anim.SetBool("isSliding", false);
@@ -97,6 +96,16 @@ public class PlayerMovement : MonoBehaviour
         if (other.CompareTag("Water"))
         {
             isSliding = true;
+            lastMovement = rb.velocity.normalized; // Asegurar que se mantenga la última dirección de movimiento al entrar en el agua
+        }
+    }
+
+    private void OnTriggerStay2D(Collider2D other)
+    {
+        if (other.CompareTag("Water"))
+        {
+            isSliding = true;
+            lastMovement = rb.velocity.normalized; // Asegurar que se mantenga la última dirección de movimiento mientras esté en el agua
         }
     }
 
