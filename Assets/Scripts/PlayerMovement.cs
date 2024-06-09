@@ -14,6 +14,9 @@ public class PlayerMovement : MonoBehaviour
     public bool isBoosted = false;
     public bool canCollideWithBanana = true;
 
+    // Duration of the punch animation in seconds (adjust as needed)
+    public float punchDuration = 0.5f;
+
     void Awake()
     {
         anim = GetComponent<Animator>();
@@ -46,11 +49,11 @@ public class PlayerMovement : MonoBehaviour
             anim.SetBool("isMoving", false);
         }
 
-        if (speedX > 0)  
+        if (speedX > 0)
         {
             spriteRenderer.flipX = true;
         }
-        else if (speedX < 0) 
+        else if (speedX < 0)
         {
             spriteRenderer.flipX = false;
         }
@@ -65,6 +68,12 @@ public class PlayerMovement : MonoBehaviour
             rb.velocity *= 0.8f;
             anim.SetBool("isSliding", false);
         }
+
+        // Trigger punch animation
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            TriggerPunchAnimation();
+        }
     }
 
     public void StopMovement(float stopTime)
@@ -75,11 +84,11 @@ public class PlayerMovement : MonoBehaviour
     IEnumerator StopMovementCoroutine(float stopTime)
     {
         float originalSpeed = movementSpeed;
-        movementSpeed = 0f; 
+        movementSpeed = 0f;
 
         yield return new WaitForSeconds(stopTime);
 
-        movementSpeed = originalSpeed; 
+        movementSpeed = originalSpeed;
         isSliding = false;
     }
 
@@ -117,5 +126,17 @@ public class PlayerMovement : MonoBehaviour
         canCollideWithBanana = false;
         yield return new WaitForSeconds(cooldownTime);
         canCollideWithBanana = true;
+    }
+
+    private void TriggerPunchAnimation()
+    {
+        anim.SetBool("isPunching", true);
+        StartCoroutine(ResetPunchAnimation());
+    }
+
+    IEnumerator ResetPunchAnimation()
+    {
+        yield return new WaitForSeconds(punchDuration);
+        anim.SetBool("isPunching", false);
     }
 }

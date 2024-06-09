@@ -79,7 +79,7 @@ public class SeaUrchin : MonoBehaviour
         if (Vector2.Distance(transform.position, player.transform.position) <= playerDetectionRadius)
         {
             isNearPlayer = true;
-            if (Input.GetKeyDown(KeyCode.K))
+            if (Input.GetKeyDown(KeyCode.Q))
             {
                 pressCount++;
                 PlayHitSound();

@@ -99,13 +99,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bananaPrefab: {fileID: 9016638522957398648, guid: f4a4227e44c05474bb375f1c322810e0, type: 3}
-  bananaDropInterval: 1
+  bananaDropInterval: 3
   requiredPressesToEliminate: 10
-  hitSound: {fileID: 8300000, guid: 1697ef6def83a8b459b3b425f75a3bb4, type: 3}
+  hitSound: {fileID: 8300000, guid: f1c04b58ebf02e34cbb04603263904a7, type: 3}
   flipInterval: 1
   detectionRadius: 9
   minPlayerDistance: 2
-  minBananaDistance: 2
   minX: -40
   minY: -35
   maxX: 53

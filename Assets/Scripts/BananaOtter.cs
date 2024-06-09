@@ -117,7 +117,7 @@ public class BananaOtter : MonoBehaviour
         if (Vector2.Distance(transform.position, player.transform.position) <= detectionRadius)
         {
             isNearPlayer = true;
-            if (Input.GetKeyDown(KeyCode.K))
+            if (Input.GetKeyDown(KeyCode.Q))
             {
                 pressCount++;
                 PlayHitSound();

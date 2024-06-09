@@ -104,7 +104,7 @@ MonoBehaviour:
   playerDetectionRadius: 10
   requiredPressesToEliminate: 5
   waterPrefab: {fileID: 866452398101000293, guid: a3fd8d879f2b7ca499907e068a9c566d, type: 3}
-  hitSound: {fileID: 8300000, guid: 1697ef6def83a8b459b3b425f75a3bb4, type: 3}
+  hitSound: {fileID: 8300000, guid: f1c04b58ebf02e34cbb04603263904a7, type: 3}
 --- !u!50 &-30567943745747296
 Rigidbody2D:
   serializedVersion: 4

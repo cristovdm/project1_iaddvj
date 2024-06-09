@@ -32,7 +32,7 @@ public class ThiefEnemy : MonoBehaviour
 
     void Update()
     {
-        if (isPlayerNear && Input.GetKeyDown(KeyCode.K))
+        if (isPlayerNear && Input.GetKeyDown(KeyCode.Q))
         {
             currentKeyPressCount++;
             PlayHitSound();

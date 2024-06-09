@@ -49,7 +49,7 @@ MonoBehaviour:
   stealInterval: 20
   horizontalFlipInterval: 1
   killKeyPressCount: 10
-  hitSound: {fileID: 8300000, guid: 1697ef6def83a8b459b3b425f75a3bb4, type: 3}
+  hitSound: {fileID: 8300000, guid: f1c04b58ebf02e34cbb04603263904a7, type: 3}
 --- !u!212 &8673355718162090495
 SpriteRenderer:
   m_ObjectHideFlags: 0
