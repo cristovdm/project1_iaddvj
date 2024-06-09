@@ -5,6 +5,7 @@ public class Banana : MonoBehaviour
 {
     public float stopTime = 1f;
     public float disappearDelay = 0.1f;
+    public float cooldownTime = 1f;
     public AudioClip slipSound; 
 
     private AudioSource audioSource;
@@ -24,11 +25,11 @@ public class Banana : MonoBehaviour
         {
             PlayerMovement playerMovement = other.GetComponent<PlayerMovement>();
 
-            if (playerMovement != null)
+            if (playerMovement != null && playerMovement.canCollideWithBanana)
             {
                 playerMovement.isSliding = true;
-
                 playerMovement.StopMovement(stopTime);
+                playerMovement.StartBananaCooldown(cooldownTime);
 
                 StartCoroutine(DisappearAfterDelay(disappearDelay));
             }

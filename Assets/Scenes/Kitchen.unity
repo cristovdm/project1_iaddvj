@@ -8305,6 +8305,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 668422690383122425, guid: 03e5cab9626f2a6469364b5966c45cfa, type: 3}
+      propertyPath: m_EdgeRadius
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 668422690383122425, guid: 03e5cab9626f2a6469364b5966c45cfa, type: 3}
       propertyPath: m_ExcludeLayers.m_Bits
       value: 16
       objectReference: {fileID: 0}

@@ -9,6 +9,7 @@ public class BananaOtter : MonoBehaviour
     public AudioClip hitSound;
     public float flipInterval = 1f;
     public float detectionRadius = 9f;
+    public float minPlayerDistance = 8f;
 
     public float minX, minY, maxX, maxY;
 
@@ -90,10 +91,15 @@ public class BananaOtter : MonoBehaviour
         Collider2D[] colliders = Physics2D.OverlapCircleAll(position, 0.5f);
         foreach (var collider in colliders)
         {
-            if (collider.CompareTag("Wall") || collider.CompareTag("Player"))
+            if (collider.CompareTag("Wall") || collider.CompareTag("Food") || collider.CompareTag("Player"))
             {
                 return true;
             }
+        }
+        // Verificación adicional para la distancia mínima del jugador
+        if (Vector2.Distance(position, player.transform.position) < minPlayerDistance)
+        {
+            return true;
         }
         return false;
     }

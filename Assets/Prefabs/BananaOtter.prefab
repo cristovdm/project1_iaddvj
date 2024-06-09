@@ -103,6 +103,9 @@ MonoBehaviour:
   requiredPressesToEliminate: 10
   hitSound: {fileID: 8300000, guid: 1697ef6def83a8b459b3b425f75a3bb4, type: 3}
   flipInterval: 1
+  detectionRadius: 9
+  minPlayerDistance: 2
+  minBananaDistance: 2
   minX: -40
   minY: -35
   maxX: 53

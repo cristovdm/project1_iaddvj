@@ -12,6 +12,7 @@ public class PlayerMovement : MonoBehaviour
     private Animator anim;
     public bool isSliding = false;
     public bool isBoosted = false;
+    public bool canCollideWithBanana = true;
 
     void Awake()
     {
@@ -45,7 +46,7 @@ public class PlayerMovement : MonoBehaviour
             anim.SetBool("isMoving", false);
         }
 
-        if (speedX > 0) 
+        if (speedX > 0)  
         {
             spriteRenderer.flipX = true;
         }
@@ -54,12 +55,12 @@ public class PlayerMovement : MonoBehaviour
             spriteRenderer.flipX = false;
         }
 
-        if (isSliding)
+        if (speedX == 0 && speedY == 0 && isSliding)
         {
             rb.AddForce(lastMovement * slideForce, ForceMode2D.Force);
             anim.SetBool("isSliding", true);
         }
-        else
+        else if (!isSliding)
         {
             rb.velocity *= 0.8f;
             anim.SetBool("isSliding", false);
@@ -79,7 +80,6 @@ public class PlayerMovement : MonoBehaviour
         yield return new WaitForSeconds(stopTime);
 
         movementSpeed = originalSpeed; 
-      
         isSliding = false;
     }
 
@@ -96,16 +96,6 @@ public class PlayerMovement : MonoBehaviour
         if (other.CompareTag("Water"))
         {
             isSliding = true;
-            lastMovement = rb.velocity.normalized; // Asegurar que se mantenga la última dirección de movimiento al entrar en el agua
-        }
-    }
-
-    private void OnTriggerStay2D(Collider2D other)
-    {
-        if (other.CompareTag("Water"))
-        {
-            isSliding = true;
-            lastMovement = rb.velocity.normalized; // Asegurar que se mantenga la última dirección de movimiento mientras esté en el agua
         }
     }
 
@@ -115,5 +105,17 @@ public class PlayerMovement : MonoBehaviour
         {
             isSliding = false;
         }
+    }
+
+    public void StartBananaCooldown(float cooldownTime)
+    {
+        StartCoroutine(BananaCooldownCoroutine(cooldownTime));
+    }
+
+    IEnumerator BananaCooldownCoroutine(float cooldownTime)
+    {
+        canCollideWithBanana = false;
+        yield return new WaitForSeconds(cooldownTime);
+        canCollideWithBanana = true;
     }
 }
