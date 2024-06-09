@@ -1,5 +1,7 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -14,8 +16,13 @@ public class PlayerMovement : MonoBehaviour
     public bool isBoosted = false;
     public bool canCollideWithBanana = true;
 
-    // Duration of the punch animation in seconds (adjust as needed)
+    
     public float punchDuration = 0.5f;
+
+ 
+    public GameObject exitMenu;
+    public Button yesButton; 
+    public Button noButton;
 
     void Awake()
     {
@@ -30,6 +37,16 @@ public class PlayerMovement : MonoBehaviour
         {
             Debug.LogError("SpriteRenderer component not found on player GameObject.");
         }
+
+        
+        if (exitMenu != null)
+        {
+            exitMenu.SetActive(false);
+        }
+
+      
+        yesButton.onClick.AddListener(OnYesButtonClicked);
+        noButton.onClick.AddListener(OnNoButtonClicked);
     }
 
     void Update()
@@ -106,6 +123,10 @@ public class PlayerMovement : MonoBehaviour
         {
             isSliding = true;
         }
+        if (other.CompareTag("Exit"))
+        {
+            ShowExitMenu();
+        }
     }
 
     private void OnTriggerExit2D(Collider2D other)
@@ -138,5 +159,34 @@ public class PlayerMovement : MonoBehaviour
     {
         yield return new WaitForSeconds(punchDuration);
         anim.SetBool("isPunching", false);
+    }
+
+    private void ShowExitMenu()
+    {
+        if (exitMenu != null)
+        {
+            exitMenu.SetActive(true);
+            Time.timeScale = 0f;
+        }
+    }
+
+    private void HideExitMenu()
+    {
+        if (exitMenu != null)
+        {
+            exitMenu.SetActive(false);
+            Time.timeScale = 1f;
+        }
+    }
+
+    private void OnYesButtonClicked()
+    {
+        Time.timeScale = 1f; 
+        SceneManager.LoadScene("Maze");
+    }
+
+    private void OnNoButtonClicked()
+    {
+        HideExitMenu();
     }
 }

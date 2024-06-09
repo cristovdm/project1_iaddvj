@@ -13,6 +13,7 @@ TagManager:
   - Plate
   - Guard
   - Enemy
+  - Exit
   layers:
   - Default
   - TransparentFX
