@@ -66,6 +66,9 @@ TagManager:
   - name: Player
     uniqueID: 1993836259
     locked: 0
+  - name: Decoration Over Player
+    uniqueID: 2951106951
+    locked: 0
   - name: Text
     uniqueID: 705122551
     locked: 0
