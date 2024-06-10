@@ -72,6 +72,7 @@ public class SeaUrchin : MonoBehaviour
     {
         GameObject water = Instantiate(waterPrefab, transform.position, Quaternion.identity);
         water.transform.localScale = reducedScale;
+        Destroy(water, 20f);
     }
 
     void CheckPlayerProximity()

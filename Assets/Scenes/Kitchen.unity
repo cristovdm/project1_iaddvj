@@ -1936,7 +1936,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 672, y: 405}
+  m_AnchoredPosition: {x: 672, y: 391.25}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &410878478
@@ -2833,6 +2833,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moneyText: {fileID: 410878478}
+  moneyDisplay: {fileID: 0}
 --- !u!1 &553602025
 GameObject:
   m_ObjectHideFlags: 0
@@ -4749,6 +4750,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   plateinventoryData: {fileID: 11400000, guid: 6edf9253a33e95249a9c3da50d925c17, type: 2}
+  joinButton: {fileID: 1028176378}
 --- !u!1001 &1055684460
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5758,7 +5760,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 544, y: 407}
+  m_AnchoredPosition: {x: 544, y: 393.25}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1186117549

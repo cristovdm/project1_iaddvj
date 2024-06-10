@@ -1,58 +1,71 @@
-using Inventory;
 using Inventory.Model;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using static UnityEditor.Progress;
+using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class JoinIngredients : MonoBehaviour
 {
-    [SerializeField]
-    private InventorySO plateinventoryData;
+    [SerializeField] private InventorySO plateinventoryData;
     private bool isJoinable = false;
-
-    private InventoryController plateinventory;
-    private ItemSO joinedItem;
+    [SerializeField] private Button joinButton;
 
     void Start()
     {
-        checkIfJoinable();
+        CheckIfJoinable();
     }
 
-    void checkIfJoinable() {
+    void Update()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            if (EventSystem.current.IsPointerOverGameObject())
+            {
+                OnButtonPress();
+            }
+        }
+    }
+
+    void CheckIfJoinable()
+    {
         if (plateinventoryData.IsInventoryFull())
         {
             InventoryItem item_1 = plateinventoryData.GetItemAt(0);
             InventoryItem item_2 = plateinventoryData.GetItemAt(1);
 
-            if (item_1.item.name == "Bread" && item_2.item.name == "Carrot")
-            {
-               isJoinable = true;
-            }
-
-            if (item_1.item.name == "Carrot" && item_2.item.name == "Bread")
+            if ((item_1.item.name == "Bread" && item_2.item.name == "Carrot") ||
+                (item_1.item.name == "Carrot" && item_2.item.name == "Bread"))
             {
                 isJoinable = true;
             }
+        }
 
-            if (isJoinable)
-            {
-                joinIngredients();
-            }
+        joinButton.interactable = isJoinable;
+    }
+
+    public void OnButtonPress()
+    {
+        if (isJoinable)
+        {
+            joinIngredients();
         }
     }
+
     void joinIngredients()
     {
+
         plateinventoryData.RemoveItem(0, 1);
         plateinventoryData.RemoveItem(1, 1);
-        joinedItem = ResourceManager.LoadResource<EdibleItemSO>("Tomato");
+
+        ItemSO joinedItem = ResourceManager.LoadResource<EdibleItemSO>("Tomato");
         InventoryItem item = new InventoryItem
         {
             item = joinedItem,
             quantity = 1,
-            itemState = new List<ItemParameter>()
+            itemState = new System.Collections.Generic.List<ItemParameter>()
         };
+
         plateinventoryData.AddItem(item);
-        isJoinable = false;
+
+        joinButton.interactable = false;
     }
 }

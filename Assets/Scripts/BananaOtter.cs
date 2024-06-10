@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class BananaOtter : MonoBehaviour
@@ -12,18 +13,21 @@ public class BananaOtter : MonoBehaviour
     public float minPlayerDistance = 8f;
 
     public float minX, minY, maxX, maxY;
+    public int maxBananas = 6;
 
     private GameObject player;
     private int pressCount = 0;
     private bool isNearPlayer = false;
     private AudioSource audioSource;
     private SpriteRenderer spriteRenderer;
+    private List<GameObject> bananas = new List<GameObject>();
 
     public delegate void BananaOtterDestroyed();
     public static event BananaOtterDestroyed OnBananaOtterDestroyed;
 
     void Start()
     {
+        maxBananas += 6;
         player = GameObject.FindGameObjectWithTag("Player");
         audioSource = GetComponent<AudioSource>();
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -41,7 +45,10 @@ public class BananaOtter : MonoBehaviour
     {
         while (true)
         {
-            DropBanana();
+            if (bananas.Count < maxBananas)
+            {
+                DropBanana();
+            }
             yield return new WaitForSeconds(bananaDropInterval);
         }
     }
@@ -60,8 +67,17 @@ public class BananaOtter : MonoBehaviour
         Vector2 spawnPosition = GetRandomPosition();
         if (!IsPositionOccupied(spawnPosition))
         {
-            Instantiate(bananaPrefab, spawnPosition, Quaternion.identity);
+            GameObject banana = Instantiate(bananaPrefab, spawnPosition, Quaternion.identity);
+            bananas.Add(banana);
+            StartCoroutine(RemoveBananaFromListAfterTime(banana, 20f));
         }
+    }
+
+    IEnumerator RemoveBananaFromListAfterTime(GameObject banana, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        bananas.Remove(banana);
+        Destroy(banana);
     }
 
     Vector2 GetRandomPosition()
@@ -96,7 +112,6 @@ public class BananaOtter : MonoBehaviour
                 return true;
             }
         }
-        // Verificación adicional para la distancia mínima del jugador
         if (Vector2.Distance(position, player.transform.position) < minPlayerDistance)
         {
             return true;
