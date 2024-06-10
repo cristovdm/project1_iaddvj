@@ -46,9 +46,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a32de6ee777ba5f4182062c2d5989f76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stealInterval: 20
+  stealInterval: 30
   horizontalFlipInterval: 1
-  killKeyPressCount: 10
+  killKeyPressCount: 5
   hitSound: {fileID: 8300000, guid: f1c04b58ebf02e34cbb04603263904a7, type: 3}
 --- !u!212 &8673355718162090495
 SpriteRenderer:
@@ -89,7 +89,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1993836259
-  m_SortingLayer: 4
+  m_SortingLayer: 5
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: db022d28f257725459dbc358fc8a7d38, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

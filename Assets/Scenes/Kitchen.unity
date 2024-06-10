@@ -8930,19 +8930,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6405848736239365262, guid: 04030031cd9a72847bfd75b67453cebb, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6405848736239365262, guid: 04030031cd9a72847bfd75b67453cebb, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6405848736239365262, guid: 04030031cd9a72847bfd75b67453cebb, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 140.8987
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6405848736239365262, guid: 04030031cd9a72847bfd75b67453cebb, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 76.777
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6913483177266869942, guid: 04030031cd9a72847bfd75b67453cebb, type: 3}
       propertyPath: m_AnchorMax.y
@@ -12757,19 +12757,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6405848736239365262, guid: 04030031cd9a72847bfd75b67453cebb, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6405848736239365262, guid: 04030031cd9a72847bfd75b67453cebb, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6405848736239365262, guid: 04030031cd9a72847bfd75b67453cebb, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 413.4073
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6405848736239365262, guid: 04030031cd9a72847bfd75b67453cebb, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 352.00168
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6913483177266869942, guid: 04030031cd9a72847bfd75b67453cebb, type: 3}
       propertyPath: m_AnchorMax.y
@@ -13076,10 +13076,10 @@ MonoBehaviour:
     itemState: []
   PlateInitialItems:
   - quantity: 1
-    item: {fileID: 11400000, guid: 5eb70b646e96c3a409c6579139366f0e, type: 2}
+    item: {fileID: 11400000, guid: f242004f0db36e64bb566eb1e78c4af3, type: 2}
     itemState: []
   - quantity: 1
-    item: {fileID: 11400000, guid: 476d5fc98e021984ca0dfd1d35f72ed7, type: 2}
+    item: {fileID: 11400000, guid: 7096ba5e786c19e40b010fa9b7350fa2, type: 2}
     itemState: []
   dropClip: {fileID: 8300000, guid: 1697ef6def83a8b459b3b425f75a3bb4, type: 3}
   audioSource: {fileID: 8667536452772664776}

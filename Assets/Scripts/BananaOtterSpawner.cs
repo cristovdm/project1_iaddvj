@@ -40,7 +40,7 @@ public class BananaOtterSpawner : MonoBehaviour
         {
             if (currentBananaOtter == null)
             {
-                float delay = Random.Range(0f, 60f);
+                float delay = Random.Range(20f, 180f);
                 yield return new WaitForSeconds(delay);
                 if (currentBananaOtter == null)
                 {
