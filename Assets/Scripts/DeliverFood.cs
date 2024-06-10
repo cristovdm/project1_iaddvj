@@ -140,6 +140,7 @@ public class DeliverFood : MonoBehaviour
         {
             if (inventoryItem.item.Name == currentDelivery)
             {
+                inventory.playerInventoryFilled = false;
                 return true;
             }
             else return false;

@@ -33,7 +33,7 @@ namespace Inventory
         [SerializeField]
         private InventorySO plateinventoryData;
 
-        private bool playerInventoryFilled = false; 
+        public bool playerInventoryFilled = false; 
         private bool fullPlateInventory = true; 
 
         public List<InventoryItem> initialItems = new List<InventoryItem>();
