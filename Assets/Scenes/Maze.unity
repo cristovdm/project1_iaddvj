@@ -36962,7 +36962,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aac0466c9949e5a45972adb6bc8afb2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  countdownTime: 15
+  countdownTime: 60
   timerText: {fileID: 2081202897}
   player: {fileID: 481989710}
   audioSource: {fileID: 1272036775}
