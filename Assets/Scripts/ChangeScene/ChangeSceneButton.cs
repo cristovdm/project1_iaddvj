@@ -15,11 +15,11 @@ public class ChangeSceneButton : MonoBehaviour
         if (currentScene.name == "Kitchen")
         {
             SceneManager.LoadScene("Maze");
-            Day.Instance.NextDay();
             Level.Instance.SetLevel(Day.Instance.GetCurrentDay(),1);
         }
         else if (currentScene.name == "Maze")
         {
+            Day.Instance.NextDay();
             SceneManager.LoadScene("Kitchen");
             Level.Instance.SetLevel(Day.Instance.GetCurrentDay(), 2);
         }
