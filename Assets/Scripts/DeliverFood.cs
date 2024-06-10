@@ -20,6 +20,8 @@ public class DeliverFood : MonoBehaviour
     public SpriteRenderer spriteRenderer;
     private string foodCloudPath = "Sprites/FoodClouds/";
 
+    private Money moneyScript;  // Referencia al script Money
+
     List<string> ShuffleList(List<string> list)
     {
         System.Random rng = new System.Random();
@@ -79,7 +81,7 @@ public class DeliverFood : MonoBehaviour
     private void CheckNextDelivery()
     {
         Debug.Log(stageDeliveriesList.Count);
-        if (stageDeliveriesList.Count > 0) 
+        if (stageDeliveriesList.Count > 0)
         {
             SelectNextDelivery();
         }
@@ -143,7 +145,7 @@ public class DeliverFood : MonoBehaviour
             else return false;
         }
         else return false;
-    } 
+    }
 
     void Start()
     {
@@ -159,6 +161,8 @@ public class DeliverFood : MonoBehaviour
             interactionArea = GetComponent<BoxCollider2D>();
         }
 
+        moneyScript = FindObjectOfType<Money>();
+
         SelectInitialFood();
     }
 
@@ -168,8 +172,8 @@ public class DeliverFood : MonoBehaviour
         {
             audioSource.PlayOneShot(moneySound);
             inventory.TakeOutFirstItem();
+            moneyScript.AddMoney(25);
             CheckNextDelivery();
         }
     }
-
 }
