@@ -2227,6 +2227,8 @@ GameObject:
   - component: {fileID: 120429909}
   - component: {fileID: 120429913}
   - component: {fileID: 120429914}
+  - component: {fileID: 120429915}
+  - component: {fileID: 120429916}
   m_Layer: 5
   m_Name: CanvasChangeScene
   m_TagString: CanvasChangeScene
@@ -2347,6 +2349,33 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moneyText: {fileID: 0}
   moneyDisplay: {fileID: 449721186}
+  debtText: {fileID: 1886426974}
+--- !u!114 &120429915
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 120429908}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e06676373c278d44e8d1441c5985f789, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dayDisplay: {fileID: 1910688338}
+--- !u!114 &120429916
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 120429908}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9735a4c0bef3e447b29a1b82c2b3c30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levelDisplay: {fileID: 1525802534}
 --- !u!1001 &123357487
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6977,7 +7006,8 @@ MonoBehaviour:
   - {fileID: 4270109546922852804, guid: 4af18559e47752544b7d4bbc9e54a565, type: 3}
   - {fileID: 4270109546922852804, guid: 6598e4075126452459c6a5728672e5e8, type: 3}
   - {fileID: 2405825382221192402, guid: ffe9a1ac58686d7478838944fd565338, type: 3}
-  foodQuantities: 1e0000001e0000001e0000001e0000001e0000001e0000001e000000
+  - {fileID: 4270109546922852804, guid: 74de9bc324fc3c84290a4ce714fd1742, type: 3}
+  foodQuantities: 1e0000001e0000001e0000001e0000001e0000001e0000001e0000001e000000
   mazeBoundsMin: {x: -180, y: -180}
   mazeBoundsMax: {x: 640, y: 640}
   checkRadius: 0.5
@@ -7909,7 +7939,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Money: $'
+  m_text: 'Money: $100'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -34776,7 +34806,7 @@ GameObject:
   - component: {fileID: 1910688339}
   - component: {fileID: 1910688338}
   m_Layer: 0
-  m_Name: Text (TMP)
+  m_Name: Day
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -34798,8 +34828,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -513, y: 290}
-  m_SizeDelta: {x: 502.3678, y: 216.4607}
+  m_AnchoredPosition: {x: -391.82397, y: 257}
+  m_SizeDelta: {x: 744.7198, y: 173.4009}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1910688338
 MonoBehaviour:
@@ -34848,8 +34878,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 220
-  m_fontSizeBase: 220
+  m_fontSize: 150
+  m_fontSizeBase: 150
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
