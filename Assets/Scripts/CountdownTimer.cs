@@ -62,7 +62,7 @@ public class CountdownTimer : MonoBehaviour
                 }
 
                 // Inicia la rutina para cambiar la escena después de 3 segundos
-                StartCoroutine(ChangeSceneAfterDelay(3f));
+                StartCoroutine(ChangeSceneAfterDelay(0.5f));
             }
             else
             {

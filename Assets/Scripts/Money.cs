@@ -17,7 +17,7 @@ public class Money : MonoBehaviour
         }
         else
         {
-            Destroy(gameObject); // Destruye la nueva instancia si ya hay una existente
+            Destroy(gameObject);
         }
     }
 
