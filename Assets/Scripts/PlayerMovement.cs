@@ -42,11 +42,9 @@ public class PlayerMovement : MonoBehaviour
         if (exitMenu != null)
         {
             exitMenu.SetActive(false);
+            yesButton.onClick.AddListener(OnYesButtonClicked);
+            noButton.onClick.AddListener(OnNoButtonClicked);
         }
-
-
-        yesButton.onClick.AddListener(OnYesButtonClicked);
-        noButton.onClick.AddListener(OnNoButtonClicked);
     }
 
     void Update()
