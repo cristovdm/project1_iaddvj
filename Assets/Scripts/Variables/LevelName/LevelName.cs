@@ -37,20 +37,20 @@ public class Level : MonoBehaviour
         switch (levelKey)
         {
             case "1-1":
-                currentLevel = "Level1-1";
+                currentLevel = "Level 1-1";
                 break;
             case "1-2":
-                currentLevel = "Level1-2";
+                currentLevel = "Level 1-2";
                 break;
             case "2-1":
-                currentLevel = "Level2-1";
+                currentLevel = "Level 2-1";
                 break;
             case "2-2":
-                currentLevel = "Level2-2";
+                currentLevel = "Level 2-2";
                 break;
-            // Add more cases as needed
             default:
                 Debug.LogWarning($"Unknown level key: {levelKey}");
+                currentLevel = $"Level {levelNumber1}-{dayOrNight}";
                 return;
         }
 

@@ -10,6 +10,9 @@ public class Money : MonoBehaviour
     private const string MoneyKey = "CurrentMoney";  
     public TextMeshProUGUI moneyDisplay;
 
+    private int debt = 100000;
+    public TextMeshProUGUI debtText;
+
     void Awake()
     {
         if (Instance == null)
@@ -38,9 +41,12 @@ public class Money : MonoBehaviour
             return;
         }
         currentMoney += amount;
+        debt -= amount;
+
         SaveMoney();
         UpdateMoneyUI();
         UpdateMoneyUI2();
+        UpdateDebtUI();
     }
 
     public void SubtractMoney(int amount)
@@ -107,5 +113,23 @@ public class Money : MonoBehaviour
         {
             Debug.LogWarning("TextMeshProUGUI component is not assigned.");
         }
+    }
+
+    private void UpdateDebtUI()
+    {
+        if (debtText != null)
+        {
+            debtText.text = $"Debt: {debt}";
+        }
+        else
+        {
+            Debug.LogWarning("TextMeshProUGUI component for debt is not assigned.");
+        }
+    }
+
+    public void SetDebtTextReference(TextMeshProUGUI text)
+    {
+        debtText = text;
+        UpdateDebtUI();
     }
 }
