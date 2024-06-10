@@ -5,7 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class ChangeSceneButton : MonoBehaviour
 {
-    public void PlayGame()
+    public Canvas canvasChangeScene;
+
+    public void ChangeScene()
     {
         Scene currentScene = SceneManager.GetActiveScene(); 
         Debug.Log("Current scene: " + currentScene.name); 
@@ -13,10 +15,13 @@ public class ChangeSceneButton : MonoBehaviour
         if (currentScene.name == "Kitchen")
         {
             SceneManager.LoadScene("Maze");
+            
         }
         else if (currentScene.name == "Maze")
         {
             SceneManager.LoadScene("Kitchen");
         }
+
+        canvasChangeScene.gameObject.SetActive(false);
     }
 }

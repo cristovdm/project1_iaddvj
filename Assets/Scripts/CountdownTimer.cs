@@ -25,8 +25,6 @@ public class CountdownTimer : MonoBehaviour
 
     void Start()
     {
-        canvasChangeScene.gameObject.SetActive(false);
-
         currentTime = countdownTime;
 
         // Obt�n el componente PlayerMovement del jugador
