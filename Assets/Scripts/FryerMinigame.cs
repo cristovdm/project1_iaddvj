@@ -299,12 +299,20 @@ public class FryerMinigame : MonoBehaviour
             Debug.Log(inventoryItem.item.Name);
             switch (inventoryItem.item.Name)
             {
-                case "Cut Tomato":
-                    cutItem = ResourceManager.LoadResource<EdibleItemSO>("TomatoSoup");
+                case "Egg":
+                    cutItem = ResourceManager.LoadResource<EdibleItemSO>("FriedEgg");
                     return true;
 
-                case "Corn":
-                    cutItem = ResourceManager.LoadResource<EdibleItemSO>("CornSoup");
+                case "FriedFish":
+                    cutItem = ResourceManager.LoadResource<EdibleItemSO>("FriedFish");
+                    return true;
+
+                case "Fish":
+                    cutItem = ResourceManager.LoadResource<EdibleItemSO>("PanCortadoFrito");
+                    return true;
+
+                case "CutCorn":
+                    cutItem = ResourceManager.LoadResource<EdibleItemSO>("PopCorn");
                     return true;
             }
             return false;

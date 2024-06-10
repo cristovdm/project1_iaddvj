@@ -228,8 +228,16 @@ public class CuttingBoardMiniGame : MonoBehaviour
                     cutItem = ResourceManager.LoadResource<EdibleItemSO>("CutCarrot");
                     return true;
 
+                case "Corn":
+                    cutItem = ResourceManager.LoadResource<EdibleItemSO>("CutCorn");
+                    return true;
+
                 case "Tomato":
                     cutItem = ResourceManager.LoadResource<EdibleItemSO>("CutTomato");
+                    return true;
+
+                case "Bread":
+                    cutItem = ResourceManager.LoadResource<EdibleItemSO>("PanCortado");
                     return true;
             }
             return false;

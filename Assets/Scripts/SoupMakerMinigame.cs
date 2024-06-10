@@ -276,6 +276,18 @@ public class SoupMakerMiniGame : MonoBehaviour
                 case "Corn":
                     cutItem = ResourceManager.LoadResource<EdibleItemSO>("CornSoup");
                     return true;
+
+                case "Egg":
+                    cutItem = ResourceManager.LoadResource<EdibleItemSO>("HuevoDuro");
+                    return true;
+
+                case "Fish":
+                    cutItem = ResourceManager.LoadResource<EdibleItemSO>("PescadoCaldero");
+                    return true;
+
+                case "Carrot":
+                    cutItem = ResourceManager.LoadResource<EdibleItemSO>("SopaZanahoria");
+                    return true;
             }
             return false;
         }

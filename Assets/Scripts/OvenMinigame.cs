@@ -208,13 +208,10 @@ public class OvenMinigame : MonoBehaviour
             Debug.Log(inventoryItem.item.Name);
             switch (inventoryItem.item.Name)
             {
-                case "Cut Tomato":
-                    cutItem = ResourceManager.LoadResource<EdibleItemSO>("TomatoSoup");
+                case "Fish":
+                    cutItem = ResourceManager.LoadResource<EdibleItemSO>("PescadoHorno");
                     return true;
 
-                case "Corn":
-                    cutItem = ResourceManager.LoadResource<EdibleItemSO>("CornSoup");
-                    return true;
             }
             return false;
         }
