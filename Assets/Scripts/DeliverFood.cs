@@ -62,7 +62,7 @@ public class DeliverFood : MonoBehaviour
         stageDeliveriesList = ShuffleList(stageDeliveriesList);
         currentDelivery = stageDeliveriesList.First();
         stageDeliveriesList.RemoveAt(0);
-        stageDeliveriesList.RemoveAt(0); //BORRAR PARA QUE FUNCIONE NORMALMENTE
+        //stageDeliveriesList.RemoveAt(0); //BORRAR PARA QUE FUNCIONE NORMALMENTE
         ShowFoodCloud();
     }
 
