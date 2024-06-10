@@ -21,11 +21,15 @@ public class CountdownTimer : MonoBehaviour
     private bool timeUp = false;
     private PlayerMovement playerMovementScript;
 
+    public Canvas canvasChangeScene;
+
     void Start()
     {
+        canvasChangeScene.gameObject.SetActive(false);
+
         currentTime = countdownTime;
 
-        // Obtén el componente PlayerMovement del jugador
+        // Obtï¿½n el componente PlayerMovement del jugador
         playerMovementScript = player.GetComponent<PlayerMovement>();
 
         if (audioSource == null)
@@ -55,13 +59,13 @@ public class CountdownTimer : MonoBehaviour
                     playerMovementScript.enabled = false;
                 }
 
-                // Silencia el audio si está asignado
+                // Silencia el audio si estï¿½ asignado
                 if (audioSource != null)
                 {
                     audioSource.volume = 0;
                 }
 
-                // Inicia la rutina para cambiar la escena después de 3 segundos
+                // Inicia la rutina para cambiar la escena despuï¿½s de 3 segundos
                 StartCoroutine(ChangeSceneAfterDelay(0.5f));
             }
             else
@@ -77,7 +81,7 @@ public class CountdownTimer : MonoBehaviour
     private IEnumerator ChangeSceneAfterDelay(float delay)
     {
         yield return new WaitForSecondsRealtime(delay); // Espera en tiempo real, no afectado por Time.timeScale
+        canvasChangeScene.gameObject.SetActive(true);
         Time.timeScale = 1; // Restablece el tiempo para la nueva escena
-        SceneManager.LoadScene("Change Scene");
     }
 }

@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.SceneManagement;
 using System;
+using System.Linq;
 
 public class Mine : MonoBehaviour
 {
@@ -20,8 +21,14 @@ public class Mine : MonoBehaviour
 
     private bool isActive = false;
     private CircleCollider2D mineCollider;
+    private GameObject canvasChangeScene;
 
     public static event Action<Vector2> OnMineExploded; // Evento estático
+
+    void OnEnable()
+    {
+        canvasChangeScene = Resources.FindObjectsOfTypeAll<GameObject>().FirstOrDefault(g => g.name == "CanvasChangeScene");
+    }
 
     void Start()
     {
@@ -121,7 +128,14 @@ public class Mine : MonoBehaviour
         float distanceToPlayer = Vector2.Distance(transform.position, player.transform.position);
         if (distanceToPlayer <= proximityThreshold)
         {
-            SceneManager.LoadScene("Kitchen");
+            if (canvasChangeScene != null)
+            {
+                canvasChangeScene.SetActive(true);
+            }
+            else
+            {
+                Debug.LogError("Canvas Change Scene not found");
+            }
         }
 
         Destroy(gameObject);

@@ -943,9 +943,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2065065346}
+      - m_Target: {fileID: 11500000, guid: 0fadfa28449049c4b9cb52c8881e71de, type: 3}
         m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
-        m_MethodName: PlayGame
+        m_MethodName: 
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1577,7 +1577,7 @@ GameObject:
   - component: {fileID: 1697449994}
   - component: {fileID: 1697449993}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: Canvas Change Scene
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

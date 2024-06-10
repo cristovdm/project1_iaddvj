@@ -1,17 +1,20 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Linq;
 
 public class GuardMovement : MonoBehaviour
 {
     public float movementSpeed = 2f;
-    [SerializeField] private float destructionRange = 10.0f; // Rango de destrucción ajustable
+    [SerializeField] private float destructionRange = 10.0f; // Rango de destrucciï¿½n ajustable
     private Vector2 movementDirection;
     private Rigidbody2D rb;
+    private GameObject canvasChangeScene;
 
     void OnEnable()
     {
         Mine.OnMineExploded += HandleMineExploded;
+        canvasChangeScene = Resources.FindObjectsOfTypeAll<GameObject>().FirstOrDefault(g => g.name == "CanvasChangeScene");
     }
 
     void OnDisable()
@@ -23,7 +26,6 @@ public class GuardMovement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         rb.freezeRotation = true;
-
         StartCoroutine(ChangeDirectionRoutine());
     }
 
@@ -65,7 +67,14 @@ public class GuardMovement : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            SceneManager.LoadScene("Kitchen");
+            if (canvasChangeScene != null)
+            {
+                canvasChangeScene.SetActive(true); 
+            }
+            else
+            {
+                Debug.LogError("Canvas Change Scene not found");
+            }
         }
         else if (collision.gameObject.CompareTag("Wall"))
         {
@@ -90,10 +99,11 @@ public class GuardMovement : MonoBehaviour
         }
     }
 
-    // Mostrar el rango de destrucción en el editor
+    // Mostrar el rango de destrucciï¿½n en el editor
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, destructionRange);
     }
+
 }

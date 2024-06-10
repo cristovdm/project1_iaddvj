@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Linq;
 
 public class EnemyAI2D : MonoBehaviour
 {
@@ -9,13 +10,16 @@ public class EnemyAI2D : MonoBehaviour
     [SerializeField] private float detectionRange = 1f;
     [SerializeField] private AudioClip alertSound;
     [SerializeField] private CircleCollider2D triggerCollider; // Referencia al collider
-    [SerializeField] private float destructionRange = 10.0f; // Ajusta según sea necesario
+    [SerializeField] private float destructionRange = 10.0f; // Ajusta segï¿½n sea necesario
 
     private AudioSource audioSource;
+    private GameObject canvasChangeScene;
+
 
     void OnEnable()
     {
         Mine.OnMineExploded += HandleMineExploded;
+        canvasChangeScene = Resources.FindObjectsOfTypeAll<GameObject>().FirstOrDefault(g => g.name == "CanvasChangeScene");
     }
 
     void OnDisable()
@@ -32,7 +36,7 @@ public class EnemyAI2D : MonoBehaviour
 
         audioSource = GetComponent<AudioSource>();
 
-        // Asegúrate de que el collider está configurado como trigger
+        // Asegï¿½rate de que el collider estï¿½ configurado como trigger
         if (triggerCollider == null)
         {
             triggerCollider = GetComponent<CircleCollider2D>();
@@ -85,7 +89,14 @@ public class EnemyAI2D : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            SceneManager.LoadScene("Kitchen");
+            if (canvasChangeScene != null)
+            {
+                canvasChangeScene.SetActive(true);
+            }
+            else
+            {
+                Debug.LogError("Canvas Change Scene not found");
+            }
         }
     }
 
@@ -106,7 +117,7 @@ public class EnemyAI2D : MonoBehaviour
         }
     }
 
-    // Mostrar el rango de destrucción en el editor
+    // Mostrar el rango de destrucciï¿½n en el editor
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.green;
