@@ -117,7 +117,6 @@ public class OvenMinigame : MonoBehaviour
                     }
                     else
                     {
-                        Debug.Log("¡Completaste una iteración! Iteraciones actuales: " + iteration);
                         // Reiniciar el valor del jugador a 0, el temporizador y seleccionar un nuevo valor objetivo.
                         playerValue = 0;
                         timeInRange = 0;
@@ -134,8 +133,7 @@ public class OvenMinigame : MonoBehaviour
         }
         else
         {
-            Debug.Log(IsReadyToStart());
-            if (!IsGameActive() && !hasStartedMiniGame && Input.GetKeyDown(KeyCode.E) && IsReadyToStart())
+            if (!IsGameActive() && !hasStartedMiniGame && Input.GetKeyDown(KeyCode.E) && IsReadyToStart() && IsFoodAvailable())
             {
                 StartMiniGame();
             }
@@ -155,7 +153,6 @@ public class OvenMinigame : MonoBehaviour
     {
         // Seleccionar un nuevo valor objetivo entre 31 y 220.
         targetValue = Random.Range(31, 221);
-        Debug.Log("Nuevo valor objetivo: " + targetValue);
     }
 
     void SetChildrenActive(GameObject parent, bool state)
