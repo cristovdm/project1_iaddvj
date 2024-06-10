@@ -385,6 +385,10 @@ void HandleKeyPressWash(int keyIndex, bool endSequence)
                 case "Rotten Tomato":
                     cleanedItem = ResourceManager.LoadResource<EdibleItemSO>("Tomato");
                     return true;
+
+                case "RottenEgg":
+                    cleanedItem = ResourceManager.LoadResource<EdibleItemSO>("Egg");
+                    return true;
             }
             return false;
         }

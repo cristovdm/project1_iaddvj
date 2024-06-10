@@ -5977,7 +5977,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6847898530814734803, guid: 47889e85f60540e4a972e510dc856b33, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6847898530814734803, guid: 47889e85f60540e4a972e510dc856b33, type: 3}
       propertyPath: m_AnchorMin.x
@@ -5985,15 +5985,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6847898530814734803, guid: 47889e85f60540e4a972e510dc856b33, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6847898530814734803, guid: 47889e85f60540e4a972e510dc856b33, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 100.8114
       objectReference: {fileID: 0}
     - target: {fileID: 6847898530814734803, guid: 47889e85f60540e4a972e510dc856b33, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 101.06119
       objectReference: {fileID: 0}
     - target: {fileID: 6847898530814734803, guid: 47889e85f60540e4a972e510dc856b33, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -6692,7 +6692,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audioSource: {fileID: 1135002185}
   pitchIncreaseAmount: 0.1
-  adjustInterval: 30
+  adjustInterval: 60
 --- !u!1 &1186117547
 GameObject:
   m_ObjectHideFlags: 0
@@ -8930,19 +8930,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6405848736239365262, guid: 04030031cd9a72847bfd75b67453cebb, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6405848736239365262, guid: 04030031cd9a72847bfd75b67453cebb, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6405848736239365262, guid: 04030031cd9a72847bfd75b67453cebb, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 140.8987
       objectReference: {fileID: 0}
     - target: {fileID: 6405848736239365262, guid: 04030031cd9a72847bfd75b67453cebb, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 76.777
       objectReference: {fileID: 0}
     - target: {fileID: 6913483177266869942, guid: 04030031cd9a72847bfd75b67453cebb, type: 3}
       propertyPath: m_AnchorMax.y
@@ -9822,7 +9822,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0867a266ac62c884ba762ed8bef866c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  countdownTime: 120
+  countdownTime: 180
   timerText: {fileID: 1728081789}
   player: {fileID: 8667536452772664775}
   audioSource: {fileID: 1135002185}
@@ -12757,19 +12757,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6405848736239365262, guid: 04030031cd9a72847bfd75b67453cebb, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6405848736239365262, guid: 04030031cd9a72847bfd75b67453cebb, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6405848736239365262, guid: 04030031cd9a72847bfd75b67453cebb, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 413.4073
       objectReference: {fileID: 0}
     - target: {fileID: 6405848736239365262, guid: 04030031cd9a72847bfd75b67453cebb, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 352.00168
       objectReference: {fileID: 0}
     - target: {fileID: 6913483177266869942, guid: 04030031cd9a72847bfd75b67453cebb, type: 3}
       propertyPath: m_AnchorMax.y

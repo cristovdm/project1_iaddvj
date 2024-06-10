@@ -181,14 +181,6 @@ public class FryerMinigame : MonoBehaviour
         StartGame();
     }
 
-    void OnGUI()
-    {
-        GUI.Label(new Rect(10, 10, 300, 20), "Tiempo Objetivo: " + targetTime.ToString("F2") + " segundos");
-        GUI.Label(new Rect(10, 30, 300, 20), "Tiempo Transcurrido: " + elapsedTime.ToString("F2") + " segundos");
-        GUI.Label(new Rect(10, 50, 300, 20), "Presionando Tecla: " + isPressingKey);
-        GUI.Label(new Rect(10, 70, 300, 20), "Juego Iniciado: " + gameStarted);
-    }
-
     public void StartMiniGame()
     {
         
