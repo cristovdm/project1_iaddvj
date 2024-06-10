@@ -42,12 +42,49 @@ public class DeliverFood : MonoBehaviour
             switch (currentDelivery)
             {
                 case "Tomato Soup":
-                    Debug.Log("tomato sop");
                     RenderSprite("TomatoSoupCloud");
                     return;
                 case "Corn Soup":
-                    Debug.Log("corn sop");
                     RenderSprite("CornSoupCloud");
+                    return;
+                case "CarrotCake":
+                    RenderSprite("CarrotCakeCloud");
+                    return;
+                case "CazuelaMarina":
+                    RenderSprite("CazuelaMarinaCloud");
+                    return;
+                case "HuevoDuro":
+                    RenderSprite("huevoduroCloud");
+                    return;
+                case "FriedEgg":
+                    RenderSprite("HuevofritoCloud");
+                    return;
+                case "PescadoCaldero":
+                    RenderSprite("PescadoCalderoCloud");
+                    return;
+                case "FriedFish":
+                    RenderSprite("pescadofritoCloud");
+                    return;
+                case "FriedFishAndEgg":
+                    RenderSprite("pescadofritoeggCloud");
+                    return;
+                case "PescadoHorno":
+                    RenderSprite("pescadoHornoCloud");
+                    return;
+                case "PopCorn":
+                    RenderSprite("popcornCloud");
+                    return;
+                case "Salad":
+                    RenderSprite("saladCloud");
+                    return;
+                case "SandwichDePescado":
+                    RenderSprite("sandwichPescadoCloud");
+                    return;
+                case "SopaTomateCrotones":
+                    RenderSprite("sopaTomateCrotonesCloud");
+                    return;
+                case "SopaZanahoria":
+                    RenderSprite("sopaZanahoriaCloud");
                     return;
             }
         }
@@ -123,8 +160,46 @@ public class DeliverFood : MonoBehaviour
                     textboxAnimator.ShowTextbox("$25");
 
                     return true;
-
                 case "Corn Soup":
+                    textboxAnimator.ShowTextbox("$25");
+                    return true;
+                case "CarrotCake":
+                    textboxAnimator.ShowTextbox("$25");
+                    return true;
+                case "CazuelaMarina":
+                    textboxAnimator.ShowTextbox("$25");
+                    return true;
+                case "HuevoDuro":
+                    textboxAnimator.ShowTextbox("$25");
+                    return true;
+                case "FriedEgg":
+                    textboxAnimator.ShowTextbox("$25");
+                    return true;
+                case "PescadoCaldero":
+                    textboxAnimator.ShowTextbox("$25");
+                    return true;
+                case "FriedFish":
+                    textboxAnimator.ShowTextbox("$25");
+                    return true;
+                case "FriedFishAndEgg":
+                    textboxAnimator.ShowTextbox("$25");
+                    return true;
+                case "PescadoHorno":
+                    textboxAnimator.ShowTextbox("$25");
+                    return true;
+                case "PopCorn":
+                    textboxAnimator.ShowTextbox("$25");
+                    return true;
+                case "Salad":
+                    textboxAnimator.ShowTextbox("$25");
+                    return true;
+                case "SandwichDePescado":
+                    textboxAnimator.ShowTextbox("$25");
+                    return true;
+                case "SopaTomateCrotones":
+                    textboxAnimator.ShowTextbox("$25");
+                    return true;
+                case "SopaZanahoria":
                     textboxAnimator.ShowTextbox("$25");
                     return true;
             }

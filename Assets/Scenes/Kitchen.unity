@@ -10451,6 +10451,17 @@ MonoBehaviour:
   stageDeliveriesList:
   - Tomato Soup
   - Corn Soup
+  - Popcorn
+  - Salad
+  - HuevoDuro
+  - CazuelaMarina
+  - CarrotCake
+  - FriedFishAndEgg
+  - PescadoCaldero
+  - PescadoHorno
+  - SandwichDePescado
+  - SopaTomateCrotones
+  - SopaZanahoria
   spriteRenderer: {fileID: 974418978}
 --- !u!1 &1817537433
 GameObject:
