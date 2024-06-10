@@ -5977,7 +5977,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6847898530814734803, guid: 47889e85f60540e4a972e510dc856b33, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6847898530814734803, guid: 47889e85f60540e4a972e510dc856b33, type: 3}
       propertyPath: m_AnchorMin.x
@@ -5985,15 +5985,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6847898530814734803, guid: 47889e85f60540e4a972e510dc856b33, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6847898530814734803, guid: 47889e85f60540e4a972e510dc856b33, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 100.8114
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6847898530814734803, guid: 47889e85f60540e4a972e510dc856b33, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 101.06119
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6847898530814734803, guid: 47889e85f60540e4a972e510dc856b33, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -13065,10 +13065,10 @@ MonoBehaviour:
     itemState: []
   PlateInitialItems:
   - quantity: 1
-    item: {fileID: 11400000, guid: 59b74cbba6182604a8b9d5b4d2397376, type: 2}
+    item: {fileID: 11400000, guid: 5eb70b646e96c3a409c6579139366f0e, type: 2}
     itemState: []
   - quantity: 1
-    item: {fileID: 11400000, guid: bbf96c271ac747f4fb05079bd786bb42, type: 2}
+    item: {fileID: 11400000, guid: 476d5fc98e021984ca0dfd1d35f72ed7, type: 2}
     itemState: []
   dropClip: {fileID: 8300000, guid: 1697ef6def83a8b459b3b425f75a3bb4, type: 3}
   audioSource: {fileID: 8667536452772664776}
