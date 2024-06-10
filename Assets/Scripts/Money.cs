@@ -7,7 +7,8 @@ public class Money : MonoBehaviour
 
     [SerializeField] private TextMeshProUGUI moneyText;
     private int currentMoney = 0;
-    private const string MoneyKey = "CurrentMoney";  // Clave para PlayerPrefs
+    private const string MoneyKey = "CurrentMoney";  
+    public TextMeshProUGUI moneyDisplay;
 
     void Awake()
     {
@@ -26,6 +27,7 @@ public class Money : MonoBehaviour
     void Start()
     {
         UpdateMoneyUI();
+        UpdateMoneyUI2();
     }
 
     public void AddMoney(int amount)
@@ -38,6 +40,7 @@ public class Money : MonoBehaviour
         currentMoney += amount;
         SaveMoney();
         UpdateMoneyUI();
+        UpdateMoneyUI2();
     }
 
     public void SubtractMoney(int amount)
@@ -55,6 +58,7 @@ public class Money : MonoBehaviour
         currentMoney -= amount;
         SaveMoney();
         UpdateMoneyUI();
+        UpdateMoneyUI2();
     }
 
     public int GetCurrentMoney()
@@ -78,6 +82,7 @@ public class Money : MonoBehaviour
     {
         moneyText = text;
         UpdateMoneyUI();
+        UpdateMoneyUI2();
     }
 
     private void SaveMoney()
@@ -88,6 +93,19 @@ public class Money : MonoBehaviour
 
     private void LoadMoney()
     {
-        currentMoney = PlayerPrefs.GetInt(MoneyKey, 0);  // Carga el dinero guardado o 0 si no existe
+        currentMoney = PlayerPrefs.GetInt(MoneyKey, 0);  
+    }
+
+    private void UpdateMoneyUI2()
+    {
+        if (moneyDisplay != null)
+        {
+            moneyDisplay.text = $"{currentMoney}";
+            moneyDisplay.text = $"Money: ${currentMoney}"; 
+        }
+        else
+        {
+            Debug.LogWarning("TextMeshProUGUI component is not assigned.");
+        }
     }
 }
