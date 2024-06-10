@@ -155,6 +155,7 @@ public class OvenMinigame : MonoBehaviour
         targetValue = Random.Range(31, 221);
     }
 
+
     void SetChildrenActive(GameObject parent, bool state)
     {
         foreach (Transform child in parent.transform)
