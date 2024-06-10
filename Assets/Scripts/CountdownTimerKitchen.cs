@@ -1,11 +1,12 @@
-using UnityEngine;
+﻿using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
+using System.Collections; // Importa el espacio de nombres para usar Coroutine
 
 public class CountdownTimerKitchen : MonoBehaviour
 {
     [SerializeField]
-    private float countdownTime = 60f;
+    private float countdownTime = 120f;
 
     [SerializeField]
     private TextMeshProUGUI timerText;
@@ -24,6 +25,7 @@ public class CountdownTimerKitchen : MonoBehaviour
     {
         currentTime = countdownTime;
 
+        // Obt�n el componente PlayerMovement del jugador
         playerMovementScript = player.GetComponent<PlayerMovement>();
 
         if (audioSource == null)
@@ -42,31 +44,40 @@ public class CountdownTimerKitchen : MonoBehaviour
             {
                 currentTime = 0;
                 timeUp = true;
-                timerText.text = "TIMES UP! Press E to continue";
+                timerText.text = "TIMES UP!";
 
+                // Pausa el juego
+                Time.timeScale = 0;
+
+                // Desactiva el script de movimiento del jugador
                 if (playerMovementScript != null)
                 {
                     playerMovementScript.enabled = false;
                 }
 
+                // Silencia el audio si est� asignado
                 if (audioSource != null)
                 {
                     audioSource.volume = 0;
                 }
+
+                // Inicia la rutina para cambiar la escena despu�s de 3 segundos
+                StartCoroutine(ChangeSceneAfterDelay(0.5f));
             }
             else
             {
+                // Actualiza el texto del temporizador
                 int minutes = Mathf.FloorToInt(currentTime / 60F);
                 int seconds = Mathf.FloorToInt(currentTime % 60F);
                 timerText.text = string.Format("{0:0}:{1:00}", minutes, seconds);
             }
         }
-        else
-        {
-            if (Input.GetKeyDown(KeyCode.E))
-            {
-                SceneManager.LoadScene("Maze");
-            }
-        }
+    }
+
+    private IEnumerator ChangeSceneAfterDelay(float delay)
+    {
+        yield return new WaitForSecondsRealtime(delay);
+        SceneManager.LoadScene("Maze");
+        Time.timeScale = 1;
     }
 }
