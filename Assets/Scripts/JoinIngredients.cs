@@ -1,29 +1,26 @@
 using Inventory.Model;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.EventSystems;
 using System.Collections.Generic;
+using TMPro;
 
 public class JoinIngredients : MonoBehaviour
 {
     [SerializeField] private InventorySO plateinventoryData;
     private bool isJoinable = false;
     [SerializeField] private Button joinButton;
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip joinSound;
+    [SerializeField] private TMP_Text joinButtonText;
 
     void Start()
     {
-        CheckIfJoinable();
+        CheckIfJoinable(); 
     }
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            if (EventSystem.current.IsPointerOverGameObject())
-            {
-                OnButtonPress();
-            }
-        }
+        CheckIfJoinable(); 
     }
 
     void CheckIfJoinable()
@@ -36,42 +33,50 @@ public class JoinIngredients : MonoBehaviour
             string combinedItemName = GetCombinedItemName(item_1.item.name, item_2.item.name);
             isJoinable = !string.IsNullOrEmpty(combinedItemName);
         }
+        else
+        {
+            isJoinable = false;
+        }
 
         joinButton.interactable = isJoinable;
-    }
-
-    public void OnButtonPress()
-    {
-        if (isJoinable)
-        {
-            joinIngredients();
+        if (isJoinable){
+            joinButtonText.text = "Join Now!"; 
+        }
+        else{
+            joinButtonText.text = "Not Joinable";
         }
     }
 
-    void joinIngredients()
+    public void Join()
     {
-        InventoryItem item_1 = plateinventoryData.GetItemAt(0);
-        InventoryItem item_2 = plateinventoryData.GetItemAt(1);
-
-        string combinedItemName = GetCombinedItemName(item_1.item.name, item_2.item.name);
-
-        if (!string.IsNullOrEmpty(combinedItemName))
+        if (plateinventoryData.IsInventoryFull())
         {
-            plateinventoryData.RemoveItem(0, 1);
-            plateinventoryData.RemoveItem(1, 1);
+            InventoryItem item_1 = plateinventoryData.GetItemAt(0);
+            InventoryItem item_2 = plateinventoryData.GetItemAt(1);
 
-            ItemSO joinedItem = ResourceManager.LoadResource<EdibleItemSO>(combinedItemName);
-            InventoryItem newItem = new InventoryItem
+            string combinedItemName = GetCombinedItemName(item_1.item.name, item_2.item.name);
+
+            if (!string.IsNullOrEmpty(combinedItemName))
             {
-                item = joinedItem,
-                quantity = 1,
-                itemState = new List<ItemParameter>()
-            };
+                plateinventoryData.RemoveItem(0, 1);
+                plateinventoryData.RemoveItem(1, 1);
 
-            plateinventoryData.AddItem(newItem);
+                ItemSO joinedItem = ResourceManager.LoadResource<EdibleItemSO>(combinedItemName);
+                InventoryItem newItem = new InventoryItem
+                {
+                    item = joinedItem,
+                    quantity = 1,
+                    itemState = new List<ItemParameter>()
+                };
+
+                audioSource.PlayOneShot(joinSound);
+             
+
+                plateinventoryData.AddItem(newItem);
+            }
+
+            joinButton.interactable = false;
         }
-
-        joinButton.interactable = false;
     }
 
     string GetCombinedItemName(string item1, string item2)

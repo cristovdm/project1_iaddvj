@@ -50,6 +50,8 @@ namespace Inventory
 
         private int lastDraggedIndex = 0; 
 
+        [SerializeField] private JoinIngredients joinIngredients;
+
         private void Start()
         {
             PrepareUI();
@@ -70,9 +72,6 @@ namespace Inventory
 
 
         }
-
-
-
 
         private void PrepareInventoryData()
         {
@@ -396,6 +395,7 @@ private void HandleSwapItems(int itemIndex_1, int itemIndex_2)
         }
         else if (name == "PlateInventory")
         {
+
             if (playerInventoryFilled)
             {
                 InventoryItem plateItem = inventoryData.GetItemAt(0);
@@ -503,7 +503,8 @@ private void HandleTrashSwapItems(int itemIndex_1, int itemIndex_2)
 
             if (plateinventoryData.SwapItems(itemIndex_1, itemIndex_2))
             {
-                // Acciones si se intercambian los items
+                joinIngredients.Join(); 
+                
             }
             else
             {
