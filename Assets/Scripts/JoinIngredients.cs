@@ -12,6 +12,8 @@ public class JoinIngredients : MonoBehaviour
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip joinSound;
     [SerializeField] private TMP_Text joinButtonText;
+    [SerializeField] private Image isMixable;
+
 
     void Start()
     {
@@ -21,6 +23,7 @@ public class JoinIngredients : MonoBehaviour
     void Update()
     {
         CheckIfJoinable(); 
+        isMixable.enabled = isJoinable; 
     }
 
     void CheckIfJoinable()
@@ -38,12 +41,11 @@ public class JoinIngredients : MonoBehaviour
             isJoinable = false;
         }
 
-        joinButton.interactable = isJoinable;
         if (isJoinable){
-            joinButtonText.text = "Join Now!"; 
+            joinButtonText.text = "Mix!"; 
         }
         else{
-            joinButtonText.text = "Not Joinable";
+            joinButtonText.text = ""; 
         }
     }
 
@@ -58,6 +60,7 @@ public class JoinIngredients : MonoBehaviour
 
             if (!string.IsNullOrEmpty(combinedItemName))
             {
+                audioSource.PlayOneShot(joinSound);
                 plateinventoryData.RemoveItem(0, 1);
                 plateinventoryData.RemoveItem(1, 1);
 
@@ -68,8 +71,6 @@ public class JoinIngredients : MonoBehaviour
                     quantity = 1,
                     itemState = new List<ItemParameter>()
                 };
-
-                audioSource.PlayOneShot(joinSound);
              
 
                 plateinventoryData.AddItem(newItem);
