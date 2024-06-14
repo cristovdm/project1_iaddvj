@@ -13199,6 +13199,7 @@ MonoBehaviour:
   joinIngredients: {fileID: 1028176381}
   inventoryItem: {fileID: 1179637938380177040, guid: d90df31e5a4f50d41a6fc1541740c472, type: 3}
   selectedIndex: 0
+  swapping: 0
 --- !u!4 &8667536452772664783 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3670795837735245664, guid: 03e5cab9626f2a6469364b5966c45cfa, type: 3}
