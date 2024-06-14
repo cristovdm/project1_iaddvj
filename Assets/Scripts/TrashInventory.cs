@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 
 public class TrashInventory : MonoBehaviour
@@ -11,6 +10,12 @@ public class TrashInventory : MonoBehaviour
     public GameObject ParentObject;
     bool currentState = false;
     public PlayerMovement playerMovement;
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip openSound;
+
+    private float originalMovementSpeed;
+    private float originalSpeedX;
+    private float originalSpeedY;
 
     void Start()
     {
@@ -18,6 +23,12 @@ public class TrashInventory : MonoBehaviour
         if (interactionArea == null)
         {
             interactionArea = GetComponent<BoxCollider2D>();
+        }
+        if (playerMovement != null)
+        {
+            originalMovementSpeed = playerMovement.movementSpeed;
+            originalSpeedX = playerMovement.speedX;
+            originalSpeedY = playerMovement.speedY;
         }
     }
 
@@ -34,12 +45,29 @@ public class TrashInventory : MonoBehaviour
             currentState = false;
             ToggleInventory();
         }
-        playerMovement.enabled = !currentState;
+        if (playerMovement != null)
+        {
+            if (currentState)
+            {
+                playerMovement.movementSpeed = 0f;
+                playerMovement.speedX = 0f;
+                playerMovement.speedY = 0f;
+            }
+            else
+            {
+                playerMovement.movementSpeed = originalMovementSpeed;
+                playerMovement.speedX = originalSpeedX;
+                playerMovement.speedY = originalSpeedY;
+            }
+        }
     }
 
     void ToggleInventory()
     {
         SetChildrenActive(ParentObject, currentState);
+        if (currentState){
+            audioSource.PlayOneShot(openSound);
+        }
     }
 
     private bool IsPlayerInInteractionArea()
@@ -68,6 +96,4 @@ public class TrashInventory : MonoBehaviour
             child.gameObject.SetActive(state);
         }
     }
-
-    
 }

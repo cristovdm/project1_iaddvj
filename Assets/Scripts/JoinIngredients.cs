@@ -55,7 +55,7 @@ public class JoinIngredients : MonoBehaviour
         {
             InventoryItem item_1 = plateinventoryData.GetItemAt(0);
             InventoryItem item_2 = plateinventoryData.GetItemAt(1);
-
+    
             string combinedItemName = GetCombinedItemName(item_1.item.name, item_2.item.name);
 
             if (!string.IsNullOrEmpty(combinedItemName))

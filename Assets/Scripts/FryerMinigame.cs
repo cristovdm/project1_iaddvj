@@ -26,7 +26,7 @@ public class FryerMinigame : MonoBehaviour
     private bool isPressingKey;
     private bool gameStarted;
     private bool spriteActive;
-    private bool additionalSpriteActive;   // Indica si el sprite adicional está activo
+    private bool additionalSpriteActive;   // Indica si el sprite adicional estï¿½ activo
     private const float marginOfError = 0.5f;  // Margen de error de 0.5 segundos
 
     
@@ -42,7 +42,7 @@ public class FryerMinigame : MonoBehaviour
     {
         inventory = FindObjectOfType<InventoryController>();
         SetChildrenActive(ParentObject, false);
-        audioSource = gameObject.AddComponent<AudioSource>(); // Añadir AudioSource al objeto actual
+        audioSource = gameObject.AddComponent<AudioSource>(); // Aï¿½adir AudioSource al objeto actual
 
     }
 
@@ -141,7 +141,7 @@ public class FryerMinigame : MonoBehaviour
         isPressingKey = false;
         gameStarted = true;
         spriteActive = false;
-        additionalSpriteActive = true; // Inicialmente el sprite adicional está activo
+        additionalSpriteActive = true; // Inicialmente el sprite adicional estï¿½ activo
 
         feedbackText.gameObject.SetActive(true); // Activar el texto al reiniciar el juego
         feedbackText.text = "Maintain the button until it's ready.";

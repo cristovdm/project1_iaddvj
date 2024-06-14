@@ -46,6 +46,8 @@ namespace Inventory
         [SerializeField]
         private AudioSource audioSource;
 
+        [SerializeField] private AudioClip errorSound;
+
         private string name;
 
         private int lastDraggedIndex = 0; 
@@ -57,6 +59,8 @@ namespace Inventory
         public int selectedIndex = 0; 
 
         public bool swapping = false; 
+
+        private string plateItemDragged; 
 
         private void Start()
         {
@@ -71,8 +75,8 @@ namespace Inventory
                     TrashInitialItems.Add(new InventoryItem { item = item.Value.item, quantity = item.Value.quantity });
                     
                 }
-                inventoryUI.Show();
             }
+            inventoryUI.Show();
             PrepareInventoryData(); 
             PrepareTrashInventoryData(); 
 
@@ -348,6 +352,7 @@ namespace Inventory
             if (sceneName != "Kitchen") return;
 
             InventoryItem inventoryItem = plateinventoryData.GetItemAt(itemIndex);
+            plateItemDragged = inventoryItem.item.name; 
             if (inventoryItem.IsEmpty)
                 return;
             plateinventoryUI.CreateDraggedItem(inventoryItem.item.ItemImage, inventoryItem.quantity, itemIndex, plateinventoryData.name);
@@ -391,6 +396,7 @@ namespace Inventory
                         else
                         {
                             Debug.Log("El basurero está lleno, vacía tu inventario primero.");
+                            audioSource.PlayOneShot(errorSound);
                         }
                     }
                     else
@@ -432,6 +438,7 @@ namespace Inventory
                         else
                         {
                             Debug.Log("El plato está lleno, vacía tu inventario primero.");
+                            audioSource.PlayOneShot(errorSound);
                         }
                     }
                     else
@@ -469,8 +476,12 @@ namespace Inventory
 
             if (plateinventoryData.SwapItems(itemIndex_1, itemIndex_2))
             {
-                joinIngredients.Join(); 
-                
+                if (plateinventoryData.IsInventoryFull()){
+                    InventoryItem plateDragged = plateinventoryData.GetItemAt(lastDraggedIndex);
+                    if (plateDragged.item.name != plateItemDragged){
+                        joinIngredients.Join();
+                    } 
+                }
             }
             else
             {
@@ -561,6 +572,8 @@ namespace Inventory
 
         public void Update()
         {
+            // Abrir el inventario manualmente (este código lo habilita solo en el maze)
+            /*
             string sceneName = SceneManager.GetActiveScene().name;
             if (sceneName != "Kitchen"){
                 if (Input.GetKeyDown(KeyCode.I))
@@ -579,6 +592,7 @@ namespace Inventory
                     }
                 }
             }
+            */
         }
 
         public void Testing(int itemIndex, string inventoryName)
@@ -591,12 +605,12 @@ namespace Inventory
         {
             if (!swapping)
                 return;
-                
 
             if (plateinventoryData.IsInventoryFull() && playerInventoryFilled)
             {
                 InventoryItem forInventory = inventoryData.GetItemAt(0);
                 InventoryItem forPlayer = plateinventoryData.GetItemAt(newIndex);
+
 
                 if (forInventory.quantity == 1 && forPlayer.quantity == 1)
                 {
@@ -630,18 +644,16 @@ namespace Inventory
                     if (!itemFound)
                     {
                         Debug.Log("El plato está lleno, no puedes vaciar tu inventario acá!");
+                        audioSource.PlayOneShot(errorSound);
                     }
                 }
             }
-            else
-            {
-                if (playerInventoryFilled){
-                    InventoryItem plateItem = inventoryData.GetItemAt(0);
-                    plateItem.quantity = 1;
-                    plateinventoryData.AddItem(plateItem);
-                    DropItem(0, 1);
-                    playerInventoryFilled = false;
-                }
+            if (!plateinventoryData.IsInventoryFull()){
+                InventoryItem plateItem = inventoryData.GetItemAt(0);
+                plateItem.quantity = 1;
+                plateinventoryData.AddItem(plateItem);
+                DropItem(0, 1);
+                playerInventoryFilled = false;
             }
             swapping = false;
         }
@@ -686,18 +698,18 @@ namespace Inventory
                     if (!itemFound)
                     {
                         Debug.Log("El basurero está lleno, no puedes vaciar tu inventario acá!");
+                        audioSource.PlayOneShot(errorSound);
                     }
                 }
             }
-            else
-            {
-                if (playerInventoryFilled){
+            
+            if (!trashinventoryData.IsInventoryFull())
+                {
                     InventoryItem trashItem = inventoryData.GetItemAt(0);
                     trashinventoryData.AddItem(trashItem);
                     DropItem(0, 1);
                     playerInventoryFilled = false;
                 }
-            }
             swapping = false; 
         }
 

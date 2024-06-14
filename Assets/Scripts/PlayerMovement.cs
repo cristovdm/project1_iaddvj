@@ -7,7 +7,7 @@ public class PlayerMovement : MonoBehaviour
 {
     public float movementSpeed;
     public float slideForce = 1f;
-    float speedX, speedY;
+    public float speedX, speedY;
     Vector2 lastMovement;
     Rigidbody2D rb;
     SpriteRenderer spriteRenderer;

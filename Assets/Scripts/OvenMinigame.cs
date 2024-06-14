@@ -28,9 +28,9 @@ public class OvenMinigame : MonoBehaviour
     private int targetValue;    // Valor objetivo seleccionado aleatoriamente.
     private float playerValue;  // Valor actual del jugador.
     private int iteration;      // Contador de iteraciones completadas.
-    private int totalIterations = 3;  // Número total de iteraciones necesarias para ganar.
+    private int totalIterations = 3;  // Nï¿½mero total de iteraciones necesarias para ganar.
     private float timeInRange;  // Tiempo que el jugador ha permanecido dentro del rango.
-    private float requiredTimeInRange = 0.5f;  // Tiempo necesario dentro del rango para completar una iteración.
+    private float requiredTimeInRange = 0.5f;  // Tiempo necesario dentro del rango para completar una iteraciï¿½n.
     private float maxScale = 500f;
 
     private bool isCooldown = false;
@@ -77,8 +77,8 @@ public class OvenMinigame : MonoBehaviour
         }
         if (gameActive && !isPlayerLocked && !win)
         {
-            playerValueText.text = $"{(int)playerValue}°";
-            targetValueText.text = $"{targetValue}°";
+            playerValueText.text = $"{(int)playerValue}ï¿½";
+            targetValueText.text = $"{targetValue}ï¿½";
             // Obtener la entrada del jugador.
             if (Input.GetKey(KeyCode.LeftArrow))
             {
@@ -94,7 +94,7 @@ public class OvenMinigame : MonoBehaviour
             // Limitar el valor del jugador entre 0 y 220.
             playerValue = Mathf.Clamp(playerValue, 0, 220);
 
-            // Verificar si el valor del jugador está dentro del rango de -15 y +15 del valor objetivo.
+            // Verificar si el valor del jugador estï¿½ dentro del rango de -15 y +15 del valor objetivo.
             if (Mathf.Abs(playerValue - targetValue) <= 15)
             {
                 playerValueText.color = Color.green;
@@ -143,7 +143,7 @@ public class OvenMinigame : MonoBehaviour
 
     void UpdateFireSpriteSize()
     {
-        // Calcular el tamaño del sprite de fuego en función de la diferencia entre el valor del jugador y el valor objetivo.
+        // Calcular el tamaï¿½o del sprite de fuego en funciï¿½n de la diferencia entre el valor del jugador y el valor objetivo.
         float sizeFactor = Mathf.Clamp01(1 - Mathf.Abs(playerValue - targetValue) / 220f); // Normalizar la diferencia al rango [0, 1]
         float scale = sizeFactor * (500 - 100) + 100;
         fireSprite.localScale = new Vector3(scale, scale, 1.0f);
