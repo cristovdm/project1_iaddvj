@@ -3,7 +3,6 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using TMPro;
-using UnityEngine.SceneManagement;
 
 public class UIInventoryItem : MonoBehaviour, IPointerClickHandler,
         IBeginDragHandler, IEndDragHandler, IDropHandler, IDragHandler
@@ -12,11 +11,11 @@ public class UIInventoryItem : MonoBehaviour, IPointerClickHandler,
     [SerializeField] private TMP_Text quantityTxt;
     [SerializeField] private Image borderImage;
 
+    private int itemIndex; // Variable para almacenar el índice del item
+    private bool empty = true;
+
     public event Action<UIInventoryItem> OnItemClicked,
     OnItemDroppedOn, OnItemBeginDrag, OnItemEndDrag, OnRightMouseBtnClick;
-
-    private bool empty = true;
-    private bool hasReloaded = false;
 
     private void Awake()
     {
@@ -30,6 +29,7 @@ public class UIInventoryItem : MonoBehaviour, IPointerClickHandler,
         {
             itemImage.gameObject.SetActive(false);
             empty = true;
+            itemIndex = -1; // Inicializa itemIndex como un valor inválido
         }
     }
 
@@ -49,15 +49,21 @@ public class UIInventoryItem : MonoBehaviour, IPointerClickHandler,
         }
     }
 
-    public void SetData(Sprite sprite, int quantity)
+    public void SetData(Sprite sprite, int quantity, int itemIndex)
     {
         if (itemImage != null)
         {
             itemImage.gameObject.SetActive(true);
             itemImage.sprite = sprite;
             quantityTxt.text = quantity.ToString();
+            this.itemIndex = itemIndex; // Asigna el índice del item
             empty = false;
         }
+    }
+
+    public int GetItemIndex()
+    {
+        return itemIndex;
     }
 
     public void OnPointerClick(PointerEventData pointerData)

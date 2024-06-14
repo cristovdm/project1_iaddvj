@@ -8,6 +8,8 @@ namespace Inventory.UI
 {
     public class UIInventoryPage : MonoBehaviour
     {
+        public int itemSelected = -1; 
+        
         [SerializeField]
         private UIInventoryItem itemPrefab;
 
@@ -25,6 +27,8 @@ namespace Inventory.UI
         private MouseFollower mouseFollower;
 
         List<UIInventoryItem> listOfUIItems = new List<UIInventoryItem>();
+
+        public event Action<int> OnItemSelectedChanged;
 
         private int currentlyDraggedItemIndex = -1;
 
@@ -91,7 +95,7 @@ namespace Inventory.UI
         {
             if (listOfUIItems.Count > itemIndex)
             {
-                listOfUIItems[itemIndex].SetData(itemImage, itemQuantity);
+                listOfUIItems[itemIndex].SetData(itemImage, itemQuantity, itemIndex);
             }
         }
 
@@ -140,7 +144,7 @@ namespace Inventory.UI
         public void CreateDraggedItem(Sprite sprite, int quantity, int itemIndex, string inventoryName)
         {
             mouseFollower.Toggle(true);
-            mouseFollower.SetData(sprite, quantity);
+            mouseFollower.SetData(sprite, quantity, itemIndex);
             inventoryController.Testing(itemIndex, inventoryName); 
         }
 
@@ -150,6 +154,8 @@ namespace Inventory.UI
             if (index == -1)
                 return;
             OnDescriptionRequested?.Invoke(index);
+            itemSelected = index; 
+            OnItemSelectedChanged?.Invoke(itemSelected);
         }
 
         public void Show()
@@ -188,6 +194,10 @@ namespace Inventory.UI
             actionPanel.Toggle(false);
             gameObject.SetActive(false);
             ResetDraggedItem();
+        }
+
+        public int getItemSelected(){
+            return itemSelected; 
         }
     }
 }

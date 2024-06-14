@@ -76,7 +76,6 @@ public class JoinIngredients : MonoBehaviour
                 plateinventoryData.AddItem(newItem);
             }
 
-            joinButton.interactable = false;
         }
     }
 

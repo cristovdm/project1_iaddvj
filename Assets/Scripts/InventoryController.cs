@@ -52,6 +52,10 @@ namespace Inventory
 
         [SerializeField] private JoinIngredients joinIngredients;
 
+        [SerializeField] private UIInventoryItem inventoryItem;
+
+        public int selectedIndex = 0; 
+
         private void Start()
         {
             PrepareUI();
@@ -163,6 +167,7 @@ namespace Inventory
                 plateinventoryUI.OnSwapItems += HandlePlateSwapItems;
                 plateinventoryUI.OnStartDragging += HandlePlateDragging;
                 plateinventoryUI.OnItemActionRequested += HandlePlateItemActionRequest;
+                plateinventoryUI.OnItemSelectedChanged += HandleItemSelectedChanged;
             }
         }
 
@@ -353,6 +358,7 @@ private void HandleSwapItems(int itemIndex_1, int itemIndex_2)
     }
     else if (inventoryData.name == "PlayerInventory")
     {
+    
         if (name == "TrashInventory")
         {
             if (playerInventoryFilled)
@@ -395,7 +401,7 @@ private void HandleSwapItems(int itemIndex_1, int itemIndex_2)
         }
         else if (name == "PlateInventory")
         {
-
+        
             if (playerInventoryFilled)
             {
                 InventoryItem plateItem = inventoryData.GetItemAt(0);
@@ -498,6 +504,7 @@ private void HandleTrashSwapItems(int itemIndex_1, int itemIndex_2)
 
         private void HandlePlateSwapItems(int itemIndex_1, int itemIndex_2)
         {
+
             string sceneName = SceneManager.GetActiveScene().name;
             if (sceneName != "Kitchen") return;
 
@@ -510,6 +517,7 @@ private void HandleTrashSwapItems(int itemIndex_1, int itemIndex_2)
             {
                 if (plateinventoryData.IsInventoryFull())
                 {
+                    Debug.Log(selectedIndex); 
                     InventoryItem forInventory = inventoryData.GetItemAt(0);
                     InventoryItem forPlayer = plateinventoryData.GetItemAt(lastDraggedIndex);
                     if (forInventory.quantity == 1 && forPlayer.quantity == 1)
@@ -662,6 +670,12 @@ private void HandleTrashSwapItems(int itemIndex_1, int itemIndex_2)
         {
             name = inventoryName;
             lastDraggedIndex = itemIndex; 
+        }
+        
+        private void HandleItemSelectedChanged(int newIndex)
+        {
+            selectedIndex = newIndex; 
+            Debug.Log(selectedIndex); 
         }
     }
 }
