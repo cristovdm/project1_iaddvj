@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class Crate : MonoBehaviour
 {
@@ -18,6 +19,9 @@ public class Crate : MonoBehaviour
 
     [SerializeField]
     private AudioClip crateDestroy;
+
+    [SerializeField]
+    private List<GameObject> dropPrefabs; // Lista de prefabs a soltar al destruirse
 
     private Vector3 originalPosition;
     private bool isShaking = false;
@@ -110,6 +114,14 @@ public class Crate : MonoBehaviour
         PlayDestroySound();
 
         yield return new WaitForSeconds(0.3f);
+
+        float randomValue = Random.Range(0f, 1f);
+        if (randomValue > 0.8f && dropPrefabs.Count > 0)
+        {
+            int randomIndex = Random.Range(0, dropPrefabs.Count);
+            GameObject prefabToDrop = dropPrefabs[randomIndex];
+            Instantiate(prefabToDrop, transform.position, Quaternion.identity);
+        }
 
         Debug.Log("Crate destroyed!");
         Destroy(gameObject);

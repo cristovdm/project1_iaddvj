@@ -195,6 +195,16 @@ MonoBehaviour:
   audioSource: {fileID: 5203780574531477231}
   hitSound: {fileID: 8300000, guid: cb6910a1f97326a40ab3bda472e666a5, type: 3}
   crateDestroy: {fileID: 8300000, guid: 426736b6b3b53af44af81815dc558b71, type: 3}
+  dropPrefabs:
+  - {fileID: 4270109546922852804, guid: 4af18559e47752544b7d4bbc9e54a565, type: 3}
+  - {fileID: 4270109546922852804, guid: 2e682f9ee0261d14ebafdf9164351cbe, type: 3}
+  - {fileID: 2946607959516970911, guid: 81b07f2331181ee4eafa9ea1eb0fe926, type: 3}
+  - {fileID: 2405825382221192402, guid: ffe9a1ac58686d7478838944fd565338, type: 3}
+  - {fileID: 9029720798679298480, guid: a3bea15a84f53cb46a6f3cd7324b2e73, type: 3}
+  - {fileID: 4270109546922852804, guid: 74de9bc324fc3c84290a4ce714fd1742, type: 3}
+  - {fileID: 4270109546922852804, guid: 6598e4075126452459c6a5728672e5e8, type: 3}
+  - {fileID: 9016638522957398648, guid: f4a4227e44c05474bb375f1c322810e0, type: 3}
+  - {fileID: 7910262673314066495, guid: 0501e6e4fdc93f14281eef2e68549969, type: 3}
 --- !u!82 &5203780574531477231
 AudioSource:
   m_ObjectHideFlags: 0
