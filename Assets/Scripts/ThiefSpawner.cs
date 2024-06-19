@@ -6,7 +6,7 @@ public class ThiefSpawner : MonoBehaviour
 {
     public GameObject thiefPrefab;
     public Vector2 spawnPosition = new Vector2(-31.6f, -18.38f);
-    public float minRespawnTime = 40f;
+    public float minRespawnTime = 60f;
     public float maxRespawnTime = 150f;
 
     private GameObject currentThief;

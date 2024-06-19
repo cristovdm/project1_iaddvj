@@ -1372,8 +1372,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   thiefPrefab: {fileID: 3526782886413072230, guid: c32f436c862a07747bafa6578f8553e6, type: 3}
   spawnPosition: {x: -31.6, y: -18.38}
-  minRespawnTime: 20
-  maxRespawnTime: 60
+  minRespawnTime: 60
+  maxRespawnTime: 150
 --- !u!1 &277398671 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8476474036604118177, guid: da0b4b6d07d817a46a92e013dd647b9b, type: 3}
