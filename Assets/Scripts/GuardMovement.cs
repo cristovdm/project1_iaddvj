@@ -6,10 +6,12 @@ using System.Linq;
 public class GuardMovement : MonoBehaviour
 {
     public float movementSpeed = 2f;
-    [SerializeField] private float destructionRange = 10.0f; // Rango de destrucci�n ajustable
+    [SerializeField] private float destructionRange = 10.0f; // Adjustable destruction range
     private Vector2 movementDirection;
     private Rigidbody2D rb;
     private GameObject canvasChangeScene;
+    private Animator animator; // Reference to Animator
+    private bool isMoving; // Boolean to track movement
 
     void OnEnable()
     {
@@ -26,17 +28,25 @@ public class GuardMovement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         rb.freezeRotation = true;
+        animator = GetComponent<Animator>(); // Initialize the Animator
         StartCoroutine(ChangeDirectionRoutine());
     }
 
     void Update()
     {
         Move();
+        UpdateAnimator();
     }
 
     void Move()
     {
         rb.velocity = movementDirection * movementSpeed;
+    }
+
+    void UpdateAnimator()
+    {
+        isMoving = rb.velocity != Vector2.zero;
+        animator.SetBool("isMoving", true);
     }
 
     IEnumerator ChangeDirectionRoutine()
@@ -69,7 +79,7 @@ public class GuardMovement : MonoBehaviour
         {
             if (canvasChangeScene != null)
             {
-                canvasChangeScene.SetActive(true); 
+                canvasChangeScene.SetActive(true);
             }
             else
             {
@@ -99,11 +109,10 @@ public class GuardMovement : MonoBehaviour
         }
     }
 
-    // Mostrar el rango de destrucci�n en el editor
+    // Show the destruction range in the editor
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, destructionRange);
     }
-
 }

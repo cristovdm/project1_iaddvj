@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 7191699091954684139}
   - component: {fileID: 4464305304688102633}
   - component: {fileID: 2121194083333183369}
+  - component: {fileID: 4074259646995146326}
   m_Layer: 8
   m_Name: Guardian
   m_TagString: Untagged
@@ -214,3 +215,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementSpeed: 10
   destructionRange: 10
+--- !u!95 &4074259646995146326
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9107312188926953761}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 85545da9cf0338d4296b00ee0faa2049, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
