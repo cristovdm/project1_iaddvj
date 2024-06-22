@@ -2,6 +2,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
 using System.Collections; // Importa el espacio de nombres para usar Coroutine
+using System.Linq;
 
 public class CountdownTimer : MonoBehaviour
 {
@@ -21,7 +22,12 @@ public class CountdownTimer : MonoBehaviour
     private bool timeUp = false;
     private PlayerMovement playerMovementScript;
 
-    public Canvas canvasChangeScene;
+    private GameObject canvasChangeScene;
+
+    void OnEnable()
+    {
+        canvasChangeScene = Resources.FindObjectsOfTypeAll<GameObject>().FirstOrDefault(g => g.name == "CanvasChangeScene");
+    }
 
     void Start()
     {
