@@ -31,6 +31,7 @@ public class Money : MonoBehaviour
     {
         UpdateMoneyUI();
         UpdateMoneyUI2();
+        UpdateDebtUI();
     }
 
     public void AddMoney(int amount)
@@ -119,7 +120,7 @@ public class Money : MonoBehaviour
     {
         if (debtText != null)
         {
-            debtText.text = $"Debt: {debt}";
+            debtText.text = $"Debt: ${debt}";
         }
         else
         {
