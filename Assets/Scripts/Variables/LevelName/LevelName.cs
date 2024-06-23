@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class Level : MonoBehaviour
 {
@@ -47,6 +48,13 @@ public class Level : MonoBehaviour
                 break;
             case "2-2":
                 currentLevel = "Level 2-2";
+                break;
+            case "3-1":
+                currentLevel = "Level 3-1";
+                break;
+            case "3-2":
+                // Game Over
+                SceneManager.LoadScene("Game Over");
                 break;
             default:
                 Debug.LogWarning($"Unknown level key: {levelKey}");
