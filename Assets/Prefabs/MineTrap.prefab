@@ -76,7 +76,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1993836259
-  m_SortingLayer: 4
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: eabf10f97f4980149b3a9373289fa508, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -214,6 +214,9 @@ MonoBehaviour:
   explosionSound: {fileID: 8300000, guid: d1d84b4db618cc24184ef7f4db2bfd1f, type: 3}
   beepSound: {fileID: 8300000, guid: 46cebd8592ec9f44e8ba5c0b48442d66, type: 3}
   animator: {fileID: 8963636667588272971}
+  proximityThreshold: 2
+  checkInterval: 0.5
+  explosionRadius: 2
 --- !u!82 &386478285171057388
 AudioSource:
   m_ObjectHideFlags: 0

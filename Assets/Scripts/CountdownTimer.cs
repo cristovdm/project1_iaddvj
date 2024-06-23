@@ -85,7 +85,16 @@ public class CountdownTimer : MonoBehaviour
     private IEnumerator ChangeSceneAfterDelay(float delay)
     {
         yield return new WaitForSecondsRealtime(delay); // Espera en tiempo real, no afectado por Time.timeScale
-        canvasChangeScene.gameObject.SetActive(true);
+        Money moneyComponent = canvasChangeScene.GetComponent<Money>();
+        if (moneyComponent != null)
+        {
+            moneyComponent.UpdateAllUI();
+            canvasChangeScene.SetActive(true);
+        }
+        else
+        {
+            Debug.LogError("Money component not found on the GameObject.");
+        }
         Time.timeScale = 1; // Restablece el tiempo para la nueva escena
     }
 }

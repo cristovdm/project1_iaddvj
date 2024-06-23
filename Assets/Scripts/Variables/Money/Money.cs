@@ -19,19 +19,14 @@ public class Money : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
-            LoadMoney();
+           
         }
-        else
-        {
-            //Destroy(gameObject);
-        }
+        LoadMoney();
     }
 
     void Start()
     {
-        UpdateMoneyUI();
-        UpdateMoneyUI2();
-        UpdateDebtUI();
+        UpdateAllUI();
     }
 
     public void AddMoney(int amount)
@@ -42,12 +37,9 @@ public class Money : MonoBehaviour
             return;
         }
         currentMoney += amount;
-        debt -= amount;
 
         SaveMoney();
-        UpdateMoneyUI();
-        UpdateMoneyUI2();
-        UpdateDebtUI();
+        UpdateAllUI();
     }
 
     public void SubtractMoney(int amount)
@@ -64,10 +56,16 @@ public class Money : MonoBehaviour
         }
         currentMoney -= amount;
         SaveMoney();
-        UpdateMoneyUI();
-        UpdateMoneyUI2();
+        UpdateAllUI();
     }
 
+    public void UpdateAllUI()
+    {
+        LoadMoney();
+        UpdateMoneyUI();
+        UpdateMoneyUI2();
+        UpdateDebtUI();
+    }
     public int GetCurrentMoney()
     {
         return currentMoney;
@@ -88,8 +86,6 @@ public class Money : MonoBehaviour
     public void SetMoneyTextReference(TextMeshProUGUI text)
     {
         moneyText = text;
-        UpdateMoneyUI();
-        UpdateMoneyUI2();
     }
 
     private void SaveMoney()
@@ -101,6 +97,7 @@ public class Money : MonoBehaviour
     private void LoadMoney()
     {
         currentMoney = PlayerPrefs.GetInt(MoneyKey, 0);  
+        
     }
 
     private void UpdateMoneyUI2()
@@ -120,11 +117,11 @@ public class Money : MonoBehaviour
     {
         if (debtText != null)
         {
-            debtText.text = $"Debt: ${debt}";
+            debtText.text = $"Debt: ${debt - currentMoney}";
         }
         else
         {
-            Debug.LogWarning("TextMeshProUGUI component for debt is not assigned.");
+            Debug.LogWarning("debtText is not set. Please assign a TextMeshProUGUI component.");
         }
     }
 

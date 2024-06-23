@@ -91,7 +91,16 @@ public class EnemyAI2D : MonoBehaviour
         {
             if (canvasChangeScene != null)
             {
-                canvasChangeScene.SetActive(true);
+                Money moneyComponent = canvasChangeScene.GetComponent<Money>();
+                if (moneyComponent != null)
+                {
+                    moneyComponent.UpdateAllUI();
+                    canvasChangeScene.SetActive(true);
+                }
+                else
+                {
+                    Debug.LogError("Money component not found on the GameObject.");
+                }
             }
             else
             {
