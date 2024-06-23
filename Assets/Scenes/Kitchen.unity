@@ -1371,7 +1371,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   thiefPrefab: {fileID: 3526782886413072230, guid: c32f436c862a07747bafa6578f8553e6, type: 3}
-  spawnPosition: {x: -31.6, y: -18.38}
+  spawnPosition: {x: -25, y: 30}
   minRespawnTime: 60
   maxRespawnTime: 150
 --- !u!1 &277398671 stripped
@@ -6775,7 +6775,6 @@ GameObject:
   - component: {fileID: 1132633410}
   - component: {fileID: 1132633409}
   - component: {fileID: 1132633411}
-  - component: {fileID: 1132633412}
   m_Layer: 0
   m_Name: TrashCan
   m_TagString: Untagged
@@ -6894,51 +6893,6 @@ BoxCollider2D:
   m_AutoTiling: 0
   serializedVersion: 2
   m_Size: {x: 0.20717677, y: 0.2513249}
-  m_EdgeRadius: 0
---- !u!61 &1132633412
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1132633408}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: -0.004686922, y: -0.003515184}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.32, y: 0.32}
-    newSize: {x: 0.32, y: 0.32}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.13252327, y: 0.20048356}
   m_EdgeRadius: 0
 --- !u!1 &1135002184
 GameObject:

@@ -10,11 +10,19 @@ public class ThiefEnemy : MonoBehaviour
     public int killKeyPressCount = 10;
     public AudioClip hitSound;
 
+    public GameObject interactionArea; 
+    public float speed = 10f;
+    public float obstacleAvoidanceRadius = 0.5f;
+    public LayerMask obstacleLayer;
+
     private int currentKeyPressCount = 0;
     private InventoryController inventoryController;
     private SpriteRenderer spriteRenderer;
     private bool isPlayerNear = false;
     private AudioSource audioSource;
+    private BoxCollider2D interactionCollider;
+    private Vector3 initialPosition;
+    private bool isReturning = false;
 
     void Start()
     {
@@ -26,8 +34,17 @@ public class ThiefEnemy : MonoBehaviour
             audioSource = gameObject.AddComponent<AudioSource>();
         }
 
+        interactionCollider = interactionArea.GetComponent<BoxCollider2D>();
+        if (interactionCollider == null)
+        {
+            Debug.LogError("InteractionArea does not have a BoxCollider2D component.");
+        }
+
+        initialPosition = transform.position;
+
         StartCoroutine(StealItemRoutine());
         StartCoroutine(HorizontalFlipRoutine());
+        StartCoroutine(MoveToTarget(interactionArea.transform.position));
     }
 
     void Update()
@@ -73,8 +90,46 @@ public class ThiefEnemy : MonoBehaviour
                 int itemKey = keys[randomIndex];
                 inventoryController.GetTrashInventoryData().RemoveItem(itemKey, 1);
                 Debug.Log($"Stole {trashItems[itemKey].item.Name} from trash inventory.");
+                StartCoroutine(MoveToTarget(initialPosition));
+            }
+            else{
+                // caso donde no encuentra nada, mostrar una burbuja de enojo o algo así. 
+                StartCoroutine(MoveToTarget(initialPosition));
             }
         }
+    }
+
+    IEnumerator MoveToTarget(Vector3 target)
+    {
+        while (Vector3.Distance(transform.position, target) > 0.1f)
+        {
+            Vector3 direction = (target - transform.position).normalized;
+            direction = AvoidObstacles(direction);
+            transform.position += direction * speed * Time.deltaTime;
+            yield return null;
+        }
+        if (isReturning)
+        {
+            isReturning = false;
+            Destroy(gameObject); 
+        }
+        else
+        {
+            isReturning = true;
+            StealItem();
+        }
+    }
+
+    Vector3 AvoidObstacles(Vector3 targetDirection)
+    {
+        RaycastHit2D hit = Physics2D.CircleCast(transform.position, obstacleAvoidanceRadius, targetDirection, obstacleAvoidanceRadius, obstacleLayer);
+        if (hit.collider != null)
+        {
+            Vector2 hitNormal = hit.normal;
+            Vector2 avoidanceDirection = Vector2.Reflect(targetDirection, hitNormal);
+            return avoidanceDirection.normalized;
+        }
+        return targetDirection.normalized;
     }
 
     void DestroyEnemy()
