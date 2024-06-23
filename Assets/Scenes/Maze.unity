@@ -796,6 +796,8 @@ MonoBehaviour:
   numberOfGuards: 40
   mazeBoundsMin: {x: -180, y: -180}
   mazeBoundsMax: {x: 640, y: 640}
+  mazeRestrictedAreaMin: {x: 205, y: 175}
+  mazeRestrictedAreaMax: {x: 260, y: 230}
   checkRadius: 0.5
 --- !u!1001 &57384561
 PrefabInstance:
@@ -7011,6 +7013,8 @@ MonoBehaviour:
   foodQuantities: 1e0000001e0000001e0000001e0000001e0000001e0000001e0000001e000000
   mazeBoundsMin: {x: -180, y: -180}
   mazeBoundsMax: {x: 640, y: 640}
+  mazeRestrictedAreaMin: {x: 205, y: 175}
+  mazeRestrictedAreaMax: {x: 260, y: 230}
   checkRadius: 0.5
 --- !u!1001 &404863175
 PrefabInstance:
@@ -12743,6 +12747,8 @@ MonoBehaviour:
   numberOfGhosts: 2
   mazeBoundsMin: {x: -180, y: -180}
   mazeBoundsMax: {x: 640, y: 640}
+  mazeRestrictedAreaMin: {x: 205, y: 175}
+  mazeRestrictedAreaMax: {x: 260, y: 230}
   checkRadius: 0.5
 --- !u!1001 &663918940
 PrefabInstance:
@@ -16114,6 +16120,8 @@ MonoBehaviour:
   numberOfMines: 30
   mazeBoundsMin: {x: -180, y: -180}
   mazeBoundsMax: {x: 640, y: 640}
+  mazeRestrictedAreaMin: {x: 205, y: 175}
+  mazeRestrictedAreaMax: {x: 260, y: 230}
   checkRadius: 0.5
 --- !u!4 &819409181 stripped
 Transform:
@@ -27884,6 +27892,8 @@ MonoBehaviour:
   numberOfMines: 100
   mazeBoundsMin: {x: -180, y: -180}
   mazeBoundsMax: {x: 640, y: 640}
+  mazeRestrictedAreaMin: {x: 205, y: 175}
+  mazeRestrictedAreaMax: {x: 260, y: 230}
   checkRadius: 0.3
 --- !u!1001 &1494111594
 PrefabInstance:

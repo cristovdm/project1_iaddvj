@@ -8,6 +8,8 @@ public class MineSpawner : MonoBehaviour
     public int numberOfMines = 10;
     public Vector2 mazeBoundsMin;
     public Vector2 mazeBoundsMax;
+    public Vector2 mazeRestrictedAreaMin;
+    public Vector2 mazeRestrictedAreaMax;
     public float checkRadius = 0.5f;
 
     void Start()
@@ -36,7 +38,7 @@ public class MineSpawner : MonoBehaviour
             float y = Random.Range(mazeBoundsMin.y, mazeBoundsMax.y);
             spawnPosition = new Vector2(x, y);
             attempts++;
-        } while (IsPositionOccupied(spawnPosition) && attempts < maxAttempts);
+        } while ((IsPositionOccupied(spawnPosition) || IsPositionInRestrictedArea(spawnPosition)) && attempts < maxAttempts);
 
         if (attempts >= maxAttempts)
         {
@@ -57,5 +59,11 @@ public class MineSpawner : MonoBehaviour
             }
         }
         return false;
+    }
+
+    bool IsPositionInRestrictedArea(Vector2 position)
+    {
+        return position.x >= mazeRestrictedAreaMin.x && position.x <= mazeRestrictedAreaMax.x &&
+               position.y >= mazeRestrictedAreaMin.y && position.y <= mazeRestrictedAreaMax.y;
     }
 }
