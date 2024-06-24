@@ -5,7 +5,7 @@ using UnityEngine;
 public class ThiefSpawner : MonoBehaviour
 {
     public GameObject thiefPrefab;
-    public Vector2 spawnPosition = new Vector2(-31.6f, -18.38f);
+    private Vector2 spawnPosition = new Vector2(-25f, 30f);
     public float minRespawnTime = 60f;
     public float maxRespawnTime = 150f;
 
