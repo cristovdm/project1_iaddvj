@@ -15,7 +15,7 @@ public class DeliverFood : MonoBehaviour
     public TextboxAnimator textboxAnimator;
     private AudioSource audioSource;
     private InventoryController inventory;
-    public List<string> stageDeliveriesList;
+    private List<string> stageDeliveriesList;
     private string currentDelivery;
     public SpriteRenderer spriteRenderer;
     private string foodCloudPath = "Sprites/FoodClouds/";
@@ -92,14 +92,15 @@ public class DeliverFood : MonoBehaviour
 
     private void SelectInitialFood()
     {
+        stageDeliveriesList = LevelManager.instance.GetDishesForCurrentLevel();
         if (stageDeliveriesList == null || !stageDeliveriesList.Any())
         {
-            //Vacio
+            Debug.LogError("No dishes found for the current level!");
+            return;
         }
         stageDeliveriesList = ShuffleList(stageDeliveriesList);
         currentDelivery = stageDeliveriesList.First();
         stageDeliveriesList.RemoveAt(0);
-        //stageDeliveriesList.RemoveAt(0); //BORRAR PARA QUE FUNCIONE NORMALMENTE
         ShowFoodCloud();
     }
 
@@ -112,12 +113,12 @@ public class DeliverFood : MonoBehaviour
 
     private void EndStage()
     {
+        LevelManager.instance.NextLevel();
         SceneManager.LoadScene("Maze");
     }
 
     private void CheckNextDelivery()
     {
-        Debug.Log(stageDeliveriesList.Count);
         if (stageDeliveriesList.Count > 0)
         {
             SelectNextDelivery();
@@ -154,56 +155,8 @@ public class DeliverFood : MonoBehaviour
         if (!inventoryItem.IsEmpty)
         {
             Debug.Log(inventoryItem.item.Name);
-            switch (inventoryItem.item.Name)
-            {
-                case "Tomato Soup":
-                    textboxAnimator.ShowTextbox("$25");
-
-                    return true;
-                case "Corn Soup":
-                    textboxAnimator.ShowTextbox("$25");
-                    return true;
-                case "CarrotCake":
-                    textboxAnimator.ShowTextbox("$25");
-                    return true;
-                case "CazuelaMarina":
-                    textboxAnimator.ShowTextbox("$25");
-                    return true;
-                case "HuevoDuro":
-                    textboxAnimator.ShowTextbox("$25");
-                    return true;
-                case "FriedEgg":
-                    textboxAnimator.ShowTextbox("$25");
-                    return true;
-                case "PescadoCaldero":
-                    textboxAnimator.ShowTextbox("$25");
-                    return true;
-                case "FriedFish":
-                    textboxAnimator.ShowTextbox("$25");
-                    return true;
-                case "FriedFishAndEgg":
-                    textboxAnimator.ShowTextbox("$25");
-                    return true;
-                case "PescadoHorno":
-                    textboxAnimator.ShowTextbox("$25");
-                    return true;
-                case "PopCorn":
-                    textboxAnimator.ShowTextbox("$25");
-                    return true;
-                case "Salad":
-                    textboxAnimator.ShowTextbox("$25");
-                    return true;
-                case "SandwichDePescado":
-                    textboxAnimator.ShowTextbox("$25");
-                    return true;
-                case "SopaTomateCrotones":
-                    textboxAnimator.ShowTextbox("$25");
-                    return true;
-                case "SopaZanahoria":
-                    textboxAnimator.ShowTextbox("$25");
-                    return true;
-            }
-            return false;
+            textboxAnimator.ShowTextbox("$25");
+            return true;
         }
         else return false;
     }

@@ -77,6 +77,7 @@ public class CountdownTimerKitchen : MonoBehaviour
     private IEnumerator ChangeSceneAfterDelay(float delay)
     {
         yield return new WaitForSecondsRealtime(delay);
+        LevelManager.instance.NextLevel();
         SceneManager.LoadScene("Maze");
         Time.timeScale = 1;
     }

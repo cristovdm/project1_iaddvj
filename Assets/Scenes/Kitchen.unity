@@ -6269,7 +6269,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6847898530814734803, guid: 47889e85f60540e4a972e510dc856b33, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6847898530814734803, guid: 47889e85f60540e4a972e510dc856b33, type: 3}
       propertyPath: m_AnchorMin.x
@@ -6277,15 +6277,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6847898530814734803, guid: 47889e85f60540e4a972e510dc856b33, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6847898530814734803, guid: 47889e85f60540e4a972e510dc856b33, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 100.8114
       objectReference: {fileID: 0}
     - target: {fileID: 6847898530814734803, guid: 47889e85f60540e4a972e510dc856b33, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 101.06119
       objectReference: {fileID: 0}
     - target: {fileID: 6847898530814734803, guid: 47889e85f60540e4a972e510dc856b33, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -9201,19 +9201,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6405848736239365262, guid: 04030031cd9a72847bfd75b67453cebb, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6405848736239365262, guid: 04030031cd9a72847bfd75b67453cebb, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6405848736239365262, guid: 04030031cd9a72847bfd75b67453cebb, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 197.597
       objectReference: {fileID: 0}
     - target: {fileID: 6405848736239365262, guid: 04030031cd9a72847bfd75b67453cebb, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 78.6261
       objectReference: {fileID: 0}
     - target: {fileID: 6913483177266869942, guid: 04030031cd9a72847bfd75b67453cebb, type: 3}
       propertyPath: m_AnchorMax.y
@@ -10100,6 +10100,52 @@ MonoBehaviour:
   timerText: {fileID: 1728081789}
   player: {fileID: 8667536452772664775}
   audioSource: {fileID: 1135002185}
+--- !u!1 &1743193276
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1743193277}
+  - component: {fileID: 1743193278}
+  m_Layer: 0
+  m_Name: Level Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1743193277
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1743193276}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 3.9098632, y: 2.457557, z: -0.66518366}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1743193278
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1743193276}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a11609408d700043a21d27c1eb90b7f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentStage: 1
+  currentLevel: 1
 --- !u!1 &1756531077
 GameObject:
   m_ObjectHideFlags: 0
@@ -10822,20 +10868,6 @@ MonoBehaviour:
   moneySound: {fileID: 8300000, guid: e9dcf771ec8d79b469496f4dc8e19c26, type: 3}
   interactionArea: {fileID: 1808897129}
   textboxAnimator: {fileID: 584378887}
-  stageDeliveriesList:
-  - Tomato Soup
-  - Corn Soup
-  - Popcorn
-  - Salad
-  - HuevoDuro
-  - CazuelaMarina
-  - CarrotCake
-  - FriedFishAndEgg
-  - PescadoCaldero
-  - PescadoHorno
-  - SandwichDePescado
-  - SopaTomateCrotones
-  - SopaZanahoria
   spriteRenderer: {fileID: 974418978}
 --- !u!95 &1808897131
 Animator:
@@ -13444,19 +13476,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6405848736239365262, guid: 04030031cd9a72847bfd75b67453cebb, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6405848736239365262, guid: 04030031cd9a72847bfd75b67453cebb, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6405848736239365262, guid: 04030031cd9a72847bfd75b67453cebb, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 413.4073
       objectReference: {fileID: 0}
     - target: {fileID: 6405848736239365262, guid: 04030031cd9a72847bfd75b67453cebb, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 352.00168
       objectReference: {fileID: 0}
     - target: {fileID: 6913483177266869942, guid: 04030031cd9a72847bfd75b67453cebb, type: 3}
       propertyPath: m_AnchorMax.y
@@ -13786,6 +13818,7 @@ SceneRoots:
   m_Roots:
   - {fileID: 519420032}
   - {fileID: 8667536452772664774}
+  - {fileID: 1743193277}
   - {fileID: 32498873}
   - {fileID: 1384267246}
   - {fileID: 1135002186}
