@@ -74,7 +74,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1993836259
-  m_SortingLayer: 4
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: a0df5b3a31eef584d99e0702e584cf52, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -99,9 +99,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1b2306388e21e148bcadc82e23372ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 4
-  waterDropInterval: 0.5
-  playerDetectionRadius: 10
+  movementSpeed: 10
+  wanderSpeed: 7
+  waterDropInterval: 2
+  playerDetectionRadius: 20
   requiredPressesToEliminate: 5
   waterPrefab: {fileID: 866452398101000293, guid: a3fd8d879f2b7ca499907e068a9c566d, type: 3}
   hitSound: {fileID: 8300000, guid: f1c04b58ebf02e34cbb04603263904a7, type: 3}

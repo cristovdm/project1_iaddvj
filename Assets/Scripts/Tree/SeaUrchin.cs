@@ -3,7 +3,8 @@ using UnityEngine;
 
 public class SeaUrchin : MonoBehaviour
 {
-    public float movementSpeed = 4f;
+    public float movementSpeed = 4f;          // Velocidad de movimiento general
+    public float wanderSpeed = 2f;            // Velocidad de movimiento al vagar
     public float waterDropInterval = 0.5f;
     public float playerDetectionRadius = 100f;
     public int requiredPressesToEliminate = 10;
@@ -17,8 +18,15 @@ public class SeaUrchin : MonoBehaviour
     private Vector3 reducedScale = new Vector3(1.6f, 1.6f, 1f);
     private AudioSource audioSource;
 
+    private Vector2 wanderDirection;
+    private float wanderTimer;
+    private float wanderChangeInterval = 2f;
+
     public delegate void SeaUrchinDestroyed();
     public static event SeaUrchinDestroyed OnSeaUrchinDestroyed;
+
+    private enum State { Wander, Flee }
+    private State currentState;
 
     void Start()
     {
@@ -32,6 +40,10 @@ public class SeaUrchin : MonoBehaviour
             audioSource = gameObject.AddComponent<AudioSource>();
         }
 
+        currentState = State.Wander;
+        wanderDirection = Random.insideUnitCircle.normalized;
+        wanderTimer = wanderChangeInterval;
+
         StartCoroutine(DropWaterRoutine());
     }
 
@@ -39,12 +51,65 @@ public class SeaUrchin : MonoBehaviour
     {
         if (player != null)
         {
-            MoveAwayFromPlayer();
             CheckPlayerProximity();
+            UpdateState();
         }
     }
 
-    void MoveAwayFromPlayer()
+    void UpdateState()
+    {
+        switch (currentState)
+        {
+            case State.Wander:
+                Wander();
+                break;
+            case State.Flee:
+                Flee();
+                break;
+        }
+    }
+
+    void CheckPlayerProximity()
+    {
+        if (Vector2.Distance(transform.position, player.transform.position) <= playerDetectionRadius)
+        {
+            isNearPlayer = true;
+            currentState = State.Flee;
+        }
+        else
+        {
+            isNearPlayer = false;
+            currentState = State.Wander;
+        }
+    }
+
+    void Wander()
+    {
+        wanderTimer -= Time.deltaTime;
+        if (wanderTimer <= 0)
+        {
+            wanderDirection = GetRandomWanderDirection();
+            wanderTimer = wanderChangeInterval;
+        }
+
+        Vector2 newPosition = rb.position + wanderDirection * wanderSpeed * Time.deltaTime;
+        rb.MovePosition(newPosition);
+    }
+
+    Vector2 GetRandomWanderDirection()
+    {
+        Vector2 newDirection = Random.insideUnitCircle.normalized;
+        // Verificar que no haya una pared en la nueva dirección
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, newDirection, wanderChangeInterval, LayerMask.GetMask("Wall"));
+        if (hit.collider != null)
+        {
+            // Si hay una pared, intentar otra dirección
+            newDirection = Vector2.Reflect(newDirection, hit.normal);
+        }
+        return newDirection;
+    }
+
+    void Flee()
     {
         Vector2 direction = (transform.position - player.transform.position).normalized;
         RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, movementSpeed * Time.deltaTime, LayerMask.GetMask("Wall"));
@@ -56,6 +121,16 @@ public class SeaUrchin : MonoBehaviour
         else
         {
             rb.velocity = Vector2.zero;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Q) && isNearPlayer)
+        {
+            pressCount++;
+            PlayHitSound();
+            if (pressCount >= requiredPressesToEliminate)
+            {
+                Destroy(gameObject);
+            }
         }
     }
 
@@ -72,29 +147,7 @@ public class SeaUrchin : MonoBehaviour
     {
         GameObject water = Instantiate(waterPrefab, transform.position, Quaternion.identity);
         water.transform.localScale = reducedScale;
-        Destroy(water, 20f);
-    }
-
-    void CheckPlayerProximity()
-    {
-        if (Vector2.Distance(transform.position, player.transform.position) <= playerDetectionRadius)
-        {
-            isNearPlayer = true;
-            if (Input.GetKeyDown(KeyCode.Q))
-            {
-                pressCount++;
-                PlayHitSound();
-                if (pressCount >= requiredPressesToEliminate)
-                {
-                    Destroy(gameObject);
-                }
-            }
-        }
-        else
-        {
-            isNearPlayer = false;
-            pressCount = 0;
-        }
+        Destroy(water, 10f);
     }
 
     void PlayHitSound()
