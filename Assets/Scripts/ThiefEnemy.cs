@@ -9,8 +9,9 @@ public class ThiefEnemy : MonoBehaviour
     public float horizontalFlipInterval = 1f;
     public int killKeyPressCount = 10;
     public AudioClip hitSound;
+    public AudioClip destroySound; // Nuevo campo serializado para el sonido de destrucción
 
-    public GameObject interactionArea; 
+    public GameObject interactionArea;
     public float speed = 10f;
     public float obstacleAvoidanceRadius = 0.5f;
     public LayerMask obstacleLayer;
@@ -92,8 +93,9 @@ public class ThiefEnemy : MonoBehaviour
                 Debug.Log($"Stole {trashItems[itemKey].item.Name} from trash inventory.");
                 StartCoroutine(MoveToTarget(initialPosition));
             }
-            else{
-                // caso donde no encuentra nada, mostrar una burbuja de enojo o algo así. 
+            else
+            {
+                // caso donde no encuentra nada, mostrar una burbuja de enojo o algo así.
                 StartCoroutine(MoveToTarget(initialPosition));
             }
         }
@@ -111,7 +113,7 @@ public class ThiefEnemy : MonoBehaviour
         if (isReturning)
         {
             isReturning = false;
-            Destroy(gameObject); 
+            Destroy(gameObject);
         }
         else
         {
@@ -134,7 +136,14 @@ public class ThiefEnemy : MonoBehaviour
 
     void DestroyEnemy()
     {
-        Destroy(gameObject);
+        if (destroySound != null)
+        {
+            StartCoroutine(PlayDestroySoundAndDestroy());
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
     void PlayHitSound()
@@ -143,6 +152,17 @@ public class ThiefEnemy : MonoBehaviour
         {
             audioSource.PlayOneShot(hitSound);
         }
+    }
+
+    IEnumerator PlayDestroySoundAndDestroy()
+    {
+        GameObject tempAudioObject = new GameObject("TempAudio");
+        AudioSource tempAudioSource = tempAudioObject.AddComponent<AudioSource>();
+        tempAudioSource.clip = destroySound;
+        tempAudioSource.Play();
+        Destroy(tempAudioObject, destroySound.length);
+        yield return null;
+        Destroy(gameObject);
     }
 
     void OnTriggerEnter2D(Collider2D other)

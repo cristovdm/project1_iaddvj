@@ -101,7 +101,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
-  moveSpeed: 9
+  moveSpeed: 8.3
   wallLayer:
     serializedVersion: 2
     m_Bits: 256
