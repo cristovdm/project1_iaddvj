@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5233174187959775731}
   - component: {fileID: -8915915744464891270}
   - component: {fileID: -1465975433099006450}
+  - component: {fileID: 452996062166568820}
   m_Layer: 0
   m_Name: BananaOtter
   m_TagString: Untagged
@@ -105,6 +106,10 @@ MonoBehaviour:
   flipInterval: 1
   detectionRadius: 9
   minPlayerDistance: 2
+  obstacleAvoidanceRadius: 2.5
+  moveSpeed: 5
+  fleeSpeed: 8
+  rb: {fileID: 452996062166568820}
   minX: -40
   minY: -35
   maxX: 53
@@ -145,3 +150,30 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 3
+--- !u!50 &452996062166568820
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5249109497293804297}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0

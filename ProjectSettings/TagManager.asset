@@ -15,6 +15,7 @@ TagManager:
   - Enemy
   - Exit
   - CanvasChangeScene
+  - Decoration
   layers:
   - Default
   - TransparentFX
