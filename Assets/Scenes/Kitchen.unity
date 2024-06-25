@@ -12241,9 +12241,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 1
+  m_UiScaleMode: 0
   m_ReferencePixelsPerUnit: 100
-  m_ScaleFactor: 1
+  m_ScaleFactor: 23
   m_ReferenceResolution: {x: 100, y: 100}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
@@ -12271,7 +12271,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 1
   m_AdditionalShaderChannelsFlag: 0
-  m_UpdateRectTransformForStandalone: 0
+  m_UpdateRectTransformForStandalone: 1
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
@@ -13743,8 +13743,28 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 535402102261903215, guid: 91abb4a4a2146154f932ef0bf393ea2b, type: 3}
+      propertyPath: m_ScaleFactor
+      value: 23
+      objectReference: {fileID: 0}
+    - target: {fileID: 535402102261903215, guid: 91abb4a4a2146154f932ef0bf393ea2b, type: 3}
+      propertyPath: m_UiScaleMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 535402102261903215, guid: 91abb4a4a2146154f932ef0bf393ea2b, type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1679185479627464847, guid: 91abb4a4a2146154f932ef0bf393ea2b, type: 3}
       propertyPath: m_RenderMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1679185479627464847, guid: 91abb4a4a2146154f932ef0bf393ea2b, type: 3}
+      propertyPath: m_PlaneDistance
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 1679185479627464847, guid: 91abb4a4a2146154f932ef0bf393ea2b, type: 3}
+      propertyPath: m_UpdateRectTransformForStandalone
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4077684941724412801, guid: 91abb4a4a2146154f932ef0bf393ea2b, type: 3}

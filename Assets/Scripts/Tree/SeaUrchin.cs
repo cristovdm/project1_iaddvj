@@ -34,6 +34,22 @@ public class SeaUrchin : MonoBehaviour
     private State currentState;
     private float bubbleTimer = 10f;
 
+    void Awake()
+    {
+        if (bubbleCanvas == null)
+        {
+            bubbleCanvas = FindObjectOfType<Canvas>();
+            if (bubbleCanvas == null)
+            {
+                Debug.LogError("No se encontró un Canvas en la escena.");
+            }
+            else
+            {
+                bubbleCanvas.scaleFactor = 23f;
+            }
+        }
+    }
+
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
