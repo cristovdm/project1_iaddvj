@@ -1,14 +1,17 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class SeaUrchin : MonoBehaviour
 {
-    public float movementSpeed = 4f;          // Velocidad de movimiento general
-    public float wanderSpeed = 2f;            // Velocidad de movimiento al vagar
+    public float movementSpeed = 4f;        
+    public float wanderSpeed = 2f;
     public float waterDropInterval = 0.5f;
     public float playerDetectionRadius = 100f;
     public int requiredPressesToEliminate = 10;
     public GameObject waterPrefab;
+    public GameObject bubblePrefab;
+    public Canvas bubbleCanvas;
     public AudioClip hitSound;
 
     private GameObject player;
@@ -22,11 +25,14 @@ public class SeaUrchin : MonoBehaviour
     private float wanderTimer;
     private float wanderChangeInterval = 2f;
 
+    private List<GameObject> bubbles = new List<GameObject>();
+
     public delegate void SeaUrchinDestroyed();
     public static event SeaUrchinDestroyed OnSeaUrchinDestroyed;
 
     private enum State { Wander, Flee }
     private State currentState;
+    private float bubbleTimer = 10f;
 
     void Start()
     {
@@ -40,11 +46,22 @@ public class SeaUrchin : MonoBehaviour
             audioSource = gameObject.AddComponent<AudioSource>();
         }
 
+        // Buscar el Canvas si no está asignado
+        if (bubbleCanvas == null)
+        {
+            bubbleCanvas = FindObjectOfType<Canvas>();
+            if (bubbleCanvas == null)
+            {
+                Debug.LogError("No se encontró un Canvas en la escena.");
+            }
+        }
+
         currentState = State.Wander;
         wanderDirection = Random.insideUnitCircle.normalized;
         wanderTimer = wanderChangeInterval;
 
         StartCoroutine(DropWaterRoutine());
+        StartCoroutine(StartBubbleRoutine());
     }
 
     void Update()
@@ -99,11 +116,9 @@ public class SeaUrchin : MonoBehaviour
     Vector2 GetRandomWanderDirection()
     {
         Vector2 newDirection = Random.insideUnitCircle.normalized;
-        // Verificar que no haya una pared en la nueva dirección
         RaycastHit2D hit = Physics2D.Raycast(transform.position, newDirection, wanderChangeInterval, LayerMask.GetMask("Wall"));
         if (hit.collider != null)
         {
-            // Si hay una pared, intentar otra dirección
             newDirection = Vector2.Reflect(newDirection, hit.normal);
         }
         return newDirection;
@@ -170,5 +185,108 @@ public class SeaUrchin : MonoBehaviour
     {
         OnSeaUrchinDestroyed?.Invoke();
         pressCount = 0;
+        StopAllCoroutines();
+        ClearBubbles();
+    }
+
+    void ClearBubbles()
+    {
+        foreach (var bubble in bubbles)
+        {
+            if (bubble != null)
+            {
+                Destroy(bubble);
+            }
+        }
+        bubbles.Clear();
+    }
+
+    IEnumerator StartBubbleRoutine()
+    {
+        yield return new WaitForSeconds(bubbleTimer);
+
+        while (true)
+        {
+            int rows = 1;
+            int columns = 25;
+
+            for (int row = 0; row < rows; row++)
+            {
+                for (int col = 0; col < columns; col++)
+                {
+                    CreateBubble(row, col);
+                }
+            }
+
+            yield return new WaitForSeconds(Random.Range(0.2f, 0.7f));
+        }
+    }
+
+    void CreateBubble(int row, int column)
+    {
+        if (bubbleCanvas == null || bubblePrefab == null) return;
+
+        GameObject bubbleGO = Instantiate(bubblePrefab);
+        bubbles.Add(bubbleGO);
+        bubbleGO.transform.SetParent(bubbleCanvas.transform, false);
+        RectTransform bubbleRect = bubbleGO.GetComponent<RectTransform>();
+        SpriteRenderer bubbleSpriteRenderer = bubbleGO.GetComponent<SpriteRenderer>();
+
+        // Establecer la escala del RectTransform de la burbuja
+        bubbleRect.localScale = new Vector3(25f, 25f, 1f);
+
+        float horizontalSpacing = bubbleCanvas.GetComponent<RectTransform>().rect.width / 9f;
+        float verticalSpacing = bubbleCanvas.GetComponent<RectTransform>().rect.height / 18f;
+        bubbleRect.anchoredPosition = new Vector2(
+            -bubbleCanvas.GetComponent<RectTransform>().rect.width / 2 + horizontalSpacing * column,
+            -bubbleCanvas.GetComponent<RectTransform>().rect.height / 2 - bubbleRect.rect.height / 2 + verticalSpacing * row
+        );
+
+        bubbleSpriteRenderer.color = RandomColor();
+
+        StartCoroutine(MoveBubble(bubbleGO, bubbleRect));
+    }
+
+    Color RandomColor()
+    {
+        float r = Random.Range(0.2f, 0.6f);
+        float g = Random.Range(0.4f, 0.8f);
+        float b = Random.Range(0.6f, 1f);
+        return new Color(r, g, b);
+    }
+
+
+    IEnumerator MoveBubble(GameObject bubbleObject, RectTransform bubbleRect)
+    {
+        float startTime = Time.time;
+        float speed = 13f;
+
+        float amplitude = Random.Range(10f, 25f);
+
+        bool moveHorizontally = Random.value < 0.8f;
+
+        while (bubbleObject != null && bubbleRect != null)
+        {
+            float elapsed = Time.time - startTime;
+            if (bubbleRect != null)
+            {
+                bubbleRect.anchoredPosition += Vector2.up * speed * Time.deltaTime;
+                if (moveHorizontally)
+                {
+                    bubbleRect.anchoredPosition += Vector2.right * Mathf.Sin(elapsed * 2f) * amplitude * Time.deltaTime;
+                }
+                else
+                {
+                    bubbleRect.anchoredPosition += Vector2.right * Mathf.Sin(elapsed * 2f) * 0.6f * Time.deltaTime;
+                }
+            }
+            yield return null;
+
+            if (bubbleRect != null && bubbleRect.anchoredPosition.y > bubbleCanvas.GetComponent<RectTransform>().rect.height / 2)
+            {
+                Destroy(bubbleObject);
+                bubbles.Remove(bubbleObject);
+            }
+        }
     }
 }

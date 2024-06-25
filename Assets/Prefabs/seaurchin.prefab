@@ -105,6 +105,8 @@ MonoBehaviour:
   playerDetectionRadius: 20
   requiredPressesToEliminate: 5
   waterPrefab: {fileID: 866452398101000293, guid: a3fd8d879f2b7ca499907e068a9c566d, type: 3}
+  bubblePrefab: {fileID: 5931257400054701953, guid: 964cd33810583a54696bbadb5bbeb45e, type: 3}
+  bubbleCanvas: {fileID: 1679185479627464847, guid: 91abb4a4a2146154f932ef0bf393ea2b, type: 3}
   hitSound: {fileID: 8300000, guid: f1c04b58ebf02e34cbb04603263904a7, type: 3}
 --- !u!50 &-30567943745747296
 Rigidbody2D:
