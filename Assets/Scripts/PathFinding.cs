@@ -19,6 +19,7 @@ public class Gerard : MonoBehaviour
     [SerializeField] private float detectionRange = 1f;
 
     private List<NavigationNode> nodes = new List<NavigationNode>();
+    private Vector2 previousDirection = Vector2.right; // Inicializar a la derecha
 
     void OnEnable()
     {
@@ -109,7 +110,7 @@ public class Gerard : MonoBehaviour
                 playerDetected = path.Count > 0;
                 Debug.Log("Path updated. Path count: " + path.Count);
             }
-            yield return new WaitForSeconds(5f);
+            yield return new WaitForSeconds(3f);
         }
     }
 
@@ -123,6 +124,19 @@ public class Gerard : MonoBehaviour
                 Vector2 direction = (targetNode.transform.position - transform.position).normalized;
                 Vector2 newPosition = (Vector2)transform.position + direction * moveSpeed * Time.deltaTime;
                 transform.position = newPosition;
+
+                // Invertir el sprite basado en la dirección
+                if (direction.x != 0)
+                {
+                    if (Mathf.Sign(direction.x) != Mathf.Sign(previousDirection.x))
+                    {
+                        Vector3 newScale = transform.localScale;
+                        newScale.x = Mathf.Abs(newScale.x) * Mathf.Sign(-direction.x); // Cambiar a -direction.x para invertir la lógica
+                        transform.localScale = newScale;
+                        previousDirection = direction;
+                    }
+                }
+
                 Debug.Log("Moving towards: " + targetNode.transform.position);
             }
             else
