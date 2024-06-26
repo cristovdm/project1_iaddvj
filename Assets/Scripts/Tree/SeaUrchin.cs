@@ -41,7 +41,7 @@ public class SeaUrchin : MonoBehaviour
             bubbleCanvas = FindObjectOfType<Canvas>();
             if (bubbleCanvas == null)
             {
-                Debug.LogError("No se encontró un Canvas en la escena.");
+                Debug.LogError("No se encontrï¿½ un Canvas en la escena.");
             }
             else
             {
@@ -62,13 +62,13 @@ public class SeaUrchin : MonoBehaviour
             audioSource = gameObject.AddComponent<AudioSource>();
         }
 
-        // Buscar el Canvas si no está asignado
+        // Buscar el Canvas si no estï¿½ asignado
         if (bubbleCanvas == null)
         {
             bubbleCanvas = FindObjectOfType<Canvas>();
             if (bubbleCanvas == null)
             {
-                Debug.LogError("No se encontró un Canvas en la escena.");
+                Debug.LogError("No se encontrï¿½ un Canvas en la escena.");
             }
         }
 

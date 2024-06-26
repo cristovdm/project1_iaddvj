@@ -13,7 +13,7 @@ public class ThiefSpawner : MonoBehaviour
 
     void Start()
     {
-        SpawnThief();
+        //SpawnThief();
     }
 
     void SpawnThief()

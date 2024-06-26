@@ -76,7 +76,7 @@ public class BananaOtter : MonoBehaviour
                 }
                 break;
             case State.Flee:
-                //Flee();
+                Flee();
                 break;
         }
     }
@@ -102,6 +102,7 @@ public class BananaOtter : MonoBehaviour
 
     void Flee()
     {
+        /*
         Vector2 direction = (transform.position - player.transform.position).normalized;
         direction = AvoidObstacles(direction);
 
@@ -119,10 +120,11 @@ public class BananaOtter : MonoBehaviour
         if (rb.velocity == Vector2.zero && !isBananaThrowingRoutineRunning)
         {
             StartCoroutine(BananaThrowAndMoveRoutine());
-        }
+        }*/
 
         if (Input.GetKeyDown(KeyCode.Q) && isNearPlayer)
         {
+            Debug.Log("matarlo"); 
             pressCount++;
             PlayHitSound();
             if (pressCount >= requiredPressesToEliminate)
