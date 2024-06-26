@@ -19,6 +19,7 @@ public class PlayerMovement : MonoBehaviour
 
     public float punchDuration = 0.5f;
 
+    public Canvas Book;
 
     public GameObject exitMenu;
     public Button yesButton;
@@ -31,6 +32,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Start()
     {
+        Book.enabled = false;
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         if (spriteRenderer == null)
@@ -125,6 +127,10 @@ public class PlayerMovement : MonoBehaviour
         {
             ShowExitMenu();
         }
+        if (other.CompareTag("Book"))
+        {
+            Book.enabled = true;
+        }
     }
 
     private void OnTriggerExit2D(Collider2D other)
@@ -132,6 +138,10 @@ public class PlayerMovement : MonoBehaviour
         if (other.CompareTag("Water"))
         {
             isSliding = false;
+        }
+        if (other.CompareTag("Book"))
+        {
+            Book.enabled = false;
         }
     }
 

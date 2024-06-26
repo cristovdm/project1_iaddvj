@@ -16,6 +16,7 @@ TagManager:
   - Exit
   - CanvasChangeScene
   - Decoration
+  - Book
   layers:
   - Default
   - TransparentFX
