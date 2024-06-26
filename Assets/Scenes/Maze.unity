@@ -39140,7 +39140,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4959a15829114264da7a755fd7c1fb4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minePrefab: {fileID: 4543167353721262551, guid: f7708ddab392e4145a2bd524ddac188c, type: 3}
+  minePrefab: {fileID: 575781120339433357, guid: 670bd4dfc77e23f4e8a9b1e91af0947d, type: 3}
   numberOfMines: 100
   mazeBoundsMin: {x: -180, y: -180}
   mazeBoundsMax: {x: 640, y: 640}

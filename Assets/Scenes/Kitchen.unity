@@ -6361,7 +6361,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6847898530814734803, guid: 47889e85f60540e4a972e510dc856b33, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6847898530814734803, guid: 47889e85f60540e4a972e510dc856b33, type: 3}
       propertyPath: m_AnchorMin.x
@@ -6369,15 +6369,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6847898530814734803, guid: 47889e85f60540e4a972e510dc856b33, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6847898530814734803, guid: 47889e85f60540e4a972e510dc856b33, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 100.8114
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6847898530814734803, guid: 47889e85f60540e4a972e510dc856b33, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 101.06119
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6847898530814734803, guid: 47889e85f60540e4a972e510dc856b33, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -9982,7 +9982,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.0067720413, y: 0.3680514}
+  m_Offset: {x: 0.0007071495, y: 0.33065608}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -9993,7 +9993,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.8651495, y: 1.3556304}
+  m_Size: {x: 2.1792707, y: 1.7894168}
   m_EdgeRadius: 0
 --- !u!212 &1737344987
 SpriteRenderer:
@@ -10056,7 +10056,7 @@ Transform:
   m_GameObject: {fileID: 1737344985}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -7.5, y: 11.6, z: 0}
+  m_LocalPosition: {x: -7.9, y: 10.6, z: 0}
   m_LocalScale: {x: 7, y: 7, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -14401,10 +14401,10 @@ SceneRoots:
   - {fileID: 1792290805}
   - {fileID: 1109612625}
   - {fileID: 69260750}
+  - {fileID: 3863461632371270184}
   - {fileID: 1110336202}
   - {fileID: 233440333}
   - {fileID: 1322069083}
   - {fileID: 1953450047}
   - {fileID: 1295536926}
   - {fileID: 571663718}
-  - {fileID: 3863461632371270184}
