@@ -52,6 +52,7 @@ MonoBehaviour:
   killKeyPressCount: 5
   hitSound: {fileID: 8300000, guid: f1c04b58ebf02e34cbb04603263904a7, type: 3}
   destroySound: {fileID: 8300000, guid: e19661f1f82fd79419cace4594af7b25, type: 3}
+  deathPrefab: {fileID: 575781120339433357, guid: 670bd4dfc77e23f4e8a9b1e91af0947d, type: 3}
   interactionArea: {fileID: 7031981213520712207, guid: 805c13007913eee4fb90337dfd20a021, type: 3}
   speed: 3.5
   obstacleAvoidanceRadius: 0.5

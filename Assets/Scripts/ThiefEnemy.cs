@@ -9,7 +9,8 @@ public class ThiefEnemy : MonoBehaviour
     public float horizontalFlipInterval = 1f;
     public int killKeyPressCount = 10;
     public AudioClip hitSound;
-    public AudioClip destroySound; // Nuevo campo serializado para el sonido de destrucción
+    public AudioClip destroySound; // Sonido de destrucción
+    [SerializeField] private GameObject deathPrefab;
 
     public GameObject interactionArea;
     public float speed = 10f;
@@ -24,6 +25,7 @@ public class ThiefEnemy : MonoBehaviour
     private BoxCollider2D interactionCollider;
     private Vector3 initialPosition;
     private bool isReturning = false;
+    private bool isBeingDestroyed = false;
 
     void Start()
     {
@@ -54,7 +56,7 @@ public class ThiefEnemy : MonoBehaviour
         {
             currentKeyPressCount++;
             PlayHitSound();
-            if (currentKeyPressCount >= killKeyPressCount)
+            if (currentKeyPressCount >= killKeyPressCount && !isBeingDestroyed)
             {
                 DestroyEnemy();
             }
@@ -95,7 +97,7 @@ public class ThiefEnemy : MonoBehaviour
             }
             else
             {
-                // caso donde no encuentra nada, mostrar una burbuja de enojo o algo así.
+                // Caso donde no encuentra nada, mostrar una burbuja de enojo o algo similar.
                 StartCoroutine(MoveToTarget(initialPosition));
             }
         }
@@ -136,13 +138,18 @@ public class ThiefEnemy : MonoBehaviour
 
     void DestroyEnemy()
     {
-        if (destroySound != null)
+        if (!isBeingDestroyed) // Check to ensure destruction happens only once
         {
-            StartCoroutine(PlayDestroySoundAndDestroy());
-        }
-        else
-        {
-            Destroy(gameObject);
+            isBeingDestroyed = true;
+            if (destroySound != null)
+            {
+                StartCoroutine(PlayDestroySoundAndGeneratePrefab());
+            }
+            else
+            {
+                GeneratePrefab();
+                Destroy(gameObject);
+            }
         }
     }
 
@@ -154,15 +161,27 @@ public class ThiefEnemy : MonoBehaviour
         }
     }
 
-    IEnumerator PlayDestroySoundAndDestroy()
+    IEnumerator PlayDestroySoundAndGeneratePrefab()
     {
-        GameObject tempAudioObject = new GameObject("TempAudio");
-        AudioSource tempAudioSource = tempAudioObject.AddComponent<AudioSource>();
-        tempAudioSource.clip = destroySound;
-        tempAudioSource.Play();
-        Destroy(tempAudioObject, destroySound.length);
-        yield return null;
+        if (destroySound != null)
+        {
+            GameObject tempAudioObject = new GameObject("TempAudio");
+            AudioSource tempAudioSource = tempAudioObject.AddComponent<AudioSource>();
+            tempAudioSource.clip = destroySound;
+            tempAudioSource.Play();
+            Destroy(tempAudioObject, destroySound.length);
+            yield return new WaitForSeconds(destroySound.length);
+        }
+        GeneratePrefab();
         Destroy(gameObject);
+    }
+
+    void GeneratePrefab()
+    {
+        if (deathPrefab != null)
+        {
+            Instantiate(deathPrefab, transform.position, Quaternion.identity);
+        }
     }
 
     void OnTriggerEnter2D(Collider2D other)

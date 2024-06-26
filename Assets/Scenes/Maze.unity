@@ -28808,6 +28808,7 @@ Transform:
   - {fileID: 401112583}
   - {fileID: 818414129}
   - {fileID: 1489583814}
+  - {fileID: 1590544524}
   - {fileID: 663678239}
   - {fileID: 1195309712}
   m_Father: {fileID: 0}
@@ -32310,8 +32311,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioSource: {fileID: 1272036775}
-  pitchIncreaseAmount: 0.7
-  adjustInterval: 50
+  pitchIncreaseAmount: 0.35
+  adjustInterval: 30
 --- !u!1001 &1275209268
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -39095,6 +39096,57 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f3b344595992d4445bafa1cdd311cc1c, type: 3}
+--- !u!1 &1590544523
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1590544524}
+  - component: {fileID: 1590544525}
+  m_Layer: 0
+  m_Name: CoinSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1590544524
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1590544523}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -262.42422, y: -207.73831, z: -0.37943116}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1116208859}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1590544525
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1590544523}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4959a15829114264da7a755fd7c1fb4e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minePrefab: {fileID: 4543167353721262551, guid: f7708ddab392e4145a2bd524ddac188c, type: 3}
+  numberOfMines: 100
+  mazeBoundsMin: {x: -180, y: -180}
+  mazeBoundsMax: {x: 640, y: 640}
+  mazeRestrictedAreaMin: {x: 205, y: 175}
+  mazeRestrictedAreaMax: {x: 260, y: 230}
+  checkRadius: 0.3
 --- !u!1001 &1591606100
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -51660,7 +51712,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aac0466c9949e5a45972adb6bc8afb2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  countdownTime: 60
+  countdownTime: 90
   timerText: {fileID: 2081202897}
   player: {fileID: 481989710}
   audioSource: {fileID: 1272036775}

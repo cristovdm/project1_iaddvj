@@ -24,7 +24,7 @@ public class SeaUrchin : MonoBehaviour
     private Vector2 wanderDirection;
     private float wanderTimer;
     private float wanderChangeInterval = 2f;
-
+    [SerializeField] private GameObject deathPrefab; // Prefab generado al morir
     private List<GameObject> bubbles = new List<GameObject>();
 
     public delegate void SeaUrchinDestroyed();
@@ -160,6 +160,7 @@ public class SeaUrchin : MonoBehaviour
             PlayHitSound();
             if (pressCount >= requiredPressesToEliminate)
             {
+                GeneratePrefab();
                 Destroy(gameObject);
             }
         }
@@ -194,6 +195,14 @@ public class SeaUrchin : MonoBehaviour
         if (collision.gameObject.CompareTag("Wall"))
         {
             rb.velocity = Vector2.zero;
+        }
+    }
+
+    void GeneratePrefab()
+    {
+        if (deathPrefab != null)
+        {
+            Instantiate(deathPrefab, transform.position, Quaternion.identity);
         }
     }
 
