@@ -14,6 +14,16 @@ public class bookScript : MonoBehaviour
 
     private void Start()
     {
+        InitialState();
+    }
+
+    public void InitialState()
+    {
+        for (int i = 0; i < pages.Count; i++)
+        {
+            pages[i].transform.rotation = Quaternion.identity;
+        }
+        pages[0].SetAsLastSibling();
         backButton.SetActive(false);
     }
 
