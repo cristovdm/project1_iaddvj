@@ -822,7 +822,7 @@ GameObject:
   - component: {fileID: 182471190}
   - component: {fileID: 182471189}
   - component: {fileID: 182471191}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Horno
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1005,6 +1005,10 @@ PrefabInstance:
     - target: {fileID: 5362261668650439853, guid: 7c4be7480c2b81d4cbd8d13f73b467bf, type: 3}
       propertyPath: m_Name
       value: Wall (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5362261668650439853, guid: 7c4be7480c2b81d4cbd8d13f73b467bf, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1386,6 +1390,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: KitchenCounter (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 2139539116639905644, guid: 2b215cc26d0d3ff4091fdc4e477f7d2a, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 7489820603135950055, guid: 2b215cc26d0d3ff4091fdc4e477f7d2a, type: 3}
       propertyPath: m_Size.x
       value: 5.2875357
@@ -1531,7 +1539,7 @@ GameObject:
   - component: {fileID: 287683491}
   - component: {fileID: 287683494}
   - component: {fileID: 287683493}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Lavamanos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2576,7 +2584,7 @@ GameObject:
   - component: {fileID: 488957170}
   - component: {fileID: 488957169}
   - component: {fileID: 488957171}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Freezer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3455,7 +3463,7 @@ GameObject:
   m_Component:
   - component: {fileID: 571663718}
   - component: {fileID: 571663717}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Crate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4337,6 +4345,10 @@ PrefabInstance:
     - target: {fileID: 5362261668650439853, guid: 7c4be7480c2b81d4cbd8d13f73b467bf, type: 3}
       propertyPath: m_Name
       value: Wall
+      objectReference: {fileID: 0}
+    - target: {fileID: 5362261668650439853, guid: 7c4be7480c2b81d4cbd8d13f73b467bf, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5301,7 +5313,7 @@ GameObject:
   - component: {fileID: 938666262}
   - component: {fileID: 938666261}
   - component: {fileID: 938666263}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Freidora
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5880,7 +5892,7 @@ GameObject:
   - component: {fileID: 1007063931}
   - component: {fileID: 1007063934}
   - component: {fileID: 1007063933}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: SoupMakerSprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7431,7 +7443,7 @@ GameObject:
   - component: {fileID: 1132633410}
   - component: {fileID: 1132633409}
   - component: {fileID: 1132633411}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: TrashCan
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9656,6 +9668,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Wall (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 5362261668650439853, guid: 7c4be7480c2b81d4cbd8d13f73b467bf, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -10734,6 +10750,10 @@ PrefabInstance:
     - target: {fileID: 2139539116639905644, guid: 2b215cc26d0d3ff4091fdc4e477f7d2a, type: 3}
       propertyPath: m_Name
       value: KitchenWall
+      objectReference: {fileID: 0}
+    - target: {fileID: 2139539116639905644, guid: 2b215cc26d0d3ff4091fdc4e477f7d2a, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 7489820603135950055, guid: 2b215cc26d0d3ff4091fdc4e477f7d2a, type: 3}
       propertyPath: m_Size.x
@@ -14292,6 +14312,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: KitchenCounter (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 2139539116639905644, guid: 2b215cc26d0d3ff4091fdc4e477f7d2a, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 7489820603135950055, guid: 2b215cc26d0d3ff4091fdc4e477f7d2a, type: 3}
       propertyPath: m_Size.x
       value: 2.445065
@@ -14705,6 +14729,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Wall (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 5362261668650439853, guid: 7c4be7480c2b81d4cbd8d13f73b467bf, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -14723,7 +14751,7 @@ GameObject:
   - component: {fileID: 2062072714}
   - component: {fileID: 2062072713}
   - component: {fileID: 2062072712}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: CuttingBoardSprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15324,6 +15352,10 @@ PrefabInstance:
     - target: {fileID: 5362261668650439853, guid: 7c4be7480c2b81d4cbd8d13f73b467bf, type: 3}
       propertyPath: m_Name
       value: Wall (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5362261668650439853, guid: 7c4be7480c2b81d4cbd8d13f73b467bf, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

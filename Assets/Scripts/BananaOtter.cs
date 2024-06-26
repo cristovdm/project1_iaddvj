@@ -32,11 +32,6 @@ public class BananaOtter : MonoBehaviour
 
     private enum State { Wander, Flee }
     private State currentState;
-    private bool isBananaThrowingRoutineRunning = false;
-
-    private Vector2 position1 = new Vector2(30f, 20f);
-    private Vector2 position2 = new Vector2(-30f, -20f);
-    private bool togglePosition = false;
 
     void Start()
     {
@@ -70,10 +65,7 @@ public class BananaOtter : MonoBehaviour
         switch (currentState)
         {
             case State.Wander:
-                if (!isBananaThrowingRoutineRunning)
-                {
-                    StartCoroutine(BananaThrowAndMoveRoutine());
-                }
+                Wander();
                 break;
             case State.Flee:
                 Flee();
@@ -104,27 +96,21 @@ public class BananaOtter : MonoBehaviour
     {
         /*
         Vector2 direction = (transform.position - player.transform.position).normalized;
-        direction = AvoidObstacles(direction);
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, moveSpeed * Time.deltaTime, LayerMask.GetMask("Wall"));
 
-        // Verificar la posición futura si se mueve en la dirección deseada
-        Vector2 futurePosition = (Vector2)transform.position + direction * fleeSpeed * Time.deltaTime;
-        if (!IsPositionOccupied(futurePosition, "Wall"))
+        if (hit.collider == null)
         {
-            rb.velocity = direction * fleeSpeed;
+            rb.velocity = direction * moveSpeed;
         }
         else
         {
+            Debug.Log("corro");
             rb.velocity = Vector2.zero;
         }
-
-        if (rb.velocity == Vector2.zero && !isBananaThrowingRoutineRunning)
-        {
-            StartCoroutine(BananaThrowAndMoveRoutine());
-        }*/
+        */
 
         if (Input.GetKeyDown(KeyCode.Q) && isNearPlayer)
         {
-            Debug.Log("matarlo"); 
             pressCount++;
             PlayHitSound();
             if (pressCount >= requiredPressesToEliminate)
@@ -136,21 +122,23 @@ public class BananaOtter : MonoBehaviour
 
     IEnumerator BananaThrowAndMoveRoutine()
     {
-        isBananaThrowingRoutineRunning = true;
+        Vector2 position1 = new Vector2(30f, 20f);
+        Vector2 position2 = new Vector2(-30f, -20f);
+        Vector2 currentPosition = position1;
 
         while (true)
         {
-        for (int i = 0; i < 2; i++)
-        {
-            DropBanana();
-            yield return new WaitForSeconds(bananaDropInterval);
-        }
-            Vector2 targetPosition = togglePosition ? position2 : position1;
-            togglePosition = !togglePosition;
-            yield return StartCoroutine(MoveToTarget(targetPosition));
-        }
 
-        isBananaThrowingRoutineRunning = false;
+            yield return StartCoroutine(MoveToTarget(currentPosition));
+
+            for (int i = 0; i < 3; i++)
+            {
+                DropBanana();
+                yield return new WaitForSeconds(bananaDropInterval);
+            }
+
+            currentPosition = (currentPosition == position1) ? position2 : position1;
+        }
     }
 
     IEnumerator FlipRoutine()
@@ -165,7 +153,7 @@ public class BananaOtter : MonoBehaviour
     void DropBanana()
     {
         Vector2 spawnPosition = GetRandomPosition();
-        if (!IsPositionOccupied(spawnPosition, "Wall") || !IsPositionOccupied(spawnPosition, "Food") || !IsPositionOccupied(spawnPosition, "Player") )
+        if (!IsPositionOccupied(spawnPosition, "Wall") && !IsPositionOccupied(spawnPosition, "Decoration"))
         {
             GameObject banana = Instantiate(bananaPrefab, spawnPosition, Quaternion.identity);
             bananas.Add(banana);
@@ -208,13 +196,40 @@ public class BananaOtter : MonoBehaviour
         {
             Vector2 direction = (target - (Vector2)transform.position).normalized;
             direction = AvoidObstacles(direction);
+
             Vector2 futurePosition = (Vector2)transform.position + direction * moveSpeed * Time.deltaTime;
             if (!IsPositionOccupied(futurePosition, "Wall"))
             {
                 transform.position = futurePosition;
             }
+            else
+            {
+                // Si hay un obstáculo, intenta moverte en una dirección diferente
+                direction = FindAlternativeDirection(direction);
+                futurePosition = (Vector2)transform.position + direction * moveSpeed * Time.deltaTime;
+                if (!IsPositionOccupied(futurePosition, "Wall"))
+                {
+                    transform.position = futurePosition;
+                }
+            }
+
             yield return null;
         }
+    }
+
+    Vector2 FindAlternativeDirection(Vector2 originalDirection)
+    {
+        // Intenta moverte en una dirección perpendicular a la original
+        Vector2 newDirection = new Vector2(-originalDirection.y, originalDirection.x);
+
+        // Si esta dirección está bloqueada, intenta la dirección opuesta
+        Vector2 futurePosition = (Vector2)transform.position + newDirection * moveSpeed * Time.deltaTime;
+        if (IsPositionOccupied(futurePosition, "Wall"))
+        {
+            newDirection = new Vector2(originalDirection.y, -originalDirection.x);
+        }
+
+        return newDirection.normalized;
     }
 
     Vector2 AvoidObstacles(Vector2 targetDirection)
@@ -234,7 +249,7 @@ public class BananaOtter : MonoBehaviour
 
     bool IsPositionOccupied(Vector2 position, string layerName)
     {
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(position, 0.5f);
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(position, obstacleAvoidanceRadius);
         foreach (var collider in colliders)
         {
             if (collider.gameObject.layer == LayerMask.NameToLayer(layerName))
@@ -244,6 +259,7 @@ public class BananaOtter : MonoBehaviour
         }
         return false;
     }
+
 
     void PlayHitSound()
     {
