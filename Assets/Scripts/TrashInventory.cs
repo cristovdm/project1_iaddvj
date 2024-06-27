@@ -26,7 +26,6 @@ public class TrashInventory : MonoBehaviour
         }
         if (playerMovement != null)
         {
-            originalMovementSpeed = playerMovement.movementSpeed;
             originalSpeedX = playerMovement.speedX;
             originalSpeedY = playerMovement.speedY;
         }
@@ -49,13 +48,11 @@ public class TrashInventory : MonoBehaviour
         {
             if (currentState)
             {
-                playerMovement.movementSpeed = 0f;
                 playerMovement.speedX = 0f;
                 playerMovement.speedY = 0f;
             }
             else
             {
-                playerMovement.movementSpeed = originalMovementSpeed;
                 playerMovement.speedX = originalSpeedX;
                 playerMovement.speedY = originalSpeedY;
             }

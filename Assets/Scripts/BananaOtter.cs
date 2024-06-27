@@ -131,7 +131,7 @@ public class BananaOtter : MonoBehaviour
 
             yield return StartCoroutine(MoveToTarget(currentPosition));
 
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < 5; i++)
             {
                 DropBanana();
                 yield return new WaitForSeconds(bananaDropInterval);

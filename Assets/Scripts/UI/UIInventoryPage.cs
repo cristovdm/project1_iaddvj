@@ -61,6 +61,11 @@ namespace Inventory.UI
             else if (sceneName == "Kitchen" && userInventory == 2){
                 inventorysize = 2; 
             }
+
+            else if (sceneName == "Maze" && userInventory == 0){
+                inventorysize = 6; 
+            }
+
             for (int i = 0; i < inventorysize; i++)
             {
                 UIInventoryItem uiItem =
