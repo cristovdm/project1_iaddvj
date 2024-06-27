@@ -119,6 +119,21 @@ public class PlayerMovement : MonoBehaviour
         {
             Book.enabled = !Book.enabled;
         }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            #if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+            #else
+            Application.Quit();
+            #endif
+        }
+
+        if (Input.GetKeyDown(KeyCode.Backspace))
+        {
+            SceneManager.LoadScene("Main Menu"); 
+        }
+
     }
 
     public void StopMovement(float stopTime)
