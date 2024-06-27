@@ -16,7 +16,6 @@ public class PlayerMovement : MonoBehaviour
     public bool isBoosted = false;
     public bool canCollideWithBanana = true;
 
-
     public float punchDuration = 0.5f;
 
     public Canvas Book;
@@ -25,6 +24,9 @@ public class PlayerMovement : MonoBehaviour
     public Button yesButton;
     public Button noButton;
 
+    private bool isInKitchen = false;
+    private bool isNearBook = false; // To track if player is near the book
+
     void Awake()
     {
         anim = GetComponent<Animator>();
@@ -32,7 +34,6 @@ public class PlayerMovement : MonoBehaviour
 
     void Start()
     {
-        Book.enabled = false;
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         if (spriteRenderer == null)
@@ -40,12 +41,34 @@ public class PlayerMovement : MonoBehaviour
             Debug.LogError("SpriteRenderer component not found on player GameObject.");
         }
 
-
         if (exitMenu != null)
         {
             exitMenu.SetActive(false);
-            yesButton.onClick.AddListener(OnYesButtonClicked);
-            noButton.onClick.AddListener(OnNoButtonClicked);
+
+            if (yesButton != null)
+            {
+                yesButton.onClick.AddListener(OnYesButtonClicked);
+            }
+            else
+            {
+                Debug.LogError("YesButton is not assigned.");
+            }
+
+            if (noButton != null)
+            {
+                noButton.onClick.AddListener(OnNoButtonClicked);
+            }
+            else
+            {
+                Debug.LogError("NoButton is not assigned.");
+            }
+        }
+
+        // Check if the active scene is "Kitchen"
+        isInKitchen = SceneManager.GetActiveScene().name == "Kitchen";
+        if (isInKitchen && Book != null)
+        {
+            Book.enabled = false;
         }
     }
 
@@ -80,16 +103,21 @@ public class PlayerMovement : MonoBehaviour
             rb.AddForce(lastMovement * slideForce, ForceMode2D.Force);
             anim.SetBool("isSliding", true);
         }
+
         else if (!isSliding)
         {
             rb.velocity *= 0.8f;
             anim.SetBool("isSliding", false);
         }
 
-        // Trigger punch animation
         if (Input.GetKeyDown(KeyCode.Q))
         {
             TriggerPunchAnimation();
+        }
+
+        if (isInKitchen && isNearBook && Input.GetKeyDown(KeyCode.E))
+        {
+            Book.enabled = !Book.enabled;
         }
     }
 
@@ -102,11 +130,16 @@ public class PlayerMovement : MonoBehaviour
     {
         float originalSpeed = movementSpeed;
         movementSpeed = 0f;
+        rb.velocity = Vector2.zero; // Stop the rigidbody immediately
+
+        Debug.Log("Player movement stopped.");
 
         yield return new WaitForSeconds(stopTime);
 
         movementSpeed = originalSpeed;
         isSliding = false;
+
+        Debug.Log("Player movement resumed.");
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -127,9 +160,9 @@ public class PlayerMovement : MonoBehaviour
         {
             ShowExitMenu();
         }
-        if (other.CompareTag("Book"))
+        if (isInKitchen && other.CompareTag("Book"))
         {
-            Book.enabled = true;
+            isNearBook = true;
         }
     }
 
@@ -139,8 +172,9 @@ public class PlayerMovement : MonoBehaviour
         {
             isSliding = false;
         }
-        if (other.CompareTag("Book"))
+        if (isInKitchen && other.CompareTag("Book"))
         {
+            isNearBook = false;
             Book.enabled = false;
         }
     }
@@ -197,5 +231,4 @@ public class PlayerMovement : MonoBehaviour
     {
         HideExitMenu();
     }
-
 }

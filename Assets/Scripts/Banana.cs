@@ -6,7 +6,7 @@ public class Banana : MonoBehaviour
     public float stopTime = 1f;
     public float disappearDelay = 0.1f;
     public float cooldownTime = 1f;
-    public AudioClip slipSound; 
+    public AudioClip slipSound;
 
     private AudioSource audioSource;
 
