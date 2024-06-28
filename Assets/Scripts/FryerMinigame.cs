@@ -11,11 +11,11 @@ public class FryerMinigame : MonoBehaviour
 {
     public GameObject ParentObject;
     public BoxCollider2D interactionArea;
-    public TextMeshProUGUI feedbackText;  // Referencia al objeto de texto UI de TextMeshPro
-    public GameObject targetSprite;       // Referencia al objeto del sprite principal
-    public GameObject additionalSprite;   // Referencia al objeto del sprite adicional
-    public AudioClip activationClip;      // Clip de audio a reproducir al activar el sprite
-    private AudioSource audioSource;       // AudioSource para reproducir el sonido
+    public TextMeshProUGUI feedbackText;
+    public GameObject targetSprite;
+    public List<GameObject> additionalSprites;
+    public AudioClip activationClip;
+    public AudioSource audioSource;
 
     public PlayerMovement playerMovement;
     private InventoryController inventory;
@@ -25,11 +25,7 @@ public class FryerMinigame : MonoBehaviour
     private float elapsedTime;
     private bool isPressingKey;
     private bool gameStarted;
-    private bool spriteActive;
-    private bool additionalSpriteActive;   // Indica si el sprite adicional est� activo
-    private const float marginOfError = 1f;  // Margen de error de 0.5 segundos
-
-    
+    private const float marginOfError = 1f;
 
     private bool isCooldown = false;
     private bool gameActive = false;
@@ -42,8 +38,6 @@ public class FryerMinigame : MonoBehaviour
     {
         inventory = FindObjectOfType<InventoryController>();
         SetChildrenActive(ParentObject, false);
-        audioSource = gameObject.AddComponent<AudioSource>(); // A�adir AudioSource al objeto actual
-
     }
 
     void Update()
@@ -70,8 +64,9 @@ public class FryerMinigame : MonoBehaviour
                 {
                     isPressingKey = true;
                     elapsedTime = 0f;
-                    feedbackText.gameObject.SetActive(false); // Desactivar el texto al presionar la tecla
-                    DeactivateAdditionalSprite(); // Desactivar el sprite adicional al presionar la tecla
+                    feedbackText.gameObject.SetActive(false);
+                    audioSource.loop = true;
+                    audioSource.Play();
                 }
 
                 if (Input.GetKeyUp(KeyCode.DownArrow))
@@ -79,10 +74,11 @@ public class FryerMinigame : MonoBehaviour
                     if (isPressingKey)
                     {
                         isPressingKey = false;
+                        audioSource.Stop();
 
-                        if (elapsedTime >= targetTime && elapsedTime <= targetTime + marginOfError)
+                        if (elapsedTime >= targetTime)
                         {
-                            DeactivateSprite();
+                            DeactivateAllAdditionalSprites();
                             feedbackText.gameObject.SetActive(true);
                             feedbackText.text = "COMPLETE!";
                             Invoke("EndMiniGame", 1.0f);
@@ -99,27 +95,13 @@ public class FryerMinigame : MonoBehaviour
                 if (isPressingKey)
                 {
                     elapsedTime += Time.deltaTime;
-                }
-
-                if (elapsedTime >= targetTime && elapsedTime <= targetTime + marginOfError)
-                {
-                    if (!spriteActive)
-                    {
-                        ActivateSprite();
-                    }
-                }
-                else
-                {
-                    if (spriteActive)
-                    {
-                        DeactivateSprite();
-                    }
+                    UpdateSprites();
                 }
             }
         }
         else
         {
-            if (!IsGameActive() && !hasStartedMiniGame && Input.GetKeyDown(KeyCode.E) && IsReadyToStart() && IsFoodAvailable())
+            if (!IsGameActive() && !hasStartedMiniGame && Input.GetKeyDown(KeyCode.E))
             {
                 StartMiniGame();
             }
@@ -140,38 +122,31 @@ public class FryerMinigame : MonoBehaviour
         elapsedTime = 0f;
         isPressingKey = false;
         gameStarted = true;
-        spriteActive = false;
-        additionalSpriteActive = true; // Inicialmente el sprite adicional est� activo
 
-        feedbackText.gameObject.SetActive(true); // Activar el texto al reiniciar el juego
-        feedbackText.text = "Maintain the button until it's ready.";
-        DeactivateSprite();
-        ActivateAdditionalSprite(); // Activar el sprite adicional al reiniciar el juego
-    }
-
-    void ActivateSprite()
-    {
+        feedbackText.gameObject.SetActive(true);
+        feedbackText.text = "Hold until you see 5 bubbles.";
         targetSprite.SetActive(true);
-        audioSource.PlayOneShot(activationClip); // Reproducir el clip de audio una vez
-        spriteActive = true;
+        DeactivateAllAdditionalSprites();
     }
 
-    void DeactivateSprite()
+    void DeactivateAllAdditionalSprites()
     {
-        targetSprite.SetActive(false);
-        spriteActive = false;
+        foreach (var sprite in additionalSprites)
+        {
+            sprite.SetActive(false);
+        }
     }
 
-    void ActivateAdditionalSprite()
+    void UpdateSprites()
     {
-        additionalSprite.SetActive(true);
-        additionalSpriteActive = true;
-    }
-
-    void DeactivateAdditionalSprite()
-    {
-        additionalSprite.SetActive(false);
-        additionalSpriteActive = false;
+        float timePerSprite = targetTime / additionalSprites.Count;
+        for (int i = 0; i < additionalSprites.Count; i++)
+        {
+            if (elapsedTime >= timePerSprite * (i + 1))
+            {
+                additionalSprites[i].SetActive(true);
+            }
+        }
     }
 
     IEnumerator RestartGameAfterDelay(float delay)
@@ -183,19 +158,12 @@ public class FryerMinigame : MonoBehaviour
 
     public void StartMiniGame()
     {
-        
         feedbackText.text = "";
         inventory.TakeOutFirstItem();
         hasStartedMiniGame = true;
         SetChildrenActive(ParentObject, true);
-        DeactivateSprite();
-        ResetKeySprites();
-        StartCoroutine(CountdownToStart());
-    }
+        targetSprite.SetActive(true);
 
-    IEnumerator CountdownToStart()
-    {
-        yield return new WaitForSeconds(1f);
         gameActive = true;
         isPlayerLocked = false;
         StartGame();
@@ -203,7 +171,7 @@ public class FryerMinigame : MonoBehaviour
 
     private void ResetGame()
     {
-        DeactivateSprite();
+        DeactivateAllAdditionalSprites();
         hasStartedMiniGame = false;
         gameActive = false;
         isPlayerLocked = true;
@@ -225,8 +193,8 @@ public class FryerMinigame : MonoBehaviour
 
     void EndMiniGame()
     {
+        StopAllCoroutines();
         ResetGame();
-        ResetKeySprites();
         SetChildrenActive(ParentObject, false);
         StartCooldown();
         playerMovement.enabled = true;
@@ -238,13 +206,6 @@ public class FryerMinigame : MonoBehaviour
             itemState = new List<ItemParameter>()
         };
         inventory.AddInventoryItem(item);
-
-    }
-
-    void ResetKeySprites()
-    {
-
-        additionalSprite.SetActive(false);
     }
 
     void OnTriggerEnter2D(Collider2D other)
