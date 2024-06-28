@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,32 +12,31 @@ public class CheatCodeListener : MonoBehaviour
     public Canvas cheatCanvas;
     public AudioClip cheatSound;
 
-    private Dictionary<string, System.Action> cheatCodes = new Dictionary<string, System.Action>();
+    private Dictionary<string, Action> cheatCodes = new Dictionary<string, Action>();
     private Dictionary<string, int> cheatCodeIndices = new Dictionary<string, int>();
     private AudioSource audioSource;
     private Image canvasImage;
     private TMP_Text canvasText;
     private bool isFading = false;
-    private InventoryController trashInventory; 
-    private ItemSO cleanedItem;
+    private InventoryController trashInventory;
     private Money moneyScript;
-    private Level levelScript; 
 
-    void Start()
+    [SerializeField] private InventorySO trashInventoryData;
+
+    private List<string> rottenItemNames = new List<string>
+    {
+        "RottenEgg",
+        "RottenCorn",
+        "RottenTomato",
+        "RottenCarrot",
+        "RottenFish",
+        "RottenPan"
+    };
+
+    private void Start()
     {
         trashInventory = FindObjectOfType<InventoryController>();
         moneyScript = FindObjectOfType<Money>();
-        levelScript = FindObjectOfType<Level>();
-
-        if (levelScript != null)
-        {
-            string currentLevelName = levelScript.GetCurrentLevel();
-            Debug.Log("Current Level: " + currentLevelName);
-        }
-        else
-        {
-            Debug.LogWarning("Level script not found!");
-        }
 
         cheatCodes.Add("HESOYAM", ActivateHESOYAM);
         cheatCodes.Add("GOAWAY", ActivateGOAWAY);
@@ -52,7 +52,7 @@ public class CheatCodeListener : MonoBehaviour
         cheatCanvas.gameObject.SetActive(false);
     }
 
-    void Update()
+    private void Update()
     {
         if (Input.anyKeyDown && !isFading)
         {
@@ -66,32 +66,32 @@ public class CheatCodeListener : MonoBehaviour
                         if (cheatCodeIndices[code] == code.Length)
                         {
                             cheatCodes[code].Invoke();
-                            cheatCodeIndices[code] = 0; 
+                            cheatCodeIndices[code] = 0;
                         }
                     }
                     else
                     {
-                        cheatCodeIndices[code] = 0; 
+                        cheatCodeIndices[code] = 0;
                     }
                 }
             }
         }
     }
 
-    void ActivateHESOYAM()
+    private void ActivateHESOYAM()
     {
-        //fillMyTrash(); 
+        fillMyTrash();
         moneyScript.AddMoney(100);
         ActivateCheatCanvas();
     }
 
-    void ActivateGOAWAY()
+    private void ActivateGOAWAY()
     {
         DestroyTargetObject();
         ActivateCheatCanvas();
     }
 
-    void ActivateCheatCanvas()
+    private void ActivateCheatCanvas()
     {
         StopAllCoroutines();
         cheatCanvas.gameObject.SetActive(true);
@@ -100,7 +100,7 @@ public class CheatCodeListener : MonoBehaviour
         StartCoroutine(FadeOutCanvas());
     }
 
-    void PlayCheatSound()
+    private void PlayCheatSound()
     {
         if (cheatSound != null && audioSource != null)
         {
@@ -109,7 +109,7 @@ public class CheatCodeListener : MonoBehaviour
         }
     }
 
-    void DestroyTargetObject()
+    private void DestroyTargetObject()
     {
         List<string> targetNames = new List<string> { "RataSucia(Clone)", "seaurchin(Clone)", "BananaOtter(Clone)" };
 
@@ -119,24 +119,51 @@ public class CheatCodeListener : MonoBehaviour
             if (targetObject != null)
             {
                 Destroy(targetObject);
-                Debug.Log($"{targetName} destroyed");
             }
         }
     }
 
-    void fillMyTrash(){ 
-        cleanedItem = ResourceManager.LoadResource<EdibleItemSO>("Carrot");
-        InventoryItem item = new InventoryItem
-        {
-            item = cleanedItem,
-            quantity = 1,
-            itemState = new List<ItemParameter>()
-        };
-        trashInventory.AddTrashInventoryItem(item);
+    private void fillMyTrash()
+    {
+        
+        int index = 0;
 
+        foreach (string itemName in rottenItemNames)
+        {
+            try
+            {
+                InventoryItem inventoryItem = trashInventoryData.GetItemAt(index);
+
+                if (!inventoryItem.IsEmpty)
+                {
+                    trashInventory.DropTrashItem(index, inventoryItem.quantity);
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+
+            EdibleItemSO itemSO = ResourceManager.LoadResource<EdibleItemSO>(itemName);
+            if (itemSO != null)
+            {
+                InventoryItem item = new InventoryItem
+                {
+                    item = itemSO,
+                    quantity = 9,
+                    itemState = new List<ItemParameter>()
+                };
+                trashInventory.AddTrashInventoryItem(item);
+
+                index++;
+            }
+            else
+            {
+                Debug.LogWarning($"No se pudo cargar el ítem {itemName}.");
+            }
+        }
     }
 
-    IEnumerator FadeOutCanvas()
+    private IEnumerator FadeOutCanvas()
     {
         yield return new WaitForSeconds(1.6f);
 
@@ -160,7 +187,7 @@ public class CheatCodeListener : MonoBehaviour
         isFading = false;
     }
 
-    void ResetCanvasAlpha()
+    private void ResetCanvasAlpha()
     {
         Color canvasColor = canvasImage.color;
         canvasColor.a = 1f;

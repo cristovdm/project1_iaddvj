@@ -17274,7 +17274,7 @@ MonoBehaviour:
   playerInventoryFilled: 0
   initialItems: []
   TrashInitialItems:
-  - quantity: 1
+  - quantity: 2
     item: {fileID: 11400000, guid: 774d22630d93b2f438ba92c6290ab3ba, type: 2}
     itemState: []
   - quantity: 1
@@ -17288,6 +17288,7 @@ MonoBehaviour:
   inventoryItem: {fileID: 1179637938380177040, guid: d90df31e5a4f50d41a6fc1541740c472, type: 3}
   selectedIndex: 0
   swapping: 0
+  playerSwap: 0
 --- !u!4 &8667536452772664783 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3670795837735245664, guid: 03e5cab9626f2a6469364b5966c45cfa, type: 3}
@@ -17315,6 +17316,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cheatCanvas: {fileID: 956548697}
   cheatSound: {fileID: 8300000, guid: 98c23580b2e72a548a94a015b8c56b0d, type: 3}
+  trashInventoryData: {fileID: 11400000, guid: fd6f3fd9d83ebb941913ec687467fa9e, type: 2}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

@@ -143,7 +143,28 @@ namespace Inventory.Model
 
         public InventoryItem GetItemAt(int itemIndex)
         {
-            return inventoryItems[itemIndex];
+            try
+            {
+                if (itemIndex >= 0 && itemIndex < inventoryItems.Count)
+                {
+                    if (inventoryItems[itemIndex].IsEmpty)
+                    {
+                        throw new InvalidOperationException("El ítem está vacío.");
+                    }
+                    else
+                    {
+                        return inventoryItems[itemIndex]; 
+                    }
+                }
+                else
+                {
+                    throw new IndexOutOfRangeException("Índice fuera de los límites.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return default;
+            }
         }
 
     public bool SwapItems(int itemIndex_1, int itemIndex_2)

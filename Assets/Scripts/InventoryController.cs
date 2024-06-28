@@ -60,6 +60,8 @@ namespace Inventory
 
         public bool swapping = false; 
 
+        public bool playerSwap = false; 
+
         private string plateItemDragged; 
 
         private void Start()
@@ -234,7 +236,7 @@ namespace Inventory
             playerInventoryFilled = false; 
         }
 
-        private void DropTrashItem(int itemIndex, int quantity)
+        public void DropTrashItem(int itemIndex, int quantity)
         {
             string sceneName = SceneManager.GetActiveScene().name;
             if (sceneName != "Kitchen") return;
@@ -329,6 +331,8 @@ namespace Inventory
 
         private void HandleDragging(int itemIndex)
         {
+
+            playerSwap = true; 
             InventoryItem inventoryItem = inventoryData.GetItemAt(itemIndex);
             if (inventoryItem.IsEmpty)
                 return;
@@ -389,7 +393,6 @@ namespace Inventory
                             forInventory.quantity = 1;
                             forPlayer.quantity = 1;
                             DropTrashItem(lastDraggedIndex, 1);
-                            trashinventoryData.AddItem(forInventory);
                             DropItem(0, 1);
                             inventoryData.AddItem(forPlayer);
                         }
@@ -655,10 +658,16 @@ namespace Inventory
             }
             if (!plateinventoryData.IsInventoryFull()){
                 InventoryItem plateItem = inventoryData.GetItemAt(0);
-                plateItem.quantity = 1;
-                plateinventoryData.AddItem(plateItem);
-                DropItem(0, 1);
-                playerInventoryFilled = false;
+                
+                if (!plateItem.IsEmpty){
+                    if (playerSwap){
+                        plateItem.quantity = 1;
+                        plateinventoryData.AddItem(plateItem);
+                        DropItem(0, 1);
+                        playerInventoryFilled = false;
+                        playerSwap = false; 
+                    }
+                }
             }
             swapping = false;
         }
@@ -711,13 +720,18 @@ namespace Inventory
             if (!trashinventoryData.IsInventoryFull())
                 {
                     InventoryItem trashItem = inventoryData.GetItemAt(0);
-                    trashinventoryData.AddItem(trashItem);
-                    DropItem(0, 1);
-                    playerInventoryFilled = false;
+                        
+                    if (!trashItem.IsEmpty){
+                        if(playerSwap){
+                            trashinventoryData.AddItem(trashItem);
+                            DropItem(0, 1);
+                            playerInventoryFilled = false;
+                            playerSwap = false; 
+                        }
+                    }
                 }
             swapping = false; 
         }
-
 
 
     }
