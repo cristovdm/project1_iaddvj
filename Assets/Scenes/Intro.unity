@@ -401,11 +401,26 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 0654be0ec053ca349854c7679924589f, type: 3}
   - {fileID: 21300000, guid: 0654be0ec053ca349854c7679924589f, type: 3}
   - {fileID: 21300000, guid: 0654be0ec053ca349854c7679924589f, type: 3}
+  - {fileID: 21300000, guid: 0654be0ec053ca349854c7679924589f, type: 3}
+  - {fileID: 21300000, guid: d0c14cd2f4926924a91067c6406bcb05, type: 3}
   - {fileID: 21300000, guid: fca720d694da9f143b149820f1b3841e, type: 3}
-  - {fileID: 21300000, guid: fca720d694da9f143b149820f1b3841e, type: 3}
-  - {fileID: 21300000, guid: fca720d694da9f143b149820f1b3841e, type: 3}
-  - {fileID: 21300000, guid: fca720d694da9f143b149820f1b3841e, type: 3}
-  - {fileID: 21300000, guid: fca720d694da9f143b149820f1b3841e, type: 3}
+  - {fileID: 21300000, guid: d0c14cd2f4926924a91067c6406bcb05, type: 3}
+  - {fileID: 21300000, guid: d0c14cd2f4926924a91067c6406bcb05, type: 3}
+  - {fileID: 21300000, guid: 2b6f3c40634f36a4390c7b1674a5a9f5, type: 3}
+  - {fileID: 21300000, guid: 2b6f3c40634f36a4390c7b1674a5a9f5, type: 3}
+  - {fileID: 21300000, guid: 8d1724c0b5c30d3428c134407ec2acca, type: 3}
+  - {fileID: 21300000, guid: 8d1724c0b5c30d3428c134407ec2acca, type: 3}
+  - {fileID: 21300000, guid: 555d0e2b6f2f8ae459665f9ec23ce8b5, type: 3}
+  - {fileID: 21300000, guid: 555d0e2b6f2f8ae459665f9ec23ce8b5, type: 3}
+  - {fileID: 21300000, guid: 71f556ed455294147a47512e2cb1e822, type: 3}
+  - {fileID: 21300000, guid: 71f556ed455294147a47512e2cb1e822, type: 3}
+  - {fileID: 21300000, guid: a71bf4428ecb0c54a83110027efd3e03, type: 3}
+  - {fileID: 21300000, guid: a71bf4428ecb0c54a83110027efd3e03, type: 3}
+  - {fileID: 21300000, guid: 86677d7bf6de18842a79072e0ac0114f, type: 3}
+  - {fileID: 21300000, guid: 86677d7bf6de18842a79072e0ac0114f, type: 3}
+  - {fileID: 21300000, guid: 9893574c2edc06247924d4c0595b302c, type: 3}
+  - {fileID: 21300000, guid: 9893574c2edc06247924d4c0595b302c, type: 3}
+  - {fileID: 21300000, guid: 9893574c2edc06247924d4c0595b302c, type: 3}
   interval: 0.5
   displayImage: {fileID: 30357612}
   loopCutscene: 0
