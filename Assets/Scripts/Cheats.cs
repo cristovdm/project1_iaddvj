@@ -18,9 +18,11 @@ public class CheatCodeListener : MonoBehaviour
 
     void Start()
     {
+        // Define the cheat codes and their corresponding actions
         cheatCodes.Add("HESOYAM", ActivateHESOYAM);
         cheatCodes.Add("GOAWAY", ActivateGOAWAY);
 
+        // Initialize indices for each cheat code
         foreach (var code in cheatCodes.Keys)
         {
             cheatCodeIndices[code] = 0;
@@ -46,12 +48,12 @@ public class CheatCodeListener : MonoBehaviour
                         if (cheatCodeIndices[code] == code.Length)
                         {
                             cheatCodes[code].Invoke();
-                            cheatCodeIndices[code] = 0; 
+                            cheatCodeIndices[code] = 0;  // Reset the index if the cheat code is completed
                         }
                     }
                     else
                     {
-                        cheatCodeIndices[code] = 0; 
+                        cheatCodeIndices[code] = 0;  // Reset the index if a wrong key is pressed
                     }
                 }
             }
@@ -67,14 +69,15 @@ public class CheatCodeListener : MonoBehaviour
     void ActivateGOAWAY()
     {
         Debug.Log("Truco GOAWAY activado");
+        DestroyTargetObject();
         ActivateCheatCanvas();
     }
 
     void ActivateCheatCanvas()
     {
         cheatCanvas.gameObject.SetActive(true);
-        StartCoroutine(FadeOutCanvas());
         PlayCheatSound();
+        StartCoroutine(FadeOutCanvas());
     }
 
     void PlayCheatSound()
@@ -85,9 +88,24 @@ public class CheatCodeListener : MonoBehaviour
         }
     }
 
+    void DestroyTargetObject()
+    {
+        List<string> targetNames = new List<string> { "RataSucia(Clone)", "seaurchin(Clone)", "BananaOtter(Clone)" };
+
+        foreach (string targetName in targetNames)
+        {
+            GameObject targetObject = GameObject.Find(targetName);
+            if (targetObject != null)
+            {
+                Destroy(targetObject);
+                Debug.Log($"{targetName} destroyed");
+            }
+        }
+    }
+
     IEnumerator FadeOutCanvas()
     {
-        yield return new WaitForSeconds(1.2f);
+        yield return new WaitForSeconds(5f);
 
         isFading = true;
         float fadeDuration = 2f;
@@ -97,7 +115,7 @@ public class CheatCodeListener : MonoBehaviour
 
         for (float t = 0; t < fadeDuration; t += fadeStep)
         {
-            float alpha = Mathf.Lerp(0.7f, 0f, t / fadeDuration);
+            float alpha = Mathf.Lerp(1f, 0f, t / fadeDuration);
             canvasColor.a = alpha;
             textColor.a = alpha;
             canvasImage.color = canvasColor;
