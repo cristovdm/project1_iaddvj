@@ -86,6 +86,30 @@ public class DeliverFood : MonoBehaviour
                 case "SopaZanahoria":
                     RenderSprite("sopaZanahoriaCloud");
                     return;
+                case "CarrotTomatoSalad":
+                    RenderSprite("carrotTomatoSaladCloud");
+                    return;
+                case "CutCarrot":
+                    RenderSprite("CutCarrot");
+                    return;
+                case "FriedCarrotBreadSticks":
+                    RenderSprite("friedCarrotBreadSticks");
+                    return;
+                case "CutCorn":
+                    RenderSprite("cutCorn");
+                    return;
+                case "cutTomato":
+                    RenderSprite("cutTomato");
+                    return;
+                case "SaladWithEgg":
+                    RenderSprite("saladWithEggCloud");
+                    return;
+                case "Tomatican":
+                    RenderSprite("tomaticanCloud");
+                    return;
+                case "tortillaZanahoria":
+                    RenderSprite("TortillaZanahoriaCloud");
+                    return;
             }
         }
     }
