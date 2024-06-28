@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <isStackable>k__BackingField: 1
   <MaxStackSize>k__BackingField: 9
-  <Name>k__BackingField: Cut Tomato
+  <Name>k__BackingField: cutTomato
   <Description>k__BackingField: Cut Fresh Fish
   <ItemImage>k__BackingField: {fileID: 21300000, guid: 7c08bf19a93e6504bbc0d00e7accf084, type: 3}
   <DefaultParametersList>k__BackingField: []

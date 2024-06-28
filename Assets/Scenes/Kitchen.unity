@@ -12486,7 +12486,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a11609408d700043a21d27c1eb90b7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentStage: 1
   currentLevel: 1
 --- !u!1 &1756531077
 GameObject:
@@ -17110,6 +17109,10 @@ PrefabInstance:
       propertyPath: movementSpeed
       value: 20
       objectReference: {fileID: 0}
+    - target: {fileID: 3926928879652096698, guid: 03e5cab9626f2a6469364b5966c45cfa, type: 3}
+      propertyPath: countdownTimer
+      value: 
+      objectReference: {fileID: 1740895357}
     - target: {fileID: 3926928879652096698, guid: 03e5cab9626f2a6469364b5966c45cfa, type: 3}
       propertyPath: waterSlideFactor
       value: 0.5
