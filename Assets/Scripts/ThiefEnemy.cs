@@ -141,15 +141,8 @@ public class ThiefEnemy : MonoBehaviour
         if (!isBeingDestroyed) // Check to ensure destruction happens only once
         {
             isBeingDestroyed = true;
-            if (destroySound != null)
-            {
-                StartCoroutine(PlayDestroySoundAndGeneratePrefab());
-            }
-            else
-            {
-                GeneratePrefab();
-                Destroy(gameObject);
-            }
+            GeneratePrefab();
+            Destroy(gameObject);
         }
     }
 
@@ -159,21 +152,6 @@ public class ThiefEnemy : MonoBehaviour
         {
             audioSource.PlayOneShot(hitSound);
         }
-    }
-
-    IEnumerator PlayDestroySoundAndGeneratePrefab()
-    {
-        if (destroySound != null)
-        {
-            GameObject tempAudioObject = new GameObject("TempAudio");
-            AudioSource tempAudioSource = tempAudioObject.AddComponent<AudioSource>();
-            tempAudioSource.clip = destroySound;
-            tempAudioSource.Play();
-            Destroy(tempAudioObject, destroySound.length);
-            yield return new WaitForSeconds(destroySound.length);
-        }
-        GeneratePrefab();
-        Destroy(gameObject);
     }
 
     void GeneratePrefab()

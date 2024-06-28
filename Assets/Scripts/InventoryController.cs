@@ -570,6 +570,11 @@ namespace Inventory
             inventoryData.AddItem(inventoryItem);
         }
 
+        public void AddTrashInventoryItem(InventoryItem inventoryItem)
+        {
+            trashinventoryData.AddItem(inventoryItem);
+        }
+
         public void Update()
         {
             // Abrir el inventario manualmente (este código lo habilita solo en el maze)

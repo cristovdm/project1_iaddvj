@@ -25,7 +25,10 @@ public class PlayerMovement : MonoBehaviour
     public Button noButton;
 
     private bool isInKitchen = false;
-    private bool isNearBook = false; // To track if player is near the book
+    private bool isNearBook = false;
+
+    [SerializeField]
+    private CountdownTimerKitchen countdownTimer;
 
     void Awake()
     {
@@ -64,7 +67,6 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
-        // Check if the active scene is "Kitchen"
         isInKitchen = SceneManager.GetActiveScene().name == "Kitchen";
         if (isInKitchen && Book != null)
         {
@@ -103,7 +105,6 @@ public class PlayerMovement : MonoBehaviour
             rb.AddForce(lastMovement * slideForce, ForceMode2D.Force);
             anim.SetBool("isSliding", true);
         }
-
         else if (!isSliding)
         {
             rb.velocity *= 0.8f;
@@ -122,18 +123,17 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            #if UNITY_EDITOR
+#if UNITY_EDITOR
             UnityEditor.EditorApplication.isPlaying = false;
-            #else
+#else
             Application.Quit();
-            #endif
+#endif
         }
 
         if (Input.GetKeyDown(KeyCode.Backspace))
         {
-            SceneManager.LoadScene("Main Menu"); 
+            SceneManager.LoadScene("Main Menu");
         }
-
     }
 
     public void StopMovement(float stopTime)
@@ -145,7 +145,7 @@ public class PlayerMovement : MonoBehaviour
     {
         float originalSpeed = movementSpeed;
         movementSpeed = 0f;
-        rb.velocity = Vector2.zero; // Stop the rigidbody immediately
+        rb.velocity = Vector2.zero;
 
         Debug.Log("Player movement stopped.");
 
@@ -239,7 +239,10 @@ public class PlayerMovement : MonoBehaviour
     private void OnYesButtonClicked()
     {
         Time.timeScale = 1f;
-        SceneManager.LoadScene("Maze");
+        if (countdownTimer != null)
+        {
+            countdownTimer.SetCountdownToZero();
+        }
     }
 
     private void OnNoButtonClicked()
