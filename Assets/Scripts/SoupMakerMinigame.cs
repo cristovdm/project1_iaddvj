@@ -217,7 +217,6 @@ public class SoupMakerMiniGame : MonoBehaviour
             itemState = new List<ItemParameter>()
         };
         inventory.AddInventoryItem(item);
-
     }
 
     void ResetKeySprites()
