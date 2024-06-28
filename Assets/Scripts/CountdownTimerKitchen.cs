@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
-using System.Collections; // Importa el espacio de nombres para usar Coroutine
+using System.Collections;
 
 public class CountdownTimerKitchen : MonoBehaviour
 {
@@ -24,8 +24,6 @@ public class CountdownTimerKitchen : MonoBehaviour
     void Start()
     {
         currentTime = countdownTime;
-
-        // Obt�n el componente PlayerMovement del jugador
         playerMovementScript = player.GetComponent<PlayerMovement>();
 
         if (audioSource == null)
@@ -42,36 +40,47 @@ public class CountdownTimerKitchen : MonoBehaviour
 
             if (currentTime <= 0)
             {
-                currentTime = 0;
-                timeUp = true;
-                timerText.text = "TIMES UP!";
-
-                // Pausa el juego
-                Time.timeScale = 0;
-
-                // Desactiva el script de movimiento del jugador
-                if (playerMovementScript != null)
-                {
-                    playerMovementScript.enabled = false;
-                }
-
-                // Silencia el audio si est� asignado
-                if (audioSource != null)
-                {
-                    audioSource.volume = 0;
-                }
-
-                // Inicia la rutina para cambiar la escena despu�s de 3 segundos
-                StartCoroutine(ChangeSceneAfterDelay(0.5f));
+                TimeUp();
             }
             else
             {
-                // Actualiza el texto del temporizador
-                int minutes = Mathf.FloorToInt(currentTime / 60F);
-                int seconds = Mathf.FloorToInt(currentTime % 60F);
-                timerText.text = string.Format("{0:0}:{1:00}", minutes, seconds);
+                UpdateTimerText();
             }
         }
+    }
+
+    public void SetCountdownToZero()
+    {
+        currentTime = 0;
+        TimeUp();
+    }
+
+    private void TimeUp()
+    {
+        currentTime = 0;
+        timeUp = true;
+        timerText.text = "TIMES UP!";
+
+        Time.timeScale = 0;
+
+        if (playerMovementScript != null)
+        {
+            playerMovementScript.enabled = false;
+        }
+
+        if (audioSource != null)
+        {
+            audioSource.volume = 0;
+        }
+
+        StartCoroutine(ChangeSceneAfterDelay(0.5f));
+    }
+
+    private void UpdateTimerText()
+    {
+        int minutes = Mathf.FloorToInt(currentTime / 60F);
+        int seconds = Mathf.FloorToInt(currentTime % 60F);
+        timerText.text = string.Format("{0:0}:{1:00}", minutes, seconds);
     }
 
     private IEnumerator ChangeSceneAfterDelay(float delay)

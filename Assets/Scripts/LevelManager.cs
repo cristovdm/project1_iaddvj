@@ -28,11 +28,11 @@ public class LevelManager : MonoBehaviour
     {
         levelDishes = new Dictionary<string, List<string>>();
 
-        // Nivel 1-1
-        levelDishes.Add("1-1", new List<string> { "Tomato Soup", "Corn Soup" });
+        levelDishes.Add("1-1", new List<string> { "CarrotTomatoSalad", "CutCarrot", "cutCorn", "cutTomato","Salad" });
 
-        // Nivel 1-2
-        levelDishes.Add("1-2", new List<string> { "CarrotCake", "CazuelaMarina" });
+        levelDishes.Add("1-2", new List<string> { "Tomato Soup", "Corn Soup", "HuevoDuro", "PescadoCaldero", "SopaZanahoria"});
+
+        levelDishes.Add("1-3", new List<string> { "FriedFish", "FriedFishAndEgg", "FriedEgg", "SopaTomateCrotones", "FriedCarrotBreadSticks" });
     }
 
     public List<string> GetDishesForCurrentLevel()
