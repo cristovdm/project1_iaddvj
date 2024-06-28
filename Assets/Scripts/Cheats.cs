@@ -17,14 +17,14 @@ public class CheatCodeListener : MonoBehaviour
     private Image canvasImage;
     private TMP_Text canvasText;
     private bool isFading = false;
-    //private InventoryController trashInventory; 
+    private InventoryController trashInventory; 
     private ItemSO cleanedItem;
     private Money moneyScript;
     private Level levelScript; 
 
     void Start()
     {
-        //trashInventory = FindObjectOfType<InventoryController>();
+        trashInventory = FindObjectOfType<InventoryController>();
         moneyScript = FindObjectOfType<Money>();
         levelScript = FindObjectOfType<Level>();
 
@@ -124,8 +124,7 @@ public class CheatCodeListener : MonoBehaviour
         }
     }
 
-    void fillMyTrash(){
-        //Debug.Log(levelScript.GetCurrentLevel()); 
+    void fillMyTrash(){ 
         cleanedItem = ResourceManager.LoadResource<EdibleItemSO>("Carrot");
         InventoryItem item = new InventoryItem
         {
@@ -133,7 +132,7 @@ public class CheatCodeListener : MonoBehaviour
             quantity = 1,
             itemState = new List<ItemParameter>()
         };
-        //rashInventory.AddTrashInventoryItem(item);
+        trashInventory.AddTrashInventoryItem(item);
 
     }
 
