@@ -6569,7 +6569,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 36.8, y: 128.05}
+  m_AnchoredPosition: {x: -13, y: 186}
   m_SizeDelta: {x: 53.8989, y: 25.7107}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1028176379
@@ -6623,7 +6623,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   plateinventoryData: {fileID: 11400000, guid: 6edf9253a33e95249a9c3da50d925c17, type: 2}
-  joinButton: {fileID: 0}
   audioSource: {fileID: 1028176382}
   joinSound: {fileID: 8300000, guid: 854eaf9359230d244b7453b1a3d63f8c, type: 3}
   joinButtonText: {fileID: 1485430108}
@@ -6945,7 +6944,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -10.741, y: 178.05}
+  m_AnchoredPosition: {x: -63, y: 237}
   m_SizeDelta: {x: 197.6, y: 69.06}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1058622272
@@ -7682,7 +7681,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 25
   m_TargetDisplay: 0
 --- !u!224 &1109612625
 RectTransform:
@@ -11309,11 +11308,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8035892138556073211, guid: 04030031cd9a72847bfd75b67453cebb, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -10.7408
+      value: -63
       objectReference: {fileID: 0}
     - target: {fileID: 8035892138556073211, guid: 04030031cd9a72847bfd75b67453cebb, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 178.047
+      value: 237
       objectReference: {fileID: 0}
     - target: {fileID: 8553916881838880384, guid: 04030031cd9a72847bfd75b67453cebb, type: 3}
       propertyPath: m_Name
@@ -12755,7 +12754,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 25
   m_TargetDisplay: 0
 --- !u!224 &1792290805
 RectTransform:

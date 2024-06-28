@@ -8,7 +8,6 @@ public class JoinIngredients : MonoBehaviour
 {
     [SerializeField] private InventorySO plateinventoryData;
     private bool isJoinable = false;
-    [SerializeField] private Button joinButton;
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip joinSound;
     [SerializeField] private TMP_Text joinButtonText;

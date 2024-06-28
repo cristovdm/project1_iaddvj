@@ -17,20 +17,19 @@ public class CheatCodeListener : MonoBehaviour
     private Image canvasImage;
     private TMP_Text canvasText;
     private bool isFading = false;
-    private InventoryController trashInventory; 
+    //private InventoryController trashInventory; 
     private ItemSO cleanedItem;
     private Money moneyScript;
     private Level levelScript; 
 
     void Start()
     {
-        trashInventory = FindObjectOfType<InventoryController>();
+        //trashInventory = FindObjectOfType<InventoryController>();
         moneyScript = FindObjectOfType<Money>();
         levelScript = FindObjectOfType<Level>();
 
         if (levelScript != null)
         {
-            Debug.Log("jeeehd"); 
             string currentLevelName = levelScript.GetCurrentLevel();
             Debug.Log("Current Level: " + currentLevelName);
         }
@@ -81,7 +80,7 @@ public class CheatCodeListener : MonoBehaviour
 
     void ActivateHESOYAM()
     {
-        fillMyTrash(); 
+        //fillMyTrash(); 
         moneyScript.AddMoney(100);
         ActivateCheatCanvas();
     }
@@ -134,7 +133,7 @@ public class CheatCodeListener : MonoBehaviour
             quantity = 1,
             itemState = new List<ItemParameter>()
         };
-        trashInventory.AddTrashInventoryItem(item);
+        //rashInventory.AddTrashInventoryItem(item);
 
     }
 
