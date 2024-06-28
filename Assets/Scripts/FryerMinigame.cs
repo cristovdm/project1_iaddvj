@@ -101,7 +101,7 @@ public class FryerMinigame : MonoBehaviour
         }
         else
         {
-            if (!IsGameActive() && !hasStartedMiniGame && Input.GetKeyDown(KeyCode.E))
+            if (!IsGameActive() && !hasStartedMiniGame && Input.GetKeyDown(KeyCode.E) && IsReadyToStart() && IsFoodAvailable())
             {
                 StartMiniGame();
             }
