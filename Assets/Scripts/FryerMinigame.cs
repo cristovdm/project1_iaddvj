@@ -27,7 +27,7 @@ public class FryerMinigame : MonoBehaviour
     private bool gameStarted;
     private bool spriteActive;
     private bool additionalSpriteActive;   // Indica si el sprite adicional est� activo
-    private const float marginOfError = 0.5f;  // Margen de error de 0.5 segundos
+    private const float marginOfError = 1f;  // Margen de error de 0.5 segundos
 
     
 

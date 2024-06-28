@@ -57,9 +57,6 @@ public class SoupMakerMiniGame : MonoBehaviour
         if (gameActive)
         {
             playerMovement.enabled = false;
-            playerMovement.speedX = 0f; 
-            playerMovement.speedY = 0f;
-            playerMovement.movementSpeed = 0f; 
         }
         else
         {
