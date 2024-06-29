@@ -373,6 +373,7 @@ namespace Inventory
 
         private void HandleSwapItems(int itemIndex_1, int itemIndex_2)
         {
+            bool itemFoundToChange = false;
             if (inventoryData.SwapItems(itemIndex_1, itemIndex_2))
             {
                 // Acciones si se intercambian los items
@@ -407,8 +408,32 @@ namespace Inventory
                         }
                         else
                         {
-                            StartCoroutine(ShowArrowImageForDuration(3f, "The trash is full, please empty your inventory."));
-                            audioSource.PlayOneShot(errorSound);
+                            if (forInventory.quantity == 1 && forPlayer.quantity >= 1){
+                                for (int i = 0; i < trashinventoryData.Size; i++)
+                                {
+                                    InventoryItem item = trashinventoryData.GetItemAt(i);
+                                    if (item.quantity < 9 && item.item.Name == forInventory.item.Name)
+                                    {
+                                        int quantity = item.quantity;
+                                        DropTrashItem(i, quantity);
+                                        quantity++;
+                                        item.quantity = quantity;
+                                        trashinventoryData.AddItem(item);
+                                        DropItem(0, 1);
+                                        DropTrashItem(lastDraggedIndex, 1); 
+                                        forPlayer.quantity = 1; 
+                                        inventoryData.AddItem(forPlayer); 
+                                        itemFoundToChange = true;
+                                        playerInventoryFilled = false; 
+                                        break;
+                                    }
+                                }
+                                if (!itemFoundToChange)
+                                {
+                                    StartCoroutine(ShowArrowImageForDuration(3f, "The trash is full, please empty your inventory."));
+                                    audioSource.PlayOneShot(errorSound);
+                                }
+                            }
                         }
                     }
                     else
@@ -418,7 +443,7 @@ namespace Inventory
                         AddInventoryItem(newItem);
                         DropTrashItem(lastDraggedIndex, 1);
                     }
-                    playerInventoryFilled = true;
+                        playerInventoryFilled = true;
                 }
                 else if (name == "PlateInventory")
                 {
@@ -448,7 +473,7 @@ namespace Inventory
                             inventoryData.AddItem(forPlayer);
                         }
                         else
-                        {
+                        {                            
                             StartCoroutine(ShowArrowImageForDuration(3f, "The plate is full, please empty your inventory."));
                             audioSource.PlayOneShot(errorSound);
                         }
@@ -729,7 +754,6 @@ namespace Inventory
             if (!trashinventoryData.IsInventoryFull())
                 {
                     InventoryItem trashItem = inventoryData.GetItemAt(0);
-                        
                     if (!trashItem.IsEmpty){
                         if(playerSwap){
                             trashinventoryData.AddItem(trashItem);
