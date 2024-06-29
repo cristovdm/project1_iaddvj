@@ -268,7 +268,7 @@ public class SoupMakerMiniGame : MonoBehaviour
             Debug.Log(inventoryItem.item.Name);
             switch (inventoryItem.item.Name)
             {
-                case "Cut Tomato":
+                case "cutTomato":
                     cutItem = ResourceManager.LoadResource<EdibleItemSO>("TomatoSoup");
                     return true;
 

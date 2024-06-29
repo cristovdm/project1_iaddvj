@@ -15,6 +15,7 @@ public class FryerMinigame : MonoBehaviour
     public GameObject targetSprite;
     public List<GameObject> additionalSprites;
     public AudioClip activationClip;
+    public AudioClip errorSound;
     public AudioSource audioSource;
 
     public PlayerMovement playerMovement;
@@ -62,6 +63,7 @@ public class FryerMinigame : MonoBehaviour
             {
                 if (Input.GetKeyDown(KeyCode.DownArrow))
                 {
+                    audioSource.PlayOneShot(activationClip);
                     isPressingKey = true;
                     elapsedTime = 0f;
                     feedbackText.gameObject.SetActive(false);
@@ -99,7 +101,7 @@ public class FryerMinigame : MonoBehaviour
                 }
             }
         }
-        else
+        
         {
             if (!IsGameActive() && !hasStartedMiniGame && Input.GetKeyDown(KeyCode.E) && IsReadyToStart() && IsFoodAvailable())
             {
@@ -270,7 +272,12 @@ public class FryerMinigame : MonoBehaviour
             }
             return false;
         }
-        else return false;
+        else {
+        
+            audioSource.PlayOneShot(errorSound);
+            return false;
+        }
+        
     }
 
     public bool IsGameActive()
