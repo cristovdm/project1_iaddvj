@@ -1,8 +1,10 @@
 using Inventory.Model;
-using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
+
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 public class ResourceManager : MonoBehaviour
 {
@@ -24,9 +26,12 @@ public class ResourceManager : MonoBehaviour
 
     public static T LoadResource<T>(string resourceName) where T : Object
     {
-        string assetPath = "Assets/Data/" + resourceName + ".asset";
+        T loadedResource = null;
 
-        T loadedResource = AssetDatabase.LoadAssetAtPath<T>(assetPath);
+#if UNITY_EDITOR
+        string assetPath = "Assets/Data/" + resourceName + ".asset";
+        loadedResource = AssetDatabase.LoadAssetAtPath<T>(assetPath);
+#endif
 
         if (loadedResource == null)
         {

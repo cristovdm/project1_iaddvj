@@ -626,7 +626,7 @@ MonoBehaviour:
   displayImage: {fileID: 30357612}
   loopCutscene: 0
   fadeImage: {fileID: 445663277}
-  fadeDuration: 2
+  fadeDuration: 0.5
   backgroundMusic: {fileID: 1561258355}
 --- !u!114 &1347936335
 MonoBehaviour:

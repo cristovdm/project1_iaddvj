@@ -1,10 +1,9 @@
-using Inventory;
 using Inventory.Model;
+using Inventory;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEditorInternal.Profiling.Memory.Experimental;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 

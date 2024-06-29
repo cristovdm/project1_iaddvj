@@ -6,8 +6,11 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/Intro.unity
+    guid: 2fc43848c72c9ef479955c42d0035ffa
+  - enabled: 1
     path: Assets/Scenes/Main Menu.unity
-    guid: 7f86007cde0e27144a225d53877535bd
+    guid: eaf2dbfd734a40148a8e9294a25d2eca
   - enabled: 1
     path: Assets/Scenes/Kitchen.unity
     guid: 2cda990e2423bbf4892e6590ba056729
@@ -20,7 +23,4 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Game Over.unity
     guid: 76296d3ed075d6e44b42471db1062956
-  - enabled: 1
-    path: Assets/Scenes/Intro.unity
-    guid: 2fc43848c72c9ef479955c42d0035ffa
   m_configObjects: {}
