@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using TMPro;
 using Inventory;
 using Inventory.Model;
+using UnityEngine.SceneManagement;
 
 public class CheatCodeListener : MonoBehaviour
 {
@@ -20,6 +21,7 @@ public class CheatCodeListener : MonoBehaviour
     private bool isFading = false;
     private InventoryController trashInventory;
     private Money moneyScript;
+    
 
     [SerializeField] private InventorySO trashInventoryData;
 
@@ -35,26 +37,30 @@ public class CheatCodeListener : MonoBehaviour
 
     private void Start()
     {
-        trashInventory = FindObjectOfType<InventoryController>();
-        moneyScript = FindObjectOfType<Money>();
+        string sceneName = SceneManager.GetActiveScene().name;
+        if (sceneName == "Kitchen"){
+            trashInventory = FindObjectOfType<InventoryController>();
+            moneyScript = FindObjectOfType<Money>();
 
-        cheatCodes.Add("HESOYAM", ActivateHESOYAM);
-        cheatCodes.Add("GOAWAY", ActivateGOAWAY);
+            cheatCodes.Add("HESOYAM", ActivateHESOYAM);
+            cheatCodes.Add("GOAWAY", ActivateGOAWAY);
 
-        foreach (var code in cheatCodes.Keys)
-        {
-            cheatCodeIndices[code] = 0;
+            foreach (var code in cheatCodes.Keys)
+            {
+                cheatCodeIndices[code] = 0;
+            }
+
+            audioSource = GetComponent<AudioSource>();
+            canvasImage = cheatCanvas.GetComponentInChildren<Image>();
+            canvasText = canvasImage.GetComponentInChildren<TMP_Text>();
+            cheatCanvas.gameObject.SetActive(false);
         }
-
-        audioSource = GetComponent<AudioSource>();
-        canvasImage = cheatCanvas.GetComponentInChildren<Image>();
-        canvasText = canvasImage.GetComponentInChildren<TMP_Text>();
-        cheatCanvas.gameObject.SetActive(false);
     }
 
     private void Update()
     {
-        if (Input.anyKeyDown && !isFading)
+        string sceneName = SceneManager.GetActiveScene().name;
+        if (Input.anyKeyDown && !isFading && sceneName == "Kitchen")
         {
             foreach (char c in Input.inputString)
             {
