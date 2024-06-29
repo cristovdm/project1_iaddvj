@@ -7,20 +7,29 @@ using UnityEngine.SceneManagement;
 public class CutsceneController : MonoBehaviour
 {
     [SerializeField]
-    private List<Sprite> cutsceneImages; // Lista de imágenes para la cutscene
+    private List<Sprite> cutsceneImages;
 
     [SerializeField]
-    private float interval = 2f; // Intervalo entre imágenes
+    private float interval = 2f;
 
     [SerializeField]
-    private Image displayImage; // UI Image donde se mostrarán las imágenes
+    private Image displayImage;
 
     [SerializeField]
-    private bool loopCutscene = false; // Bandera para determinar si la cutscene se debe repetir
+    private bool loopCutscene = false;
+
+    [SerializeField]
+    private Image fadeImage;
+
+    [SerializeField]
+    private float fadeDuration = 2f;
+
+    [SerializeField]
+    private AudioSource backgroundMusic;
 
     private int currentIndex = 0;
-    private bool canSkip = false; // Bandera para permitir saltar la cutscene
-    private bool cutsceneActive = true; // Bandera para verificar si la cutscene está activa
+    private bool canSkip = false;
+    private bool cutsceneActive = true;
 
     void Start()
     {
@@ -36,21 +45,32 @@ public class CutsceneController : MonoBehaviour
             return;
         }
 
+        if (fadeImage == null)
+        {
+            Debug.LogError("No se ha asignado la referencia a la Image de fade.");
+            return;
+        }
+
+        if (backgroundMusic == null)
+        {
+            Debug.LogError("No se ha asignado la referencia al AudioSource de música.");
+            return;
+        }
+
         StartCoroutine(PlayCutscene());
-        StartCoroutine(EnableSkippingAfterDelay(3f)); // Permitir saltar después de 3 segundos
+        StartCoroutine(EnableSkippingAfterDelay(3f));
     }
 
     void Update()
     {
         if (cutsceneActive && canSkip && IsKeyboardInputReceived())
         {
-            LoadMainMenu();
+            StartCoroutine(FadeToBlackAndLoadMainMenu());
         }
     }
 
     private bool IsKeyboardInputReceived()
     {
-        // Detecta entrada del teclado (excluye mouse)
         return Input.anyKeyDown && !Input.GetMouseButtonDown(0) && !Input.GetMouseButtonDown(1) && !Input.GetMouseButtonDown(2);
     }
 
@@ -78,14 +98,33 @@ public class CutsceneController : MonoBehaviour
             }
         }
 
-        // Cambiar a la escena "Main Menu" cuando la cutscene haya terminado
-        LoadMainMenu();
+        StartCoroutine(FadeToBlackAndLoadMainMenu());
     }
 
     private IEnumerator EnableSkippingAfterDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
-        canSkip = true; // Permitir saltar después del retraso
+        canSkip = true;
+    }
+
+    private IEnumerator FadeToBlackAndLoadMainMenu()
+    {
+        float startVolume = backgroundMusic.volume;
+
+        fadeImage.color = new Color(0, 0, 0, 0);
+
+        for (float t = 0; t < fadeDuration; t += Time.deltaTime)
+        {
+            float alpha = t / fadeDuration;
+            fadeImage.color = new Color(0, 0, 0, alpha);
+            backgroundMusic.volume = startVolume * (1 - alpha);
+            yield return null;
+        }
+
+        fadeImage.color = new Color(0, 0, 0, 1);
+        backgroundMusic.volume = 0;
+
+        LoadMainMenu();
     }
 
     private void LoadMainMenu()
