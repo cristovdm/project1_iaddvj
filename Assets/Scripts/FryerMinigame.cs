@@ -273,7 +273,7 @@ public class FryerMinigame : MonoBehaviour
         }
         else 
         {
-            StartCoroutine(ShowArrowImageForDuration(3f, "¡Tienes el inventario vacío!"));
+            StartCoroutine(ShowArrowImageForDuration(3f, "Your inventory is empty!"));
             audioSource.PlayOneShot(errorSound);
             return false;
         }

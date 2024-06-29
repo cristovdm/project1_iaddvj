@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
+using System.Collections;
 
 namespace Inventory
 {
@@ -32,6 +34,9 @@ namespace Inventory
 
         [SerializeField]
         private InventorySO plateinventoryData;
+
+        [SerializeField] private Canvas messageCanvas;
+        [SerializeField] private TextMeshProUGUI messageText;
 
         public bool playerInventoryFilled = false; 
         private bool fullPlateInventory = true; 
@@ -67,6 +72,8 @@ namespace Inventory
         private void Start()
         {
             PrepareUI();
+
+            messageCanvas.gameObject.SetActive(false); 
 
             string sceneName = SceneManager.GetActiveScene().name;
             if (sceneName == "Kitchen")
@@ -398,7 +405,7 @@ namespace Inventory
                         }
                         else
                         {
-                            Debug.Log("El basurero está lleno, vacía tu inventario primero.");
+                            StartCoroutine(ShowArrowImageForDuration(3f, "The trash is full, please empty your inventory."));
                             audioSource.PlayOneShot(errorSound);
                         }
                     }
@@ -440,7 +447,7 @@ namespace Inventory
                         }
                         else
                         {
-                            Debug.Log("El plato está lleno, vacía tu inventario primero.");
+                            StartCoroutine(ShowArrowImageForDuration(3f, "The plate is full, please empty your inventory."));
                             audioSource.PlayOneShot(errorSound);
                         }
                     }
@@ -651,7 +658,7 @@ namespace Inventory
                     }
                     if (!itemFound)
                     {
-                        Debug.Log("El plato está lleno, no puedes vaciar tu inventario acá!");
+                        StartCoroutine(ShowArrowImageForDuration(3f, "The plate is full, you cannot empty your inventory!"));
                         audioSource.PlayOneShot(errorSound);
                     }
                 }
@@ -711,7 +718,7 @@ namespace Inventory
                     }
                     if (!itemFound)
                     {
-                        Debug.Log("El basurero está lleno, no puedes vaciar tu inventario acá!");
+                        StartCoroutine(ShowArrowImageForDuration(3f, "The trash is full, you cannot empty your inventory!"));
                         audioSource.PlayOneShot(errorSound);
                     }
                 }
@@ -733,6 +740,13 @@ namespace Inventory
             swapping = false; 
         }
 
+    private IEnumerator ShowArrowImageForDuration(float duration, string message)
+    {
+        messageText.text = message;
+        messageCanvas.gameObject.SetActive(true);
+        yield return new WaitForSeconds(duration);
+        messageCanvas.gameObject.SetActive(false);
+    }
 
     }
 }
