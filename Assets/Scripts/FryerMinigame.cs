@@ -3,9 +3,8 @@ using Inventory;
 using System.Collections;
 using TMPro;
 using UnityEngine;
-using Unity.VisualScripting;
+using UnityEngine.UI;
 using System.Collections.Generic;
-using UnityEditorInternal.Profiling.Memory.Experimental;
 
 public class FryerMinigame : MonoBehaviour
 {
@@ -21,6 +20,9 @@ public class FryerMinigame : MonoBehaviour
     public PlayerMovement playerMovement;
     private InventoryController inventory;
     private ItemSO cutItem;
+    [SerializeField] private Canvas messageCanvas;
+    [SerializeField] private Image arrowImage;
+    [SerializeField] private TextMeshProUGUI messageText;
 
     private float targetTime;
     private float elapsedTime;
@@ -39,61 +41,21 @@ public class FryerMinigame : MonoBehaviour
     {
         inventory = FindObjectOfType<InventoryController>();
         SetChildrenActive(ParentObject, false);
+        arrowImage.enabled = false; 
+        messageCanvas.gameObject.SetActive(false); 
     }
 
     void Update()
     {
-        if (isCooldown)
-        {
-            return;
-        }
+        if (isCooldown) return;
 
-        if (gameActive)
-        {
-            playerMovement.enabled = false;
-        }
-        else
-        {
-            playerMovement.enabled = true;
-        }
+        playerMovement.enabled = !gameActive;
 
         if (gameActive && !isPlayerLocked && !win)
         {
             if (gameStarted)
             {
-                if (Input.GetKeyDown(KeyCode.DownArrow))
-                {
-                    audioSource.PlayOneShot(activationClip);
-                    isPressingKey = true;
-                    elapsedTime = 0f;
-                    feedbackText.gameObject.SetActive(false);
-                    audioSource.loop = true;
-                    audioSource.Play();
-                }
-
-                if (Input.GetKeyUp(KeyCode.DownArrow))
-                {
-                    if (isPressingKey)
-                    {
-                        isPressingKey = false;
-                        audioSource.Stop();
-
-                        if (elapsedTime >= targetTime)
-                        {
-                            DeactivateAllAdditionalSprites();
-                            feedbackText.gameObject.SetActive(true);
-                            feedbackText.text = "COMPLETE!";
-                            Invoke("EndMiniGame", 1.0f);
-                        }
-                        else
-                        {
-                            feedbackText.gameObject.SetActive(true);
-                            feedbackText.text = "Try again";
-                            StartCoroutine(RestartGameAfterDelay(2f));
-                        }
-                    }
-                }
-
+                HandleKeyPresses();
                 if (isPressingKey)
                 {
                     elapsedTime += Time.deltaTime;
@@ -101,12 +63,49 @@ public class FryerMinigame : MonoBehaviour
                 }
             }
         }
-        
+        else if (!IsGameActive() && !hasStartedMiniGame && Input.GetKeyDown(KeyCode.E) && IsReadyToStart() && IsFoodAvailable())
         {
-            if (!IsGameActive() && !hasStartedMiniGame && Input.GetKeyDown(KeyCode.E) && IsReadyToStart() && IsFoodAvailable())
+            StartMiniGame();
+        }
+    }
+
+    void HandleKeyPresses()
+    {
+        if (Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            audioSource.PlayOneShot(activationClip);
+            isPressingKey = true;
+            elapsedTime = 0f;
+            feedbackText.gameObject.SetActive(false);
+            audioSource.loop = true;
+            audioSource.Play();
+        }
+
+        if (Input.GetKeyUp(KeyCode.DownArrow))
+        {
+            if (isPressingKey)
             {
-                StartMiniGame();
+                isPressingKey = false;
+                audioSource.Stop();
+                CheckElapsedTime();
             }
+        }
+    }
+
+    void CheckElapsedTime()
+    {
+        if (elapsedTime >= targetTime)
+        {
+            DeactivateAllAdditionalSprites();
+            feedbackText.gameObject.SetActive(true);
+            feedbackText.text = "COMPLETE!";
+            Invoke("EndMiniGame", 1.0f);
+        }
+        else
+        {
+            feedbackText.gameObject.SetActive(true);
+            feedbackText.text = "Try again";
+            StartCoroutine(RestartGameAfterDelay(2f));
         }
     }
 
@@ -230,7 +229,7 @@ public class FryerMinigame : MonoBehaviour
     {
         if (interactionArea == null)
         {
-            Debug.LogError("Interaction Area has not been assigned in the inspector!");
+            Debug.LogError("Interaction Area has not been assigned!");
             return false;
         }
 
@@ -272,12 +271,22 @@ public class FryerMinigame : MonoBehaviour
             }
             return false;
         }
-        else {
-        
+        else 
+        {
+            StartCoroutine(ShowArrowImageForDuration(3f, "¡Tienes el inventario vacío!"));
             audioSource.PlayOneShot(errorSound);
             return false;
         }
-        
+    }
+
+    IEnumerator ShowArrowImageForDuration(float duration, string message)
+    {
+        arrowImage.enabled = true;
+        messageText.text = message;
+        messageCanvas.gameObject.SetActive(true);
+        yield return new WaitForSeconds(duration);
+        arrowImage.enabled = false;
+        messageCanvas.gameObject.SetActive(false);
     }
 
     public bool IsGameActive()
