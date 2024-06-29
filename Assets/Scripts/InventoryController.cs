@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI; 
 using TMPro;
 using System.Collections;
 
@@ -32,6 +33,7 @@ namespace Inventory
             return trashinventoryData;
         }
 
+        [SerializeField] private Image informationImage;
         [SerializeField]
         private InventorySO plateinventoryData;
 
@@ -742,9 +744,11 @@ namespace Inventory
 
     private IEnumerator ShowArrowImageForDuration(float duration, string message)
     {
+        informationImage.enabled = true; 
         messageText.text = message;
         messageCanvas.gameObject.SetActive(true);
         yield return new WaitForSeconds(duration);
+        informationImage.enabled = false; 
         messageCanvas.gameObject.SetActive(false);
     }
 

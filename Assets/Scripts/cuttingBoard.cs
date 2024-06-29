@@ -4,6 +4,7 @@ using System.Collections;
 using Inventory;
 using Inventory.Model;
 using System.Collections.Generic;
+using UnityEngine.UI; 
 
 public class CuttingBoardMiniGame : MonoBehaviour
 {
@@ -20,6 +21,7 @@ public class CuttingBoardMiniGame : MonoBehaviour
     private bool readyToStart = true;
     private bool win = false;
     public AudioClip chop;
+    public AudioClip errorSound;
     private AudioSource audioSource;
     public BoxCollider2D interactionArea;
     private bool hasStartedMiniGame = false;
@@ -28,11 +30,19 @@ public class CuttingBoardMiniGame : MonoBehaviour
     private InventoryController inventory;
     private ItemSO cutItem;
 
+    [SerializeField] private Canvas messageCanvas;
+    [SerializeField] private Image arrowImage;
+    [SerializeField] private TextMeshProUGUI messageText;
+    [SerializeField] private Image informationImage;
+
     void Start()
     {
         inventory = FindObjectOfType<InventoryController>();
         SetChildrenActive(ParentObject, false);
         audioSource = GetComponent<AudioSource>();
+        arrowImage.enabled = false; 
+        informationImage.enabled = false; 
+
         if (audioSource == null)
         {
             audioSource = gameObject.AddComponent<AudioSource>();
@@ -240,9 +250,27 @@ public class CuttingBoardMiniGame : MonoBehaviour
                     cutItem = ResourceManager.LoadResource<EdibleItemSO>("PanCortado");
                     return true;
             }
+            StartCoroutine(ShowArrowImageForDuration(3f, $"You cannot cut a {inventoryItem.item.Name}!")); 
+            audioSource.PlayOneShot(errorSound);
             return false;
         }
-        else return false;
+        else{
+            StartCoroutine(ShowArrowImageForDuration(3f, "Your inventory is empty!"));
+            audioSource.PlayOneShot(errorSound);
+            return false;
+        } 
+    }
+    IEnumerator ShowArrowImageForDuration(float duration, string message)
+    {
+        arrowImage.enabled = true;
+        informationImage.enabled = true; 
+        messageText.text = message;
+        messageCanvas.gameObject.SetActive(true);
+        yield return new WaitForSeconds(duration);
+        arrowImage.enabled = false;
+        informationImage.enabled = false; 
+
+        messageCanvas.gameObject.SetActive(false);
     }
 
     public bool IsGameActive()

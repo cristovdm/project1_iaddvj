@@ -21,8 +21,10 @@ public class FryerMinigame : MonoBehaviour
     private InventoryController inventory;
     private ItemSO cutItem;
     [SerializeField] private Canvas messageCanvas;
+    [SerializeField] private Image informationImage;
     [SerializeField] private Image arrowImage;
     [SerializeField] private TextMeshProUGUI messageText;
+    
 
     private float targetTime;
     private float elapsedTime;
@@ -40,7 +42,9 @@ public class FryerMinigame : MonoBehaviour
     void Start()
     {
         inventory = FindObjectOfType<InventoryController>();
+        audioSource = GetComponent<AudioSource>();
         SetChildrenActive(ParentObject, false);
+        informationImage.enabled = false; 
         arrowImage.enabled = false; 
         messageCanvas.gameObject.SetActive(false); 
     }
@@ -269,6 +273,9 @@ public class FryerMinigame : MonoBehaviour
                     cutItem = ResourceManager.LoadResource<EdibleItemSO>("PopCorn");
                     return true;
             }
+            
+            StartCoroutine(ShowArrowImageForDuration(3f, $"You cannot fry a {inventoryItem.item.Name}!")); 
+            audioSource.PlayOneShot(errorSound);
             return false;
         }
         else 
@@ -281,11 +288,13 @@ public class FryerMinigame : MonoBehaviour
 
     IEnumerator ShowArrowImageForDuration(float duration, string message)
     {
-        arrowImage.enabled = true;
+        informationImage.enabled = true;
+        arrowImage.enabled = true; 
         messageText.text = message;
         messageCanvas.gameObject.SetActive(true);
         yield return new WaitForSeconds(duration);
-        arrowImage.enabled = false;
+        informationImage.enabled = false;
+        arrowImage.enabled = false; 
         messageCanvas.gameObject.SetActive(false);
     }
 

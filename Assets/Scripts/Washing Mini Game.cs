@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine;
 using Inventory;
 using Inventory.Model;
+using UnityEngine.UI;
 
 public class WashingMiniGame : MonoBehaviour
 {
@@ -31,6 +32,7 @@ public class WashingMiniGame : MonoBehaviour
     private bool readyToStart = true;
     private bool win = false;
     public AudioClip bubble;
+    public AudioClip errorSound;
     private AudioSource audioSource;
     public BoxCollider2D interactionArea;
     private bool hasStartedMiniGame = false;
@@ -40,11 +42,20 @@ public class WashingMiniGame : MonoBehaviour
     private InventoryController inventory;
     private ItemSO cleanedItem;
 
+    [SerializeField] private Canvas messageCanvas;
+    [SerializeField] private Image arrowImage;
+    [SerializeField] private Image informationImage;
+    [SerializeField] private TextMeshProUGUI messageText;
+
     void Start()
     {
         inventory = FindObjectOfType<InventoryController>();
         SetChildrenActive(ParentObject, false);
         audioSource = GetComponent<AudioSource>();
+        informationImage.enabled = false; 
+        arrowImage.enabled = false; 
+        messageCanvas.gameObject.SetActive(false); 
+
         if (audioSource == null)
         {
             audioSource = gameObject.AddComponent<AudioSource>();
@@ -390,13 +401,31 @@ void HandleKeyPressWash(int keyIndex, bool endSequence)
                     cleanedItem = ResourceManager.LoadResource<EdibleItemSO>("Egg");
                     return true;
             }
+            StartCoroutine(ShowArrowImageForDuration(3f, $"You cannot wash a {inventoryItem.item.Name}!"));
+            audioSource.PlayOneShot(errorSound);
             return false;
         }
-        else return false;
+        else{
+            StartCoroutine(ShowArrowImageForDuration(3f, "Your inventory is empty!"));
+            audioSource.PlayOneShot(errorSound);
+            return false; 
+        } 
     }
 
     public bool IsGameActive()
     {
         return gameActive;
+    }
+
+    IEnumerator ShowArrowImageForDuration(float duration, string message)
+    {
+        arrowImage.enabled = true;
+        informationImage.enabled = true; 
+        messageText.text = message;
+        messageCanvas.gameObject.SetActive(true);
+        yield return new WaitForSeconds(duration);
+        arrowImage.enabled = false;
+        informationImage.enabled = false; 
+        messageCanvas.gameObject.SetActive(false);
     }
 }
