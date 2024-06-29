@@ -52,13 +52,53 @@ MonoBehaviour:
   killKeyPressCount: 5
   hitSound: {fileID: 8300000, guid: f1c04b58ebf02e34cbb04603263904a7, type: 3}
   destroySound: {fileID: 8300000, guid: e19661f1f82fd79419cace4594af7b25, type: 3}
-  deathPrefab: {fileID: 575781120339433357, guid: 670bd4dfc77e23f4e8a9b1e91af0947d, type: 3}
+  pickedSound: {fileID: 8300000, guid: 67b5565b3f6645c4c93ff4d810dd1b9f, type: 3}
+  coinPrefab: {fileID: 575781120339433357, guid: 670bd4dfc77e23f4e8a9b1e91af0947d, type: 3}
+  BastonesPrefab: {fileID: 4270109546922852804, guid: 8d55999614db195499bfe6507976ef39, type: 3}
+  BastonesZanahoriaApanados: {fileID: 4270109546922852804, guid: 7caf17a516f32654cb2c21d5335e547f, type: 3}
+  CarrotCakePrefab: {fileID: 4270109546922852804, guid: d251269520569bb429189de5c6160fb1, type: 3}
+  CarrotPrefab: {fileID: 4270109546922852804, guid: 2c624200237533c48b34f6f29dae2d4a, type: 3}
+  CazuelaMarinaPrefab: {fileID: 4270109546922852804, guid: 159a9884ac495ff4eab650035b76f5c7, type: 3}
+  CornSoupPrefab: {fileID: 4270109546922852804, guid: 1df701fdd5d1d5e438368cc5fe0af57d, type: 3}
+  CutCarrotPrefab: {fileID: 4270109546922852804, guid: 8dbc5f91ea83af34fb70221bf6e9fb38, type: 3}
+  CutCornPrefab: {fileID: 4270109546922852804, guid: b6b09a0b04a31f549935a2b56396cdfe, type: 3}
+  CutTomatoPrefab: {fileID: 4270109546922852804, guid: b92246db0f01e7a41a79972f4338a9bc, type: 3}
+  EggPrefab: {fileID: 4270109546922852804, guid: 74b00b2d70dfe4a4e9776ca78a544e34, type: 3}
+  EnsaladaColoridaPrefab: {fileID: 4270109546922852804, guid: a9703bdf8122e9a42b15028068281863, type: 3}
+  EnsaladaConHuevoPrefab: {fileID: 4270109546922852804, guid: b0ddef292eed90445b4a9379fd6ef5ae, type: 3}
+  FishPrefab: {fileID: 4270109546922852804, guid: 530475e941936dc4d9769b4473b8ef25, type: 3}
+  TomatoPrefab: {fileID: 6354697358352308477, guid: 71526e5f66c839149a16be6a8ca8dbc1, type: 3}
+  FriedEggPrefab: {fileID: 4270109546922852804, guid: 20a085d1cbdddea46913290226103dc1, type: 3}
+  FriedFishPrefab: {fileID: 4270109546922852804, guid: 3b804c7970111ed4bbfa899f188b1d29, type: 3}
+  HuevoDuroPrefab: {fileID: 4270109546922852804, guid: 7911d048bfbb4404ea1b58b9327b407c, type: 3}
+  PanCortadoPrefab: {fileID: 4270109546922852804, guid: cb4e6454e8403b548862b3fbc1b992b8, type: 3}
+  PanCortadoFritoPrefab: {fileID: 4270109546922852804, guid: 7196f8d55a438ff4d97702ccb2e1d102, type: 3}
+  PanPrefab: {fileID: 4270109546922852804, guid: f073e11ddda654f448d3544054cd0839, type: 3}
+  PescadoHornoPrefab: {fileID: 4270109546922852804, guid: e0fbbf4f0b3087d4a8067da9b27a498c, type: 3}
+  PescadoCalderoPrefab: {fileID: 4270109546922852804, guid: 0f9fbcf5c42895f48bbfc85b57dc0e00, type: 3}
+  SaladPrefab: {fileID: 4270109546922852804, guid: ca99befd354c9c14590a29bcc8c31eff, type: 3}
+  SandwichPrefab: {fileID: 4270109546922852804, guid: b2564161e6178414bbc9447b56ac2985, type: 3}
+  sopaTomateCrotonesPrefab: {fileID: 4270109546922852804, guid: 9203ab2a4cf2b4a4ba823dc3a06ea180, type: 3}
+  sopaZanahoriaPrefab: {fileID: 4270109546922852804, guid: c187e392d0535fd42ac56b13b67e4992, type: 3}
+  sopaZanahoriaHuevoPrefab: {fileID: 4270109546922852804, guid: 5afa89c3655d1f741b6e8d5afd077318, type: 3}
+  TomaticanPrefab: {fileID: 4270109546922852804, guid: 0f59ea388b92f8f4c81575d4f0315d88, type: 3}
+  TomatoSoupPrefab: {fileID: 4270109546922852804, guid: 314689006eb3c0e4c9370a27debf28b2, type: 3}
+  TortillaZanahoriaPrefab: {fileID: 4270109546922852804, guid: 4d4713c835df7fc40b340a2911bf9423, type: 3}
+  cornPrefab: {fileID: 4270109546922852804, guid: aa8ae12121015bd45ab01e6ebba92d0d, type: 3}
+  rottenTomatoPrefab: {fileID: 2405825382221192402, guid: ffe9a1ac58686d7478838944fd565338, type: 3}
+  rottenPanPrefab: {fileID: 2946607959516970911, guid: 81b07f2331181ee4eafa9ea1eb0fe926, type: 3}
+  rottenCarrotPrefab: {fileID: 4270109546922852804, guid: 2e682f9ee0261d14ebafdf9164351cbe, type: 3}
+  rottenCornerPrefab: {fileID: 4270109546922852804, guid: 4af18559e47752544b7d4bbc9e54a565, type: 3}
+  rottenFishPrefab: {fileID: 4270109546922852804, guid: 6598e4075126452459c6a5728672e5e8, type: 3}
+  rottenEggPrefab: {fileID: 4270109546922852804, guid: 74de9bc324fc3c84290a4ce714fd1742, type: 3}
   interactionArea: {fileID: 7031981213520712207, guid: 805c13007913eee4fb90337dfd20a021, type: 3}
   speed: 3.5
   obstacleAvoidanceRadius: 0.5
   obstacleLayer:
     serializedVersion: 2
     m_Bits: 306
+  audioSource: {fileID: -4197176554616029601}
+  trashinventoryData: {fileID: 11400000, guid: fd6f3fd9d83ebb941913ec687467fa9e, type: 2}
 --- !u!212 &8673355718162090495
 SpriteRenderer:
   m_ObjectHideFlags: 0

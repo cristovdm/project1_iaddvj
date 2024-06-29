@@ -10,7 +10,7 @@ public class SeaUrchinSpawner : MonoBehaviour
     void Start()
     {
         SeaUrchin.OnSeaUrchinDestroyed += HandleSeaUrchinDestroyed;
-        SpawnSeaUrchin();
+       // SpawnSeaUrchin();
     }
 
     void OnDestroy()

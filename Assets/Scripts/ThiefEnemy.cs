@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Inventory;
+using Inventory.Model;
 
 public class ThiefEnemy : MonoBehaviour
 {
@@ -10,7 +11,47 @@ public class ThiefEnemy : MonoBehaviour
     public int killKeyPressCount = 10;
     public AudioClip hitSound;
     public AudioClip destroySound; // Sonido de destrucción
-    [SerializeField] private GameObject deathPrefab;
+    public AudioClip pickedSound;
+    [SerializeField] private GameObject coinPrefab;
+
+    public GameObject BastonesPrefab;  
+    public GameObject BastonesZanahoriaApanados;
+    public GameObject CarrotCakePrefab;
+    public GameObject CarrotPrefab; 
+    public GameObject CazuelaMarinaPrefab; 
+    public GameObject CornSoupPrefab; 
+    public GameObject CutCarrotPrefab; 
+    public GameObject CutCornPrefab; 
+    public GameObject CutTomatoPrefab; 
+    public GameObject EggPrefab;
+    public GameObject EnsaladaColoridaPrefab; 
+    public GameObject EnsaladaConHuevoPrefab;
+    public GameObject FishPrefab; 
+    public GameObject TomatoPrefab; 
+    public GameObject FriedEggPrefab; 
+    public GameObject FriedFishPrefab; 
+    public GameObject HuevoDuroPrefab; 
+    public GameObject PanCortadoPrefab; 
+    public GameObject PanCortadoFritoPrefab; 
+    public GameObject PanPrefab;
+    public GameObject PescadoHornoPrefab;
+    public GameObject PescadoCalderoPrefab; 
+    public GameObject SaladPrefab; 
+    public GameObject SandwichPrefab; 
+    public GameObject sopaTomateCrotonesPrefab; 
+    public GameObject sopaZanahoriaPrefab; 
+    public GameObject sopaZanahoriaHuevoPrefab; 
+    public GameObject TomaticanPrefab; 
+    public GameObject TomatoSoupPrefab; 
+    public GameObject TortillaZanahoriaPrefab; 
+
+    public GameObject cornPrefab; 
+    public GameObject rottenTomatoPrefab;
+    public GameObject rottenPanPrefab; 
+    public GameObject rottenCarrotPrefab; 
+    public GameObject rottenCornerPrefab;
+    public GameObject rottenFishPrefab;
+    public GameObject rottenEggPrefab;
 
     public GameObject interactionArea;
     public float speed = 10f;
@@ -21,11 +62,15 @@ public class ThiefEnemy : MonoBehaviour
     private InventoryController inventoryController;
     private SpriteRenderer spriteRenderer;
     private bool isPlayerNear = false;
-    private AudioSource audioSource;
+    public AudioSource audioSource;
     private BoxCollider2D interactionCollider;
     private Vector3 initialPosition;
     private bool isReturning = false;
     private bool isBeingDestroyed = false;
+    private InventoryItem itemRobbed; 
+
+    [SerializeField]
+    private InventorySO trashinventoryData;
 
     void Start()
     {
@@ -92,12 +137,14 @@ public class ThiefEnemy : MonoBehaviour
                 int randomIndex = Random.Range(0, keys.Count);
                 int itemKey = keys[randomIndex];
                 inventoryController.GetTrashInventoryData().RemoveItem(itemKey, 1);
-                Debug.Log($"Stole {trashItems[itemKey].item.Name} from trash inventory.");
-                StartCoroutine(MoveToTarget(initialPosition));
+                itemRobbed = trashItems[itemKey]; // Asigna el item robado a la variable de clase
+
+                Debug.Log($"Stole {itemRobbed.item.Name} from trash inventory.");
+
+                StartCoroutine(MoveToTarget(initialPosition, itemRobbed));
             }
             else
             {
-                // Caso donde no encuentra nada, mostrar una burbuja de enojo o algo similar.
                 StartCoroutine(MoveToTarget(initialPosition));
             }
         }
@@ -115,6 +162,28 @@ public class ThiefEnemy : MonoBehaviour
         if (isReturning)
         {
             isReturning = false;
+            Destroy(gameObject);
+        }
+        else
+        {
+            isReturning = true;
+            StealItem();
+        }
+    }
+
+    IEnumerator MoveToTarget(Vector3 target, InventoryItem itemRobbed)
+    {
+        while (Vector3.Distance(transform.position, target) > 0.1f)
+        {
+            Vector3 direction = (target - transform.position).normalized;
+            direction = AvoidObstacles(direction);
+            transform.position += direction * speed * Time.deltaTime;
+            yield return null;
+        }
+        if (isReturning)
+        {
+            isReturning = false;
+            GeneratePrefab();
             Destroy(gameObject);
         }
         else
@@ -156,9 +225,150 @@ public class ThiefEnemy : MonoBehaviour
 
     void GeneratePrefab()
     {
-        if (deathPrefab != null)
+        GameObject prefabToInstantiate = null;
+
+        if (!itemRobbed.IsEmpty && isReturning)
         {
-            Instantiate(deathPrefab, transform.position, Quaternion.identity);
+            switch (itemRobbed.item.Name)
+            {
+                case "Rotten Carrot":
+                    prefabToInstantiate = rottenCarrotPrefab;
+                    break;
+                case "Rotten Corn":
+                    prefabToInstantiate = rottenCornerPrefab;
+                    break;
+                case "Rotten Fish":
+                    prefabToInstantiate = rottenFishPrefab;
+                    break;
+                case "Rotten Pan":
+                    prefabToInstantiate = rottenPanPrefab;
+                    break;
+                case "Rotten Tomato":
+                    prefabToInstantiate = rottenTomatoPrefab;
+                    break;
+                case "RottenEgg":
+                    prefabToInstantiate = rottenEggPrefab;
+                    break;
+                case "Bastones":
+                    prefabToInstantiate = BastonesPrefab;
+                    break;
+                case "Bastones Zanahoria Apanados":
+                    prefabToInstantiate = BastonesZanahoriaApanados;
+                    break;
+                case "Carrot Cake":
+                    prefabToInstantiate = CarrotCakePrefab;
+                    break;
+                case "Carrot":
+                    prefabToInstantiate = CarrotPrefab;
+                    break;
+                case "Cazuela Marina":
+                    prefabToInstantiate = CazuelaMarinaPrefab;
+                    break;
+                case "Corn Soup":
+                    prefabToInstantiate = CornSoupPrefab;
+                    break;
+                case "Cut Carrot":
+                    prefabToInstantiate = CutCarrotPrefab;
+                    break;
+                case "Cut Corn":
+                    prefabToInstantiate = CutCornPrefab;
+                    break;
+                case "Cut Tomato":
+                    prefabToInstantiate = CutTomatoPrefab;
+                    break;
+                case "Egg":
+                    prefabToInstantiate = EggPrefab;
+                    break;
+                case "Ensalada Colorida":
+                    prefabToInstantiate = EnsaladaColoridaPrefab;
+                    break;
+                case "Ensalada Con Huevo":
+                    prefabToInstantiate = EnsaladaConHuevoPrefab;
+                    break;
+                case "Fish":
+                    prefabToInstantiate = FishPrefab;
+                    break;
+                case "Tomato":
+                    prefabToInstantiate = TomatoPrefab;
+                    break;
+                case "Fried Egg":
+                    prefabToInstantiate = FriedEggPrefab;
+                    break;
+                case "Fried Fish":
+                    prefabToInstantiate = FriedFishPrefab;
+                    break;
+                case "Huevo Duro":
+                    prefabToInstantiate = HuevoDuroPrefab;
+                    break;
+                case "Pan Cortado":
+                    prefabToInstantiate = PanCortadoPrefab;
+                    break;
+                case "Pan Cortado Frito":
+                    prefabToInstantiate = PanCortadoFritoPrefab;
+                    break;
+                case "Pan":
+                    prefabToInstantiate = PanPrefab;
+                    break;
+                case "Pescado Horno":
+                    prefabToInstantiate = PescadoHornoPrefab;
+                    break;
+                case "Pescado Caldero":
+                    prefabToInstantiate = PescadoCalderoPrefab;
+                    break;
+                case "Salad":
+                    prefabToInstantiate = SaladPrefab;
+                    break;
+                case "Sandwich":
+                    prefabToInstantiate = SandwichPrefab;
+                    break;
+                case "Sopa Tomate Crotones":
+                    prefabToInstantiate = sopaTomateCrotonesPrefab;
+                    break;
+                case "Sopa Zanahoria":
+                    prefabToInstantiate = sopaZanahoriaPrefab;
+                    break;
+                case "Sopa Zanahoria Huevo":
+                    prefabToInstantiate = sopaZanahoriaHuevoPrefab;
+                    break;
+                case "Tomatican":
+                    prefabToInstantiate = TomaticanPrefab;
+                    break;
+                case "Tomato Soup":
+                    prefabToInstantiate = TomatoSoupPrefab;
+                    break;
+                case "Tortilla Zanahoria":
+                    prefabToInstantiate = TortillaZanahoriaPrefab;
+                    break;
+                default:
+                    prefabToInstantiate = coinPrefab;
+                    break;
+            }
+        }
+        else
+        {
+            prefabToInstantiate = coinPrefab;
+        }
+
+        if (prefabToInstantiate != null)
+        {
+            if (!trashinventoryData.IsInventoryFull()){
+                if (!itemRobbed.IsEmpty){
+                    audioSource.PlayOneShot(pickedSound);
+                    GameObject instance = Instantiate(prefabToInstantiate, transform.position, Quaternion.identity);
+                    MoveToTarget moveToTarget = instance.AddComponent<MoveToTarget>();
+                    moveToTarget.targetPosition = interactionArea.transform.position;
+                }
+
+                else{
+                    prefabToInstantiate = coinPrefab;
+                    GameObject instance = Instantiate(prefabToInstantiate, transform.position, Quaternion.identity);
+                }
+                
+            }
+            else{
+                prefabToInstantiate = coinPrefab;
+                GameObject instance = Instantiate(prefabToInstantiate, transform.position, Quaternion.identity);
+            }
         }
     }
 
