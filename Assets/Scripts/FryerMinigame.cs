@@ -270,7 +270,7 @@ public class FryerMinigame : MonoBehaviour
                     return true;
 
                 case "BreadCarrotSticks":
-                    cutItem = ResourceManager.LoadResource<EdibleItemSO>("FriedCarrotBreadSticks");
+                    cutItem = ResourceManager.LoadResource<EdibleItemSO>("BastonesZanahoriaFritos");
                     return true;
             }
             
