@@ -69,6 +69,8 @@ public class ThiefEnemy : MonoBehaviour
     private bool isBeingDestroyed = false;
     private InventoryItem itemRobbed; 
 
+    private bool destroyedByMe = false; 
+
     [SerializeField]
     private InventorySO trashinventoryData;
 
@@ -103,6 +105,7 @@ public class ThiefEnemy : MonoBehaviour
             PlayHitSound();
             if (currentKeyPressCount >= killKeyPressCount && !isBeingDestroyed)
             {
+                destroyedByMe = true; 
                 DestroyEnemy();
             }
         }
@@ -138,7 +141,7 @@ public class ThiefEnemy : MonoBehaviour
                 int itemKey = keys[randomIndex];
                 inventoryController.GetTrashInventoryData().RemoveItem(itemKey, 1);
                 itemRobbed = trashItems[itemKey]; // Asigna el item robado a la variable de clase
-
+                itemRobbed.quantity = 1; 
                 Debug.Log($"Stole {itemRobbed.item.Name} from trash inventory.");
 
                 StartCoroutine(MoveToTarget(initialPosition, itemRobbed));
@@ -183,7 +186,10 @@ public class ThiefEnemy : MonoBehaviour
         if (isReturning)
         {
             isReturning = false;
-            GeneratePrefab();
+            if (destroyedByMe){
+                GeneratePrefab();
+                destroyedByMe = false; 
+            }
             Destroy(gameObject);
         }
         else
@@ -210,7 +216,10 @@ public class ThiefEnemy : MonoBehaviour
         if (!isBeingDestroyed) // Check to ensure destruction happens only once
         {
             isBeingDestroyed = true;
-            GeneratePrefab();
+            if (destroyedByMe){
+                GeneratePrefab();
+                destroyedByMe = false; 
+            }
             Destroy(gameObject);
         }
     }
@@ -347,10 +356,12 @@ public class ThiefEnemy : MonoBehaviour
         else
         {
             prefabToInstantiate = coinPrefab;
+
         }
 
         if (prefabToInstantiate != null)
         {
+
             if (!trashinventoryData.IsInventoryFull()){
                 if (!itemRobbed.IsEmpty){
                     audioSource.PlayOneShot(pickedSound);
@@ -361,6 +372,7 @@ public class ThiefEnemy : MonoBehaviour
                 }
 
                 else{
+
                     prefabToInstantiate = coinPrefab;
                     GameObject instance = Instantiate(prefabToInstantiate, transform.position, Quaternion.identity);
                 }
