@@ -21,6 +21,8 @@ public class CheatCodeListener : MonoBehaviour
     private bool isFading = false;
     private InventoryController trashInventory;
     private Money moneyScript;
+    private int quantity_to_egg;
+    private ItemSO itemCheat; 
     
 
     [SerializeField] private InventorySO trashInventoryData;
@@ -131,7 +133,6 @@ public class CheatCodeListener : MonoBehaviour
 
     private void fillMyTrash()
     {
-        
         int index = 0;
 
         foreach (string itemName in rottenItemNames)
@@ -139,34 +140,47 @@ public class CheatCodeListener : MonoBehaviour
             try
             {
                 InventoryItem inventoryItem = trashInventoryData.GetItemAt(index);
+                inventoryItem.quantity = 1; 
 
                 if (!inventoryItem.IsEmpty)
                 {
-                    trashInventory.DropTrashItem(index, inventoryItem.quantity);
+                    trashInventoryData.RemoveItem(index,9);
+                    
                 }
             }
             catch (Exception ex)
             {
             }
-
-            EdibleItemSO itemSO = ResourceManager.LoadResource<EdibleItemSO>(itemName);
-            if (itemSO != null)
+            
+            itemCheat = ResourceManager.LoadResource<EdibleItemSO>(itemName);
+            if (itemCheat != null)
             {
                 InventoryItem item = new InventoryItem
                 {
-                    item = itemSO,
+                    item = itemCheat,
                     quantity = 9,
                     itemState = new List<ItemParameter>()
                 };
-                trashInventory.AddTrashInventoryItem(item);
-
+                trashInventoryData.AddItem(item);
                 index++;
-            }
+             }
             else
             {
                 Debug.LogWarning($"No se pudo cargar el ítem {itemName}.");
             }
         }
+        
+        index = 0;
+
+        while(index < 6){
+            InventoryItem egg = trashInventoryData.GetItemAt(index); 
+            trashInventory.DropTrashItem(index, egg.quantity); 
+            quantity_to_egg = (9-(egg.quantity)); 
+            egg.quantity += quantity_to_egg;
+            trashInventoryData.AddItem(egg);
+            index+=1;
+        }
+        
     }
 
     private IEnumerator FadeOutCanvas()
