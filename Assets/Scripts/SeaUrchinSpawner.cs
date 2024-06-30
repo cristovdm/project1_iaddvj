@@ -9,8 +9,11 @@ public class SeaUrchinSpawner : MonoBehaviour
 
     void Start()
     {
-        SeaUrchin.OnSeaUrchinDestroyed += HandleSeaUrchinDestroyed;
-       // SpawnSeaUrchin();
+        if (Day.Instance.GetCurrentDay() >= 5)
+        {
+            SeaUrchin.OnSeaUrchinDestroyed += HandleSeaUrchinDestroyed;
+            SpawnSeaUrchin();
+        }
     }
 
     void OnDestroy()

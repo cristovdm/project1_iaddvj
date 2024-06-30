@@ -5,7 +5,7 @@ public class Day : MonoBehaviour
 {
     public static Day Instance { get; private set; }
 
-    private int currentDay = 1;
+    private int currentDay = 0;
     private const string DayKey = "CurrentDay";
     public TextMeshProUGUI dayDisplay;
 

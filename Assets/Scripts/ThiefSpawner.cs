@@ -13,7 +13,10 @@ public class ThiefSpawner : MonoBehaviour
 
     void Start()
     {
-        SpawnThief();
+        if (Day.Instance.GetCurrentDay() >= 7)
+        {
+            SpawnThief();
+        }
     }
 
     void SpawnThief()

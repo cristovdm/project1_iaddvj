@@ -11,8 +11,13 @@ public class BananaOtterSpawner : MonoBehaviour
 
     void Start()
     {
-        BananaOtter.OnBananaOtterDestroyed += HandleBananaOtterDestroyed;
-        StartCoroutine(SpawnBananaOtterRoutine());
+
+        if (Day.Instance.GetCurrentDay() >= 6)
+        {
+            BananaOtter.OnBananaOtterDestroyed += HandleBananaOtterDestroyed;
+            currentBananaOtter = Instantiate(bananaOtterPrefab, spawnPosition, Quaternion.identity);
+            StartCoroutine(SpawnBananaOtterRoutine());
+        }
     }
 
     void OnDestroy()
@@ -22,7 +27,12 @@ public class BananaOtterSpawner : MonoBehaviour
 
     void SpawnBananaOtter()
     {
-        currentBananaOtter = Instantiate(bananaOtterPrefab, spawnPosition, Quaternion.identity);
+        if (currentBananaOtter == null)
+        {
+            // Instantiate currentBananaOtter if it's null
+            currentBananaOtter = Instantiate(bananaOtterPrefab, spawnPosition, Quaternion.identity);
+        }
+
         currentBananaOtter.transform.localScale = bananaOtterScale;
         BananaOtter bananaOtterScript = currentBananaOtter.GetComponent<BananaOtter>();
         if (bananaOtterScript != null)

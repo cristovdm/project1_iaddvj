@@ -7,7 +7,7 @@ public class Level : MonoBehaviour
     public static Level Instance { get; private set; }
 
     private string currentLevel;
-    private const string LevelKey = "CurrentLevel";
+    private const string LevelKey = "Level 1: Soup Time";
     public TextMeshProUGUI levelDisplay;
 
     void Awake()
@@ -42,38 +42,34 @@ public class Level : MonoBehaviour
         {
             // Level 1
             case "1-2":
-                currentLevel = "Level 1: Chop & Mix";
+                currentLevel = "Level 1: Soup Time";
                 break;
             // Level 2
             case "2-2":
-                currentLevel = "Level 2: Soup Time";
+                currentLevel = "Level 2: Gourmet Prep";
                 break;
             // Level 3
             case "3-2":
-                currentLevel = "Level 3: Gourmet Prep";
+                currentLevel = "Level 3: Heat Wave";
                 break;
             // Level 4
             case "4-2":
-                currentLevel = "Level 4: Heat Wave";
+                currentLevel = "Level 4: Bubble Urchin";
                 break;
             // Level 5
             case "5-2":
-                currentLevel = "Level 5: Bubble Urchin";
+                currentLevel = "Level 5: Banana Chaos";
                 break;
             // Level 6
             case "6-2":
-                currentLevel = "Level 6: Banana Chaos";
+                currentLevel = "Level 6: Stalthy Stealers";
                 break;
             // Level 7
             case "7-2":
-                currentLevel = "Level 7: Stalthy Stealers";
-                break;
-            // Level 8
-            case "8-2":
-                currentLevel = "Level 8: Final Feast";
+                currentLevel = "Level 7: Final Feast";
                 break;
             // Game Over
-            case "9-2":
+            case "8-2":
                 SceneManager.LoadScene("Game Over");
                 break;
             default:
@@ -117,12 +113,12 @@ public class Level : MonoBehaviour
 
     private void LoadLevel()
     {
-        currentLevel = PlayerPrefs.GetString(LevelKey, "Level 1: Chop & Mix");
+        currentLevel = PlayerPrefs.GetString(LevelKey, "Level 1: Soup Time");
     }
 
     public void ResetLevel()
     {
-        currentLevel = "Level 1: Chop & Mix";
+        currentLevel = "Level 1: Soup Time";
         SaveLevel();
         UpdateLevelUI();
     }
