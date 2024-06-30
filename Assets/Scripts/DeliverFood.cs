@@ -20,6 +20,34 @@ public class DeliverFood : MonoBehaviour
     private string foodCloudPath = "Sprites/FoodClouds/";
     private Money moneyScript;
 
+    // Diccionario de precios
+    private Dictionary<string, int> dishPrices = new Dictionary<string, int>()
+    {
+        { "Tomato Soup", 50 },
+        { "Corn Soup", 50 },
+        { "CarrotCake", 500 },
+        { "CazuelaMarina", 350 },
+        { "HuevoDuro", 25 },
+        { "FriedEgg", 50 },
+        { "PescadoCaldero", 100 },
+        { "FriedFish", 200 },
+        { "FriedFishAndEgg", 250 },
+        { "PescadoHorno", 150 },
+        { "PopCorn", 100 },
+        { "Salad", 150 },
+        { "SandwichDePescado", 250 },
+        { "SopaTomateCrotones", 400 },
+        { "SopaZanahoria", 50 },
+        { "CarrotTomatoSalad", 150 },
+        { "Cut Carrot", 25 },
+        { "FriedCarrotBreadSticks", 450 },
+        { "CutCorn", 25 },
+        { "cutTomato", 25 },
+        { "SaladWithEgg", 250 },
+        { "Tomatican", 600 },
+        { "tortillaZanahoria", 150 }
+    };
+
     List<string> ShuffleList(List<string> list)
     {
         System.Random rng = new System.Random();
@@ -178,7 +206,7 @@ public class DeliverFood : MonoBehaviour
         if (!inventoryItem.IsEmpty)
         {
             Debug.Log(inventoryItem.item.Name);
-            textboxAnimator.ShowTextbox("$25");
+            textboxAnimator.ShowTextbox("$" + dishPrices[inventoryItem.item.Name].ToString());
             return true;
         }
         else return false;
@@ -224,7 +252,7 @@ public class DeliverFood : MonoBehaviour
         {
             audioSource.PlayOneShot(moneySound);
             inventory.TakeOutFirstItem();
-            moneyScript.AddMoney(25);
+            moneyScript.AddMoney(dishPrices[currentDelivery]);
             CheckNextDelivery();
         }
     }
