@@ -54,7 +54,7 @@ public class Level : MonoBehaviour
                 break;
             case "3-2":
                 // Game Over
-                SceneManager.LoadScene("Game Over");
+                SceneManager.LoadScene("Kitchen");
                 break;
             default:
                 Debug.LogWarning($"Unknown level key: {levelKey}");
