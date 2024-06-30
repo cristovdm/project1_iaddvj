@@ -1,10 +1,6 @@
-using Inventory.Model;
-using System.Collections.Generic;
 using UnityEngine;
-
-#if UNITY_EDITOR
-using UnityEditor;
-#endif
+using System.Collections.Generic;
+using Inventory.Model;
 
 public class ResourceManager : MonoBehaviour
 {
@@ -19,7 +15,7 @@ public class ResourceManager : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("El objeto con nombre " + itemName + " no fue encontrado.");
+            Debug.LogWarning("El objeto con nombre " + itemName + " no fue encontrado en el diccionario.");
             return null;
         }
     }
@@ -28,15 +24,23 @@ public class ResourceManager : MonoBehaviour
     {
         T loadedResource = null;
 
-#if UNITY_EDITOR
-        string assetPath = "Assets/Data/" + resourceName + ".asset";
-        loadedResource = AssetDatabase.LoadAssetAtPath<T>(assetPath);
-#endif
+        // Try to load the resource from the dictionary first
+        if (itemDictionary.ContainsKey(resourceName))
+        {
+            return itemDictionary[resourceName] as T;
+        }
+
+        // Load from resources folder in both editor and build
+        loadedResource = Resources.Load<T>("Data/" + resourceName);
 
         if (loadedResource == null)
         {
             Debug.LogError("Failed to load resource: " + resourceName);
-            return null;
+        }
+        else
+        {
+            // Add loaded resource to dictionary for future access
+            itemDictionary.Add(resourceName, loadedResource as EdibleItemSO);
         }
 
         return loadedResource;

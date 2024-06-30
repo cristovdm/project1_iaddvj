@@ -16,17 +16,17 @@ public class WashingMiniGame : MonoBehaviour
     public GameObject leftKeySprite;
     public GameObject rightKeySprite;
 
-    public int ScrubtotalKeySequences = 4; 
-    public int WashtotalKeySequences = 4; 
-    private int ScrubtotalKeyPairs; 
+    public int ScrubtotalKeySequences = 4;
+    public int WashtotalKeySequences = 4;
+    private int ScrubtotalKeyPairs;
     private int WashtotalKeyPairs;
 
     private bool scrub = false;
     private bool wash = false;
 
-    private int scrubNextKeyPress = 0; 
-    private int washNextKeyPress = 0; 
-    
+    private int scrubNextKeyPress = 0;
+    private int washNextKeyPress = 0;
+
     private bool gameActive = false;
     private bool isPlayerLocked = true;
     private bool readyToStart = true;
@@ -52,9 +52,9 @@ public class WashingMiniGame : MonoBehaviour
         inventory = FindObjectOfType<InventoryController>();
         SetChildrenActive(ParentObject, false);
         audioSource = GetComponent<AudioSource>();
-        informationImage.enabled = false; 
-        arrowImage.enabled = false; 
-        messageCanvas.gameObject.SetActive(false); 
+        informationImage.enabled = false;
+        arrowImage.enabled = false;
+        messageCanvas.gameObject.SetActive(false);
 
         if (audioSource == null)
         {
@@ -89,10 +89,11 @@ public class WashingMiniGame : MonoBehaviour
             {
                 scrubSequence();
             }
-            else if (wash) {
+            else if (wash)
+            {
                 washSequence();
             }
-            
+
         }
         else
         {
@@ -165,18 +166,18 @@ public class WashingMiniGame : MonoBehaviour
             }
         }
     }
-IEnumerator CountdownToChange()
-{
-    instructionText.text = "";
-    yield return new WaitForSeconds(1f);
-    
-    upKeySprite.SetActive(true);
-    gameActive = true;
-}
+    IEnumerator CountdownToChange()
+    {
+        instructionText.text = "";
+        yield return new WaitForSeconds(1f);
+
+        upKeySprite.SetActive(true);
+        gameActive = true;
+    }
 
 
 
-void HandleKeyPressWash(int keyIndex, bool endSequence)
+    void HandleKeyPressWash(int keyIndex, bool endSequence)
     {
         if (washNextKeyPress == keyIndex)
         {
@@ -405,11 +406,12 @@ void HandleKeyPressWash(int keyIndex, bool endSequence)
             audioSource.PlayOneShot(errorSound);
             return false;
         }
-        else{
+        else
+        {
             StartCoroutine(ShowArrowImageForDuration(3f, "Your inventory is empty!"));
             audioSource.PlayOneShot(errorSound);
-            return false; 
-        } 
+            return false;
+        }
     }
 
     public bool IsGameActive()
@@ -420,12 +422,12 @@ void HandleKeyPressWash(int keyIndex, bool endSequence)
     IEnumerator ShowArrowImageForDuration(float duration, string message)
     {
         arrowImage.enabled = true;
-        informationImage.enabled = true; 
+        informationImage.enabled = true;
         messageText.text = message;
         messageCanvas.gameObject.SetActive(true);
         yield return new WaitForSeconds(duration);
         arrowImage.enabled = false;
-        informationImage.enabled = false; 
+        informationImage.enabled = false;
         messageCanvas.gameObject.SetActive(false);
     }
 }
