@@ -3,27 +3,63 @@ using System.Linq; // Ensure you have this using directive for Linq methods
 
 public class SceneInitializer : MonoBehaviour
 {
+    private GameObject canvasGameObject;
+
     void Start()
     {
-        // Find the Canvas GameObject by name
-        GameObject canvasGameObject = GameObject.Find("Canvas");
+        canvasGameObject = GameObject.Find("Canvas");
+
         if (canvasGameObject != null)
         {
-            // Try to find the Money component in the children of the Canvas GameObject, including inactive ones
-            Money moneyManager = canvasGameObject.GetComponentInChildren<Money>(true); // true to include inactive GameObjects
-            if (moneyManager != null)
-            {
-                moneyManager.ResetMoneyAndDebt();
-                Debug.Log("Money and debt reset successfully.");
-            }
-            else
-            {
-                Debug.LogError("Money component not found in the children of the Canvas GameObject.");
-            }
+            ResetMoneyAndDebt();
+            ResetDay();
+            ResetLevel();
         }
         else
         {
-            Debug.LogError("Canvas GameObject named 'Canvas' not found in the scene."); // Corrected the case to match the search
+            Debug.LogError("Canvas GameObject named 'Canvas' not found in the scene."); 
+        }
+    }
+
+    private void ResetMoneyAndDebt()
+    {
+        Money moneyManager = canvasGameObject.GetComponentInChildren<Money>(true);
+        if (moneyManager != null)
+        {
+            moneyManager.ResetMoneyAndDebt();
+            Debug.Log("Money and debt reset successfully.");
+        }
+        else
+        {
+            Debug.LogError("Money component not found in the children of the Canvas GameObject.");
+        }
+    }
+
+    private void ResetDay()
+    {
+        Day dayManager = canvasGameObject.GetComponentInChildren<Day>(true);
+        if (dayManager != null)
+        {
+            dayManager.ResetDay();
+            Debug.Log("Day reset successfully.");
+        }
+        else
+        {
+            Debug.LogError("Day component not found in the children of the Canvas GameObject.");
+        }
+    }
+
+    private void ResetLevel()
+    {
+        Level levelManager = canvasGameObject.GetComponentInChildren<Level>(true);
+        if (levelManager != null)
+        {
+            levelManager.ResetLevel();
+            Debug.Log("Level reset successfully.");
+        }
+        else
+        {
+            Debug.LogError("Level component not found in the children of the Canvas GameObject.");
         }
     }
 }

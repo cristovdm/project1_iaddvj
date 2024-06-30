@@ -35,26 +35,46 @@ public class Level : MonoBehaviour
         // day = 1, night = 2
         string levelKey = $"{levelNumber1}-{dayOrNight}";
 
+        Debug.Log("levelKey");
+        Debug.Log(levelKey);
+
         switch (levelKey)
         {
-            case "1-1":
-                currentLevel = "Level 1-1";
-                break;
+            // Level 1
             case "1-2":
-                currentLevel = "Level 1-2";
+                currentLevel = "Level 1: Chop & Mix";
                 break;
-            case "2-1":
-                currentLevel = "Level 2-1";
-                break;
+            // Level 2
             case "2-2":
-                currentLevel = "Level 2-2";
+                currentLevel = "Level 2: Soup Time";
                 break;
-            case "3-1":
-                currentLevel = "Level 3-1";
-                break;
+            // Level 3
             case "3-2":
-                // Game Over
-                SceneManager.LoadScene("Kitchen");
+                currentLevel = "Level 3: Gourmet Prep";
+                break;
+            // Level 4
+            case "4-2":
+                currentLevel = "Level 4: Heat Wave";
+                break;
+            // Level 5
+            case "5-2":
+                currentLevel = "Level 5: Bubble Urchin";
+                break;
+            // Level 6
+            case "6-2":
+                currentLevel = "Level 6: Banana Chaos";
+                break;
+            // Level 7
+            case "7-2":
+                currentLevel = "Level 7: Stalthy Stealers";
+                break;
+            // Level 8
+            case "8-2":
+                currentLevel = "Level 8: Final Feast";
+                break;
+            // Game Over
+            case "9-2":
+                SceneManager.LoadScene("Game Over");
                 break;
             default:
                 Debug.LogWarning($"Unknown level key: {levelKey}");
@@ -75,7 +95,7 @@ public class Level : MonoBehaviour
     {
         if (levelDisplay != null)
         {
-            levelDisplay.text = $"Level: {currentLevel}";
+            levelDisplay.text = $"{currentLevel}";
         }
         else
         {
@@ -97,6 +117,13 @@ public class Level : MonoBehaviour
 
     private void LoadLevel()
     {
-        currentLevel = PlayerPrefs.GetString(LevelKey, "Level 1-1");
+        currentLevel = PlayerPrefs.GetString(LevelKey, "Level 1: Chop & Mix");
+    }
+
+    public void ResetLevel()
+    {
+        currentLevel = "Level 1: Chop & Mix";
+        SaveLevel();
+        UpdateLevelUI();
     }
 }

@@ -44,14 +44,7 @@ public class Day : MonoBehaviour
     {
         if (dayDisplay != null)
         {
-            if (currentDay % 2 == 0)
-            {
-                dayDisplay.text = $"DAY: {currentDay}";
-            }
-            else
-            {
-                dayDisplay.text = $"NIGHT: {currentDay}";
-            }
+            dayDisplay.text = $"DAY: {currentDay}";
         }
         else
         {
@@ -73,5 +66,12 @@ public class Day : MonoBehaviour
     private void LoadDay()
     {
         currentDay = PlayerPrefs.GetInt(DayKey, 0);
+    }
+
+    public void ResetDay()
+    {
+        currentDay = 1;
+        SaveDay();
+        UpdateDayUI();
     }
 }
