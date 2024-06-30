@@ -32,10 +32,11 @@ namespace Inventory
         {
             return trashinventoryData;
         }
-
-        [SerializeField] private Image informationImage;
+        
         [SerializeField]
         private InventorySO plateinventoryData;
+
+        [SerializeField] private Image informationImage;
 
         [SerializeField] private Canvas messageCanvas;
         [SerializeField] private TextMeshProUGUI messageText;
@@ -75,12 +76,12 @@ namespace Inventory
         {
             PrepareUI();
 
-            messageCanvas.gameObject.SetActive(false); 
 
             string sceneName = SceneManager.GetActiveScene().name;
             if (sceneName == "Kitchen")
             {
                 PreparePlateInventoryData();
+                messageCanvas.gameObject.SetActive(false); 
                 foreach (var item in inventoryData.GetCurrentInventoryState())
                 {
                     TrashInitialItems.Add(new InventoryItem { item = item.Value.item, quantity = item.Value.quantity });

@@ -18174,21 +18174,15 @@ MonoBehaviour:
   plateinventoryUI: {fileID: 1625470887}
   inventoryData: {fileID: 11400000, guid: 4b89f0ca11505e541b6dcd7517706844, type: 2}
   trashinventoryData: {fileID: 11400000, guid: fd6f3fd9d83ebb941913ec687467fa9e, type: 2}
-  informationImage: {fileID: 719643453}
   plateinventoryData: {fileID: 11400000, guid: 6edf9253a33e95249a9c3da50d925c17, type: 2}
+  informationImage: {fileID: 719643453}
   messageCanvas: {fileID: 577473951}
   messageText: {fileID: 129459582}
   playerInventoryFilled: 0
   initialItems: []
   TrashInitialItems:
   - quantity: 1
-    item: {fileID: 11400000, guid: 774d22630d93b2f438ba92c6290ab3ba, type: 2}
-    itemState: []
-  - quantity: 1
-    item: {fileID: 11400000, guid: 6ae03f932616ac7469a67c9ea7e16d2f, type: 2}
-    itemState: []
-  - quantity: 1
-    item: {fileID: 11400000, guid: 056364c8924e10f41926501c82329d2c, type: 2}
+    item: {fileID: 11400000, guid: 6113bd3336c31b7439e4efcef5bb1c34, type: 2}
     itemState: []
   PlateInitialItems: []
   dropClip: {fileID: 8300000, guid: 1697ef6def83a8b459b3b425f75a3bb4, type: 3}

@@ -252,7 +252,7 @@ public class ThiefEnemy : MonoBehaviour
                 case "Bastones":
                     prefabToInstantiate = BastonesPrefab;
                     break;
-                case "Bastones Zanahoria Apanados":
+                case "BreadCarrotSticks":
                     prefabToInstantiate = BastonesZanahoriaApanados;
                     break;
                 case "Carrot Cake":
@@ -279,10 +279,10 @@ public class ThiefEnemy : MonoBehaviour
                 case "Egg":
                     prefabToInstantiate = EggPrefab;
                     break;
-                case "Ensalada Colorida":
+                case "CarrotTomatoSalad":
                     prefabToInstantiate = EnsaladaColoridaPrefab;
                     break;
-                case "Ensalada Con Huevo":
+                case "SaladWithEgg":
                     prefabToInstantiate = EnsaladaConHuevoPrefab;
                     break;
                 case "Fish":
@@ -291,28 +291,28 @@ public class ThiefEnemy : MonoBehaviour
                 case "Tomato":
                     prefabToInstantiate = TomatoPrefab;
                     break;
-                case "Fried Egg":
+                case "FriedEgg":
                     prefabToInstantiate = FriedEggPrefab;
                     break;
-                case "Fried Fish":
+                case "FriedFish":
                     prefabToInstantiate = FriedFishPrefab;
                     break;
-                case "Huevo Duro":
+                case "HuevoDuro":
                     prefabToInstantiate = HuevoDuroPrefab;
                     break;
-                case "Pan Cortado":
+                case "PanCortado":
                     prefabToInstantiate = PanCortadoPrefab;
                     break;
-                case "Pan Cortado Frito":
+                case "PanCortadoFrito":
                     prefabToInstantiate = PanCortadoFritoPrefab;
                     break;
                 case "Pan":
                     prefabToInstantiate = PanPrefab;
                     break;
-                case "Pescado Horno":
+                case "PescadoHorno":
                     prefabToInstantiate = PescadoHornoPrefab;
                     break;
-                case "Pescado Caldero":
+                case "PescadoCaldero":
                     prefabToInstantiate = PescadoCalderoPrefab;
                     break;
                 case "Salad":
@@ -321,13 +321,13 @@ public class ThiefEnemy : MonoBehaviour
                 case "Sandwich":
                     prefabToInstantiate = SandwichPrefab;
                     break;
-                case "Sopa Tomate Crotones":
+                case "SopaTomateCrotones":
                     prefabToInstantiate = sopaTomateCrotonesPrefab;
                     break;
-                case "Sopa Zanahoria":
+                case "CarrotSoup":
                     prefabToInstantiate = sopaZanahoriaPrefab;
                     break;
-                case "Sopa Zanahoria Huevo":
+                case "CarrotSoupEgg":
                     prefabToInstantiate = sopaZanahoriaHuevoPrefab;
                     break;
                 case "Tomatican":
@@ -336,7 +336,7 @@ public class ThiefEnemy : MonoBehaviour
                 case "Tomato Soup":
                     prefabToInstantiate = TomatoSoupPrefab;
                     break;
-                case "Tortilla Zanahoria":
+                case "tortillaZanahoria":
                     prefabToInstantiate = TortillaZanahoriaPrefab;
                     break;
                 default:
@@ -357,6 +357,7 @@ public class ThiefEnemy : MonoBehaviour
                     GameObject instance = Instantiate(prefabToInstantiate, transform.position, Quaternion.identity);
                     MoveToTarget moveToTarget = instance.AddComponent<MoveToTarget>();
                     moveToTarget.targetPosition = interactionArea.transform.position;
+                    trashinventoryData.AddItem(itemRobbed); 
                 }
 
                 else{

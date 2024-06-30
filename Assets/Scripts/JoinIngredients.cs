@@ -80,32 +80,34 @@ public class JoinIngredients : MonoBehaviour
 
     string GetCombinedItemName(string item1, string item2)
     {
+        Debug.Log(item1);
+        Debug.Log(item2); 
         var combinations = new Dictionary<(string, string), string>
         {
             { ("FriedFish", "FriedEgg"), "FriedFishAndEgg" },
             { ("FriedEgg", "FriedFish"), "FriedFishAndEgg" },
             { ("Carrot", "Egg"), "tortillaZanahoria" },
             { ("Egg", "Carrot"), "tortillaZanahoria" },
-            { ("Cut Carrot", "Egg"), "tortillaZanahoria" },
-            { ("Egg", "Cut Carrot"), "tortillaZanahoria" },
-            { ("Cut Carrot", "CutTomato"), "CarrotTomatoSalad" },
-            { ("CutTomato", "Cut Carrot"), "CarrotTomatoSalad" },
+            { ("CutCarrot", "Egg"), "tortillaZanahoria" },
+            { ("Egg", "CutCarrot"), "tortillaZanahoria" },
+            { ("CutCarrot", "CutTomato"), "CarrotTomatoSalad" },
+            { ("CutTomato", "CutCarrot"), "CarrotTomatoSalad" },
             { ("SopaZanahoria", "Egg"), "CarrotSoupEgg" },
             { ("Egg", "SopaZanahoria"), "CarrotSoupEgg" },
             { ("CutTomato", "CutCorn"), "Salad" },
             { ("CutCorn", "CutTomato"), "Salad" },
             { ("Salad", "Egg"), "SaladWithEgg" },
             { ("Egg", "Salad"), "SaladWithEgg" },
-            { ("SaladWithEgg", "Cut Carrot"), "Tomatican" },
-            { ("Cut Carrot", "SaladWithEgg"), "Tomatican" },
+            { ("SaladWithEgg", "CutCarrot"), "Tomatican" },
+            { ("CutCarrot", "SaladWithEgg"), "Tomatican" },
             { ("FriedFish", "PanCortado"), "SandwichDePescado" },
             { ("PanCortado", "FriedFish"), "SandwichDePescado" },
             { ("TomatoSoup", "PanCortadoFrito"), "SopaTomateCrotones" },
             { ("PanCortadoFrito", "TomatoSoup"), "SopaTomateCrotones" },
             { ("PescadoCaldero", "CornSoup"), "CazuelaMarina" },
             { ("CornSoup", "PescadoCaldero"), "CazuelaMarina" },
-            { ("Cut Carrot", "Bread"), "BreadCarrotSticks" },
-            { ("Bread", "Cut Carrot"), "BreadCarrotSticks" },
+            { ("CutCarrot", "Bread"), "BreadCarrotSticks" },
+            { ("Bread", "CutCarrot"), "BreadCarrotSticks" },
         };
 
         if (combinations.TryGetValue((item1, item2), out string result) ||
