@@ -133,9 +133,9 @@ public class Money : MonoBehaviour
 
     public void ResetMoneyAndDebt()
     {
-        currentMoney = 0; // Reset money to 0 or to any initial value for a new game
-        debt = 100000; // Reset debt to its initial value, if needed
-        SaveMoney(); // Assuming you implement this to save the reset value
-        UpdateAllUI(); // Update the UI to reflect the reset values
+        currentMoney = 0; 
+        debt = 100000; 
+        SaveMoney(); 
+        UpdateAllUI(); 
     }
 }
