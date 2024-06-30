@@ -1,9 +1,9 @@
+using Inventory.Model;
+using Inventory;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using Inventory;
-using Inventory.Model;
 using UnityEngine.UI;
 
 public class WashingMiniGame : MonoBehaviour
@@ -16,13 +16,14 @@ public class WashingMiniGame : MonoBehaviour
     public GameObject leftKeySprite;
     public GameObject rightKeySprite;
 
-    public int ScrubtotalKeySequences = 4;
-    public int WashtotalKeySequences = 4;
-    private int ScrubtotalKeyPairs;
-    private int WashtotalKeyPairs;
+    public int ScrubTotalKeySequences = 4;
+    public int WashTotalKeySequences = 4;
 
-    private bool scrub = false;
-    private bool wash = false;
+    private int scrubTotalKeyPairs;
+    private int washTotalKeyPairs;
+
+    private bool scrubMode = false;
+    private bool washMode = false;
 
     private int scrubNextKeyPress = 0;
     private int washNextKeyPress = 0;
@@ -31,6 +32,7 @@ public class WashingMiniGame : MonoBehaviour
     private bool isPlayerLocked = true;
     private bool readyToStart = true;
     private bool win = false;
+
     public AudioClip bubble;
     public AudioClip errorSound;
     private AudioSource audioSource;
@@ -85,15 +87,14 @@ public class WashingMiniGame : MonoBehaviour
 
         if (gameActive && !isPlayerLocked)
         {
-            if (scrub)
+            if (scrubMode)
             {
                 scrubSequence();
             }
-            else if (wash)
+            else if (washMode)
             {
                 washSequence();
             }
-
         }
         else
         {
@@ -141,23 +142,19 @@ public class WashingMiniGame : MonoBehaviour
         if (scrubNextKeyPress == keyIndex)
         {
             audioSource.PlayOneShot(bubble);
-            scrubNextKeyPress = (scrubNextKeyPress + 1);
+            scrubNextKeyPress = (scrubNextKeyPress + 1) % 2; // Ciclo 0 y 1
             ToggleKeySpriteScrub(scrubNextKeyPress);
             if (endSequence)
             {
-                scrubNextKeyPress = 0;
-                ScrubtotalKeyPairs++;
+                scrubTotalKeyPairs++;
                 ToggleKeySpriteScrub(scrubNextKeyPress);
-                if (ScrubtotalKeyPairs >= ScrubtotalKeySequences)
+                if (scrubTotalKeyPairs >= ScrubTotalKeySequences)
                 {
-                    upKeySprite.SetActive(false);
-                    downKeySprite.SetActive(false);
-                    leftKeySprite.SetActive(false);
-                    rightKeySprite.SetActive(false);
+                    SetKeySpritesActive(false);
                     modeText.text = "WASH!";
                     instructionText.text = "Press UP, RIGHT, DOWN, LEFT in order!";
-                    scrub = false;
-                    wash = true;
+                    scrubMode = false;
+                    washMode = true;
                     gameActive = true;
                     ResetKeySprites();
                     StartCoroutine(CountdownToChange());
@@ -166,43 +163,37 @@ public class WashingMiniGame : MonoBehaviour
             }
         }
     }
-    IEnumerator CountdownToChange()
-    {
-        instructionText.text = "";
-        yield return new WaitForSeconds(1f);
-
-        upKeySprite.SetActive(true);
-        gameActive = true;
-    }
-
-
 
     void HandleKeyPressWash(int keyIndex, bool endSequence)
     {
         if (washNextKeyPress == keyIndex)
         {
             audioSource.PlayOneShot(bubble);
-            washNextKeyPress = (washNextKeyPress + 1);
+            washNextKeyPress = (washNextKeyPress + 1) % 4; // Ciclo 0, 1, 2, 3
             ToggleKeySpriteWash(washNextKeyPress);
             if (endSequence)
             {
-                washNextKeyPress = 0;
-                WashtotalKeyPairs++;
+                washTotalKeyPairs++;
                 ToggleKeySpriteWash(washNextKeyPress);
-                if (WashtotalKeyPairs >= WashtotalKeySequences)
+                if (washTotalKeyPairs >= WashTotalKeySequences)
                 {
-                    upKeySprite.SetActive(false);
-                    downKeySprite.SetActive(false);
-                    leftKeySprite.SetActive(false);
-                    rightKeySprite.SetActive(false);
+                    SetKeySpritesActive(false);
                     modeText.text = "";
                     instructionText.text = "COMPLETE";
-                    scrub = false;
-                    wash = false;
+                    scrubMode = false;
+                    washMode = false;
                     StartCoroutine(EndMiniGameAfterDelay());
                 }
             }
         }
+    }
+
+    IEnumerator CountdownToChange()
+    {
+        instructionText.text = "";
+        yield return new WaitForSeconds(1f);
+        upKeySprite.SetActive(true);
+        gameActive = true;
     }
 
     IEnumerator EndMiniGameAfterDelay()
@@ -213,10 +204,7 @@ public class WashingMiniGame : MonoBehaviour
 
     void ToggleKeySpriteScrub(int keyIndex)
     {
-        upKeySprite.SetActive(false);
-        downKeySprite.SetActive(false);
-        leftKeySprite.SetActive(false);
-        rightKeySprite.SetActive(false);
+        SetKeySpritesActive(false);
 
         switch (keyIndex)
         {
@@ -231,10 +219,7 @@ public class WashingMiniGame : MonoBehaviour
 
     void ToggleKeySpriteWash(int keyIndex)
     {
-        upKeySprite.SetActive(false);
-        downKeySprite.SetActive(false);
-        leftKeySprite.SetActive(false);
-        rightKeySprite.SetActive(false);
+        SetKeySpritesActive(false);
 
         switch (keyIndex)
         {
@@ -251,6 +236,14 @@ public class WashingMiniGame : MonoBehaviour
                 leftKeySprite.SetActive(true);
                 break;
         }
+    }
+
+    void SetKeySpritesActive(bool active)
+    {
+        upKeySprite.SetActive(active);
+        downKeySprite.SetActive(active);
+        leftKeySprite.SetActive(active);
+        rightKeySprite.SetActive(active);
     }
 
     void StartCooldown()
@@ -276,8 +269,8 @@ public class WashingMiniGame : MonoBehaviour
     public void StartMiniGame()
     {
         inventory.TakeOutFirstItem();
-        scrub = true;
-        wash = false;
+        scrubMode = true;
+        washMode = false;
         hasStartedMiniGame = true;
         SetChildrenActive(ParentObject, true);
         ResetKeySprites();
@@ -300,14 +293,14 @@ public class WashingMiniGame : MonoBehaviour
         hasStartedMiniGame = false;
         scrubNextKeyPress = 0;
         washNextKeyPress = 0;
+        scrubMode = false;
+        washMode = false;
         gameActive = false;
         isPlayerLocked = true;
         readyToStart = true;
         win = false;
-        scrub = false;
-        wash = false;
-        ScrubtotalKeyPairs = 0;
-        WashtotalKeyPairs = 0;
+        scrubTotalKeyPairs = 0;
+        washTotalKeyPairs = 0;
     }
 
     void EndMiniGame()
@@ -368,13 +361,13 @@ public class WashingMiniGame : MonoBehaviour
         }
         return false;
     }
+
     public bool IsFoodAvailable()
     {
         InventoryItem inventoryItem = inventory.GetInventoryFirstItem();
 
         if (!inventoryItem.IsEmpty)
         {
-            Debug.Log(inventoryItem.item.Name);
             switch (inventoryItem.item.Name)
             {
                 case "Rotten Carrot":
@@ -386,7 +379,6 @@ public class WashingMiniGame : MonoBehaviour
                     return true;
 
                 case "Rotten Fish":
-
                     cleanedItem = ResourceManager.LoadResource<EdibleItemSO>("Fish");
                     return true;
 
@@ -401,22 +393,19 @@ public class WashingMiniGame : MonoBehaviour
                 case "RottenEgg":
                     cleanedItem = ResourceManager.LoadResource<EdibleItemSO>("Egg");
                     return true;
+
+                default:
+                    StartCoroutine(ShowArrowImageForDuration(3f, $"You cannot wash {inventoryItem.item.Name}!"));
+                    audioSource.PlayOneShot(errorSound);
+                    return false;
             }
-            StartCoroutine(ShowArrowImageForDuration(3f, $"You cannot wash a {inventoryItem.item.Name}!"));
-            audioSource.PlayOneShot(errorSound);
-            return false;
         }
         else
         {
-            StartCoroutine(ShowArrowImageForDuration(3f, "Your inventory is empty!"));
+            StartCoroutine(ShowArrowImageForDuration(3f, $"Your inventory is empty!"));
             audioSource.PlayOneShot(errorSound);
             return false;
         }
-    }
-
-    public bool IsGameActive()
-    {
-        return gameActive;
     }
 
     IEnumerator ShowArrowImageForDuration(float duration, string message)
@@ -429,5 +418,10 @@ public class WashingMiniGame : MonoBehaviour
         arrowImage.enabled = false;
         informationImage.enabled = false;
         messageCanvas.gameObject.SetActive(false);
+    }
+
+    public bool IsGameActive()
+    {
+        return gameActive;
     }
 }
