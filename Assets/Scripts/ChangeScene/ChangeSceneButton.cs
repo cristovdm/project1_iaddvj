@@ -21,7 +21,22 @@ public class ChangeSceneButton : MonoBehaviour
         {
             Day.Instance.NextDay();
             Level.Instance.SetLevel(Day.Instance.GetCurrentDay(), 2);
-            SceneManager.LoadScene("Kitchen");
+
+            if (Day.Instance.GetCurrentDay() >= 8)
+            {
+                if (Money.Instance.isDebtPaid())
+                {
+                    SceneManager.LoadScene("Good Ending");
+                }
+                else
+                {
+                    SceneManager.LoadScene("Bad Ending");
+                }
+            }
+            else
+            {
+                SceneManager.LoadScene("Kitchen");
+            }
         }
 
         canvasChangeScene.gameObject.SetActive(false);
