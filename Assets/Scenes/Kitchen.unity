@@ -18182,7 +18182,10 @@ MonoBehaviour:
   initialItems: []
   TrashInitialItems:
   - quantity: 1
-    item: {fileID: 11400000, guid: 6113bd3336c31b7439e4efcef5bb1c34, type: 2}
+    item: {fileID: 11400000, guid: 774d22630d93b2f438ba92c6290ab3ba, type: 2}
+    itemState: []
+  - quantity: 1
+    item: {fileID: 11400000, guid: 774d22630d93b2f438ba92c6290ab3ba, type: 2}
     itemState: []
   PlateInitialItems: []
   dropClip: {fileID: 8300000, guid: 1697ef6def83a8b459b3b425f75a3bb4, type: 3}
