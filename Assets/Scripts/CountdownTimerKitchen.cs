@@ -6,9 +6,6 @@ using System.Collections;
 public class CountdownTimerKitchen : MonoBehaviour
 {
     [SerializeField]
-    private float countdownTime = 120f;
-
-    [SerializeField]
     private TextMeshProUGUI timerText;
 
     [SerializeField]
@@ -23,13 +20,14 @@ public class CountdownTimerKitchen : MonoBehaviour
 
     void Start()
     {
-        currentTime = countdownTime;
         playerMovementScript = player.GetComponent<PlayerMovement>();
 
         if (audioSource == null)
         {
             Debug.LogWarning("AudioSource no asignado en el CountdownTimer.");
         }
+
+        currentTime = LevelManager.instance.GetCountdownTimeForCurrentLevel();
     }
 
     void Update()

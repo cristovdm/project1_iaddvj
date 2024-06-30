@@ -44,6 +44,39 @@ public class LevelManager : MonoBehaviour
         levelDishes.Add(8, new List<string> { "Tomatican", "CarrotCake", "FriedCarrotBreadSticks", "CazuelaMarina", "SopaTomateCrotones" });
     }
 
+    public float GetCountdownTimeForCurrentLevel()
+    {
+        float defaultTime = 120f;
+        if (levelDishes.ContainsKey(currentLevel))
+        {
+            switch (currentLevel)
+            {
+                case 1:
+                    return 180;
+                case 2:
+                    return 180f;
+                case 3:
+                    return 240f;
+                case 4:
+                    return 240f;
+                case 5:
+                    return 240f;
+                case 6:
+                    return 300f;
+                case 7:
+                    return 360f;
+                case 8:
+                    return 360f;
+                default:
+                    return defaultTime;
+            }
+        }
+        else
+        {
+            return defaultTime;
+        }
+    }
+
     public List<string> GetDishesForCurrentLevel()
     {
         if (levelDishes.ContainsKey(currentLevel))
