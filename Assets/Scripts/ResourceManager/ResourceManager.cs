@@ -24,13 +24,11 @@ public class ResourceManager : MonoBehaviour
     {
         T loadedResource = null;
 
-        // Try to load the resource from the dictionary first
         if (itemDictionary.ContainsKey(resourceName))
         {
             return itemDictionary[resourceName] as T;
         }
 
-        // Load from resources folder in both editor and build
         loadedResource = Resources.Load<T>("Data/" + resourceName);
 
         if (loadedResource == null)
@@ -39,7 +37,6 @@ public class ResourceManager : MonoBehaviour
         }
         else
         {
-            // Add loaded resource to dictionary for future access
             itemDictionary.Add(resourceName, loadedResource as EdibleItemSO);
         }
 

@@ -27,7 +27,7 @@ public class LevelManager : MonoBehaviour
     {
         levelDishes = new Dictionary<int, List<string>>();
 
-        levelDishes.Add(1, new List<string> { "CarrotTomatoSalad", "CutCarrot", "cutCorn", "cutTomato", "Salad" });
+        levelDishes.Add(1, new List<string> { "Cut Carrot", "Salad" });
 
         levelDishes.Add(2, new List<string> { "Tomato Soup", "Corn Soup", "HuevoDuro", "PescadoCaldero", "SopaZanahoria" });
 

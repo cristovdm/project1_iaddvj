@@ -24,13 +24,13 @@ public class OvenMinigame : MonoBehaviour
     private InventoryController inventory;
     private ItemSO cutItem;
 
-    public float speed = 1.0f;  // Velocidad a la que cambia el valor del jugador.
-    private int targetValue;    // Valor objetivo seleccionado aleatoriamente.
-    private float playerValue;  // Valor actual del jugador.
-    private int iteration;      // Contador de iteraciones completadas.
-    private int totalIterations = 3;  // N�mero total de iteraciones necesarias para ganar.
-    private float timeInRange;  // Tiempo que el jugador ha permanecido dentro del rango.
-    private float requiredTimeInRange = 0.5f;  // Tiempo necesario dentro del rango para completar una iteraci�n.
+    public float speed = 1.0f;
+    private int targetValue;
+    private float playerValue;
+    private int iteration;
+    private int totalIterations = 3;
+    private float timeInRange;
+    private float requiredTimeInRange = 0.5f;
     private float maxScale = 500f;
 
     private bool isCooldown = false;
@@ -55,13 +55,10 @@ public class OvenMinigame : MonoBehaviour
             interactionArea = GetComponent<BoxCollider2D>();
         }
 
-
-        // Inicializar el valor del jugador a 0 y el contador de iteraciones.
         playerValue = 0;
         iteration = 0;
         timeInRange = 0;
 
-        // Seleccionar el primer valor objetivo aleatorio.
         SetNewTargetValue();
     }
 
@@ -79,35 +76,27 @@ public class OvenMinigame : MonoBehaviour
         {
             playerValueText.text = $"{(int)playerValue}�";
             targetValueText.text = $"{targetValue}�";
-            // Obtener la entrada del jugador.
+
             if (Input.GetKey(KeyCode.LeftArrow))
             {
-                // Reducir el valor del jugador.
                 playerValue -= speed * Time.deltaTime;
             }
             else if (Input.GetKey(KeyCode.RightArrow))
             {
-                // Aumentar el valor del jugador.
                 playerValue += speed * Time.deltaTime;
             }
 
-            // Limitar el valor del jugador entre 0 y 220.
             playerValue = Mathf.Clamp(playerValue, 0, 220);
 
-            // Verificar si el valor del jugador est� dentro del rango de -15 y +15 del valor objetivo.
             if (Mathf.Abs(playerValue - targetValue) <= 15)
             {
                 playerValueText.color = Color.green;
-                // Incrementar el temporizador de tiempo en rango.
                 timeInRange += Time.deltaTime;
 
-                // Verificar si el jugador ha estado dentro del rango el tiempo suficiente.
                 if (timeInRange >= requiredTimeInRange)
                 {
-                    // Incrementar el contador de iteraciones.
                     iteration++;
 
-                    // Verificar si se han completado todas las iteraciones.
                     if (iteration >= totalIterations)
                     {
                         win = true;
@@ -117,7 +106,6 @@ public class OvenMinigame : MonoBehaviour
                     }
                     else
                     {
-                        // Reiniciar el valor del jugador a 0, el temporizador y seleccionar un nuevo valor objetivo.
                         playerValue = 0;
                         timeInRange = 0;
                         SetNewTargetValue();
@@ -126,7 +114,6 @@ public class OvenMinigame : MonoBehaviour
             }
             else
             {
-                // Reiniciar el temporizador si el jugador sale del rango.
                 timeInRange = 0;
                 playerValueText.color = Color.white;
             }
@@ -143,15 +130,13 @@ public class OvenMinigame : MonoBehaviour
 
     void UpdateFireSpriteSize()
     {
-        // Calcular el tama�o del sprite de fuego en funci�n de la diferencia entre el valor del jugador y el valor objetivo.
-        float sizeFactor = Mathf.Clamp01(1 - Mathf.Abs(playerValue - targetValue) / 220f); // Normalizar la diferencia al rango [0, 1]
+        float sizeFactor = Mathf.Clamp01(1 - Mathf.Abs(playerValue - targetValue) / 220f);
         float scale = sizeFactor * (500 - 100) + 100;
         fireSprite.localScale = new Vector3(scale, scale, 1.0f);
     }
 
     void SetNewTargetValue()
     {
-        // Seleccionar un nuevo valor objetivo entre 31 y 220.
         targetValue = Random.Range(31, 221);
     }
 
@@ -212,6 +197,13 @@ public class OvenMinigame : MonoBehaviour
                     cutItem = ResourceManager.LoadResource<EdibleItemSO>("PescadoHorno");
                     return true;
 
+                case "CarrotSoupEgg":
+                    cutItem = ResourceManager.LoadResource<EdibleItemSO>("CarrotCake");
+                    return true;
+
+                case "CutCorn":
+                    cutItem = ResourceManager.LoadResource<EdibleItemSO>("PopCorn");
+                    return true;
             }
             return false;
         }

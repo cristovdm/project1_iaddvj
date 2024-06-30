@@ -136,14 +136,11 @@ public class Gerard : MonoBehaviour
                         previousDirection = direction;
                     }
                 }
-
-                Debug.Log("Moving towards: " + targetNode.transform.position);
             }
             else
             {
                 currentNode = targetNode;
                 targetIndex++;
-                Debug.Log("Reached node: " + currentNode.transform.position + ", moving to next node.");
             }
         }
     }

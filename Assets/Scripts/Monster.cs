@@ -9,8 +9,8 @@ public class EnemyAI2D : MonoBehaviour
     [SerializeField] private LayerMask wallLayer;
     [SerializeField] private float detectionRange = 1f;
     [SerializeField] private AudioClip alertSound;
-    [SerializeField] private CircleCollider2D triggerCollider; // Referencia al collider
-    [SerializeField] private float destructionRange = 10.0f; // Ajusta seg�n sea necesario
+    [SerializeField] private CircleCollider2D triggerCollider;
+    [SerializeField] private float destructionRange = 10.0f;
 
     private AudioSource audioSource;
     private GameObject canvasChangeScene;
@@ -36,7 +36,6 @@ public class EnemyAI2D : MonoBehaviour
 
         audioSource = GetComponent<AudioSource>();
 
-        // Aseg�rate de que el collider est� configurado como trigger
         if (triggerCollider == null)
         {
             triggerCollider = GetComponent<CircleCollider2D>();
@@ -45,7 +44,6 @@ public class EnemyAI2D : MonoBehaviour
         if (triggerCollider != null)
         {
             triggerCollider.isTrigger = true;
-            Debug.Log("Trigger collider radius: " + triggerCollider.radius);
         }
     }
 
@@ -126,7 +124,6 @@ public class EnemyAI2D : MonoBehaviour
         }
     }
 
-    // Mostrar el rango de destrucci�n en el editor
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.green;

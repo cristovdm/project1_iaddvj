@@ -18,8 +18,7 @@ public class DeliverFood : MonoBehaviour
     private string currentDelivery;
     public SpriteRenderer spriteRenderer;
     private string foodCloudPath = "Sprites/FoodClouds/";
-
-    private Money moneyScript;  // Referencia al script Money
+    private Money moneyScript;
 
     List<string> ShuffleList(List<string> list)
     {
@@ -88,8 +87,8 @@ public class DeliverFood : MonoBehaviour
                 case "CarrotTomatoSalad":
                     RenderSprite("carrotTomatoSaladCloud");
                     return;
-                case "CutCarrot":
-                    RenderSprite("CutCarrot");
+                case "Cut Carrot":
+                    RenderSprite("cutCarrotCloud");
                     return;
                 case "FriedCarrotBreadSticks":
                     RenderSprite("friedCarrotBreadSticks");
@@ -123,6 +122,7 @@ public class DeliverFood : MonoBehaviour
         }
         stageDeliveriesList = ShuffleList(stageDeliveriesList);
         currentDelivery = stageDeliveriesList.First();
+        Debug.Log(currentDelivery.ToString());
         stageDeliveriesList.RemoveAt(0);
         ShowFoodCloud();
     }

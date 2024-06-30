@@ -14,16 +14,16 @@ public class Mine : MonoBehaviour
     [SerializeField] private AudioClip explosionSound;
     [SerializeField] private AudioClip beepSound;
     [SerializeField] private Animator animator;
-    [SerializeField] private float proximityThreshold = 2f; // Proximidad para el cambio de escena
-    [SerializeField] private float checkInterval = 0.5f; // Intervalo entre comprobaciones de proximidad
+    [SerializeField] private float proximityThreshold = 2f;
+    [SerializeField] private float checkInterval = 0.5f;
 
-    [SerializeField] private float explosionRadius = 2f; // Rango de la explosión editable
+    [SerializeField] private float explosionRadius = 2f;
 
     private bool isActive = false;
     private CircleCollider2D mineCollider;
     private GameObject canvasChangeScene;
 
-    public static event Action<Vector2> OnMineExploded; // Evento estático
+    public static event Action<Vector2> OnMineExploded;
 
     void OnEnable()
     {
@@ -88,7 +88,7 @@ public class Mine : MonoBehaviour
                 if (distanceToPlayer <= proximityThreshold)
                 {
                     StartCoroutine(BeepAndExplode(player));
-                    yield break; // Termina el bucle si se cumple la condición
+                    yield break;
                 }
             }
         }

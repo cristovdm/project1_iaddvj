@@ -84,18 +84,28 @@ public class JoinIngredients : MonoBehaviour
         {
             { ("FriedFish", "FriedEgg"), "FriedFishAndEgg" },
             { ("FriedEgg", "FriedFish"), "FriedFishAndEgg" },
+            { ("Carrot", "Egg"), "tortillaZanahoria" },
+            { ("Egg", "Carrot"), "tortillaZanahoria" },
+            { ("Cut Carrot", "Egg"), "tortillaZanahoria" },
+            { ("Egg", "Cut Carrot"), "tortillaZanahoria" },
+            { ("Cut Carrot", "CutTomato"), "CarrotTomatoSalad" },
+            { ("CutTomato", "Cut Carrot"), "CarrotTomatoSalad" },
+            { ("SopaZanahoria", "Egg"), "CarrotSoupEgg" },
+            { ("Egg", "SopaZanahoria"), "CarrotSoupEgg" },
             { ("CutTomato", "CutCorn"), "Salad" },
             { ("CutCorn", "CutTomato"), "Salad" },
-            { ("FriedFish", "CutTomato"), "PescadoHorno" },
-            { ("CutTomato", "FriedFish"), "PescadoHorno" },
+            { ("Salad", "Egg"), "SaladWithEgg" },
+            { ("Egg", "Salad"), "SaladWithEgg" },
+            { ("SaladWithEgg", "Cut Carrot"), "Tomatican" },
+            { ("Cut Carrot", "SaladWithEgg"), "Tomatican" },
             { ("FriedFish", "PanCortado"), "SandwichDePescado" },
             { ("PanCortado", "FriedFish"), "SandwichDePescado" },
             { ("TomatoSoup", "PanCortadoFrito"), "SopaTomateCrotones" },
             { ("PanCortadoFrito", "TomatoSoup"), "SopaTomateCrotones" },
             { ("PescadoCaldero", "CornSoup"), "CazuelaMarina" },
             { ("CornSoup", "PescadoCaldero"), "CazuelaMarina" },
-            { ("SopaZanahoria", "Egg"), "CarrotCake" },
-            { ("Egg", "SopaZanahoria"), "CarrotCake" }
+            { ("Cut Carrot", "Bread"), "BreadCarrotSticks" },
+            { ("Bread", "Cut Carrot"), "BreadCarrotSticks" },
         };
 
         if (combinations.TryGetValue((item1, item2), out string result) ||
