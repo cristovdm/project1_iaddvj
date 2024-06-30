@@ -138,4 +138,15 @@ public class Money : MonoBehaviour
         SaveMoney(); 
         UpdateAllUI(); 
     }
+
+    public bool isDebtPaid()
+    {
+        if (currentMoney >= debt)
+        {
+            debt = 0;
+            return true;
+        }
+        
+        return false;
+    }
 }

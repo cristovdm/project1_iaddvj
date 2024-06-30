@@ -69,12 +69,8 @@ public class Level : MonoBehaviour
                 currentLevel = "Level 7: Final Feast";
                 break;
             // Game Over
-            case "8-2":
-                SceneManager.LoadScene("Game Over");
-                break;
             default:
-                Debug.LogWarning($"Unknown level key: {levelKey}");
-                currentLevel = $"Level {levelNumber1}-{dayOrNight}";
+                currentLevel = "Game Over";
                 return;
         }
 
