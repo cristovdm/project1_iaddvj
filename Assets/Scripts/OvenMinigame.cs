@@ -5,7 +5,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
-using UnityEngine.UIElements;
+using UnityEngine.UI; 
 
 public class OvenMinigame : MonoBehaviour
 {
@@ -40,11 +40,23 @@ public class OvenMinigame : MonoBehaviour
     private bool readyToStart = true;
     private bool hasStartedMiniGame = false;
 
+    public AudioClip errorSound;
+
+    [SerializeField] private Canvas messageCanvas;
+    [SerializeField] private Image arrowImage;
+    [SerializeField] private Image informationImage;
+    [SerializeField] private TextMeshProUGUI messageText;
+
+    [SerializeField] private Canvas invisibleWall;
+
     void Start()
     {
         inventory = FindObjectOfType<InventoryController>();
         SetChildrenActive(ParentObject, false);
         audioSource = GetComponent<AudioSource>();
+        arrowImage.enabled = false; 
+        informationImage.enabled = false; 
+
         if (audioSource == null)
         {
             audioSource = gameObject.AddComponent<AudioSource>();
@@ -205,9 +217,16 @@ public class OvenMinigame : MonoBehaviour
                     cutItem = ResourceManager.LoadResource<EdibleItemSO>("PopCorn");
                     return true;
             }
+
+            StartCoroutine(ShowArrowImageForDuration(3f, $"You cannot cook with a {inventoryItem.item.Name}!")); 
+            audioSource.PlayOneShot(errorSound);
             return false;
         }
-        else return false;
+        else{
+            StartCoroutine(ShowArrowImageForDuration(3f, $"Your inventory is empty!")); 
+            audioSource.PlayOneShot(errorSound);
+            return false;
+        } 
     }
 
     public bool IsGameActive()
@@ -236,6 +255,7 @@ public class OvenMinigame : MonoBehaviour
         inventory.TakeOutFirstItem();
         hasStartedMiniGame = true;
         SetChildrenActive(ParentObject, true);
+        invisibleWall.gameObject.SetActive(true);
         leftKeySprite.SetActive(true);
         rightKeySprite.SetActive(true);
         targetValueText.text = "";
@@ -275,6 +295,7 @@ public class OvenMinigame : MonoBehaviour
         ResetGame();
         ResetKeySprites();
         SetChildrenActive(ParentObject, false);
+        invisibleWall.gameObject.SetActive(false);
         StartCooldown();
         playerMovement.enabled = true;
 
@@ -286,5 +307,17 @@ public class OvenMinigame : MonoBehaviour
         };
         inventory.AddInventoryItem(item);
 
+    }
+
+    IEnumerator ShowArrowImageForDuration(float duration, string message)
+    {
+        arrowImage.enabled = true;
+        informationImage.enabled = true; 
+        messageText.text = message;
+        messageCanvas.gameObject.SetActive(true);
+        yield return new WaitForSeconds(duration);
+        arrowImage.enabled = false;
+        informationImage.enabled = false; 
+        messageCanvas.gameObject.SetActive(false);
     }
 }

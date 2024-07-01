@@ -37,10 +37,14 @@ public class SoupMakerMiniGame : MonoBehaviour
     [SerializeField] private Image informationImage;
     [SerializeField] private TextMeshProUGUI messageText;
 
+
+    [SerializeField] private Canvas invisibleWall;
+
     void Start()
     {
         inventory = FindObjectOfType<InventoryController>();
         SetChildrenActive(ParentObject, false);
+        invisibleWall.gameObject.SetActive(false);
         audioSource = GetComponent<AudioSource>();
         arrowImage.enabled = false; 
         informationImage.enabled = false; 
@@ -184,6 +188,7 @@ public class SoupMakerMiniGame : MonoBehaviour
         inventory.TakeOutFirstItem();
         hasStartedMiniGame = true;
         SetChildrenActive(ParentObject, true);
+        invisibleWall.gameObject.SetActive(true);
         ResetKeySprites();
         instructionText.text = "Press UP, RIGHT, DOWN, LEFT in order!";
         StartCoroutine(CountdownToStart());
@@ -214,6 +219,7 @@ public class SoupMakerMiniGame : MonoBehaviour
         ResetGame();
         ResetKeySprites();
         SetChildrenActive(ParentObject, false);
+        invisibleWall.gameObject.SetActive(false);
         StartCooldown();
         playerMovement.enabled = true;
 

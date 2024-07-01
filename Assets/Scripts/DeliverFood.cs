@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI; 
+using TMPro;
 
 public class DeliverFood : MonoBehaviour
 {
@@ -19,6 +21,13 @@ public class DeliverFood : MonoBehaviour
     public SpriteRenderer spriteRenderer;
     private string foodCloudPath = "Sprites/FoodClouds/";
     private Money moneyScript;
+
+    public AudioClip errorSound;
+
+    [SerializeField] private Canvas messageCanvas;
+    [SerializeField] private Image arrowImage;
+    [SerializeField] private Image informationImage;
+    [SerializeField] private TextMeshProUGUI messageText;
 
     // Diccionario de precios
     private Dictionary<string, int> dishPrices = new Dictionary<string, int>()
@@ -136,6 +145,9 @@ public class DeliverFood : MonoBehaviour
                 case "tortillaZanahoria":
                     RenderSprite("TortillaZanahoriaCloud");
                     return;
+                default: 
+                    Debug.Log("No es el plato!"); 
+                    return; 
             }
         }
     }
@@ -205,11 +217,26 @@ public class DeliverFood : MonoBehaviour
 
         if (!inventoryItem.IsEmpty)
         {
-            Debug.Log(inventoryItem.item.Name);
-            textboxAnimator.ShowTextbox("$" + dishPrices[inventoryItem.item.Name].ToString());
-            return true;
+            if (dishPrices.ContainsKey(inventoryItem.item.Name))
+            {
+                Debug.Log(inventoryItem.item.Name);
+                textboxAnimator.ShowTextbox("$" + dishPrices[inventoryItem.item.Name].ToString());
+                return true; 
+            }
+            else
+            {
+                Debug.LogWarning($"El item '{inventoryItem.item.Name}' no está en dishPrices.");
+                return false; 
+            }
+
         }
-        else return false;
+        else {
+            StartCoroutine(ShowArrowImageForDuration(3f, $"Your inventory is empty!")); 
+            audioSource.PlayOneShot(errorSound);
+            return false;
+        }
+        
+    
     }
 
     private bool IsCorrectDelivery()
@@ -224,12 +251,19 @@ public class DeliverFood : MonoBehaviour
             }
             else return false;
         }
-        else return false;
+        else{
+            StartCoroutine(ShowArrowImageForDuration(3f, $"{inventoryItem.item.Name} is not the correct delivery!")); 
+            audioSource.PlayOneShot(errorSound);
+            return false; 
+        }
     }
 
     void Start()
     {
         inventory = FindObjectOfType<InventoryController>();
+        arrowImage.enabled = false; 
+        informationImage.enabled = false; 
+
 
         audioSource = GetComponent<AudioSource>();
         if (audioSource == null)
@@ -255,5 +289,17 @@ public class DeliverFood : MonoBehaviour
             moneyScript.AddMoney(dishPrices[currentDelivery]);
             CheckNextDelivery();
         }
+    }
+
+    IEnumerator ShowArrowImageForDuration(float duration, string message)
+    {
+        arrowImage.enabled = true;
+        informationImage.enabled = true; 
+        messageText.text = message;
+        messageCanvas.gameObject.SetActive(true);
+        yield return new WaitForSeconds(duration);
+        arrowImage.enabled = false;
+        informationImage.enabled = false; 
+        messageCanvas.gameObject.SetActive(false);
     }
 }

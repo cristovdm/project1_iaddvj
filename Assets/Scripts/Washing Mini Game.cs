@@ -49,9 +49,12 @@ public class WashingMiniGame : MonoBehaviour
     [SerializeField] private Image informationImage;
     [SerializeField] private TextMeshProUGUI messageText;
 
+    [SerializeField] private Canvas invisibleWall;
+
     void Start()
     {
         inventory = FindObjectOfType<InventoryController>();
+        invisibleWall.gameObject.SetActive(false);
         SetChildrenActive(ParentObject, false);
         audioSource = GetComponent<AudioSource>();
         informationImage.enabled = false;
@@ -275,6 +278,7 @@ public class WashingMiniGame : MonoBehaviour
         SetChildrenActive(ParentObject, true);
         ResetKeySprites();
         instructionText.text = "Press RIGHT, LEFT in order!";
+        invisibleWall.gameObject.SetActive(true);
         modeText.text = "SCRUB!";
         StartCoroutine(CountdownToStart());
     }
@@ -308,6 +312,7 @@ public class WashingMiniGame : MonoBehaviour
         ResetGame();
         ResetKeySprites();
         SetChildrenActive(ParentObject, false);
+        invisibleWall.gameObject.SetActive(false);
         StartCooldown();
         playerMovement.enabled = true;
         InventoryItem item = new InventoryItem

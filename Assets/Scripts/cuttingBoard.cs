@@ -35,6 +35,8 @@ public class CuttingBoardMiniGame : MonoBehaviour
     [SerializeField] private TextMeshProUGUI messageText;
     [SerializeField] private Image informationImage;
 
+    [SerializeField] private Canvas invisibleWall;
+
     void Start()
     {
         inventory = FindObjectOfType<InventoryController>();
@@ -145,6 +147,7 @@ public class CuttingBoardMiniGame : MonoBehaviour
         hasStartedMiniGame = true;
         totalKeyPairs = totalKeyPresses;
         SetChildrenActive(ParentObject, true);
+        invisibleWall.gameObject.SetActive(true);
         wKeySprite.SetActive(false);
         sKeySprite.SetActive(false);
         instructionText.text = "Press W and S in order!";
@@ -178,6 +181,7 @@ public class CuttingBoardMiniGame : MonoBehaviour
         wKeySprite.SetActive(false);
         sKeySprite.SetActive(false);
         SetChildrenActive(ParentObject, false);
+        invisibleWall.gameObject.SetActive(false);
         StartCooldown();
         playerMovement.enabled = true;
 
