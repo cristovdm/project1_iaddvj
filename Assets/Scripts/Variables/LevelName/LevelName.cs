@@ -62,7 +62,7 @@ public class Level : MonoBehaviour
                 break;
             // Level 6
             case "6-2":
-                currentLevel = "Level 6: Stalthy Stealers";
+                currentLevel = "Level 6: Stealthy Stealers";
                 break;
             // Level 7
             case "7-2":

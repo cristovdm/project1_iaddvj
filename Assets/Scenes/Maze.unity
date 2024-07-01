@@ -32110,7 +32110,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 9526c680d70049c4fafc94e6defebf36, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 34f74a04ffbec4746a0d158f4ef0f025, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.2
   m_Pitch: 1
@@ -32224,7 +32224,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioSource: {fileID: 1272036775}
-  pitchIncreaseAmount: 0.35
+  pitchIncreaseAmount: 0.2
   adjustInterval: 30
 --- !u!1001 &1275209268
 PrefabInstance:

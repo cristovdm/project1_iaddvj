@@ -10,7 +10,7 @@ public class Money : MonoBehaviour
     private const string MoneyKey = "CurrentMoney";  
     public TextMeshProUGUI moneyDisplay;
 
-    private int debt = 100000;
+    private int debt = 3000;
     public TextMeshProUGUI debtText;
 
     void Awake()

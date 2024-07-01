@@ -9672,9 +9672,9 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 183b06d9e1d19aa4c8f58077754020db, type: 3}
+  m_audioClip: {fileID: 8300000, guid: fcbd44e01a3c13344845e73f0f649b0f, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.1
+  m_Volume: 0.2
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -14352,6 +14352,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentLevel: 1
+  audioSource: {fileID: 1135002185}
+  levelMusic:
+  - {fileID: 8300000, guid: 9c0773b017bc08f45b0541838e49c7d4, type: 3}
+  - {fileID: 8300000, guid: 32ca70b884a253e42aca04a6e22600cd, type: 3}
+  - {fileID: 8300000, guid: 0e7e435c8c6ceff45b3674566cd03e08, type: 3}
+  - {fileID: 8300000, guid: fcbd44e01a3c13344845e73f0f649b0f, type: 3}
+  - {fileID: 8300000, guid: 32ca70b884a253e42aca04a6e22600cd, type: 3}
 --- !u!1 &1756531077
 GameObject:
   m_ObjectHideFlags: 0
@@ -19525,10 +19532,10 @@ MonoBehaviour:
   - quantity: 1
     item: {fileID: 11400000, guid: 056364c8924e10f41926501c82329d2c, type: 2}
     itemState: []
-  PlateInitialItems:
   - quantity: 1
-    item: {fileID: 11400000, guid: 1baef02907add284c99f6af7d7b9c47e, type: 2}
+    item: {fileID: 11400000, guid: 6ae03f932616ac7469a67c9ea7e16d2f, type: 2}
     itemState: []
+  PlateInitialItems: []
   dropClip: {fileID: 8300000, guid: 1697ef6def83a8b459b3b425f75a3bb4, type: 3}
   audioSource: {fileID: 8667536452772664776}
   errorSound: {fileID: 8300000, guid: 0eaceceb5eb63734ba9434c0c1158620, type: 3}

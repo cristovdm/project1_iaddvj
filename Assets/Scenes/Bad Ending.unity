@@ -563,6 +563,29 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 71482183d0906b6489c391014a04760b, type: 3}
   - {fileID: 21300000, guid: 3a277312a4418e74b86e88d7135cafbd, type: 3}
   - {fileID: 21300000, guid: 3a277312a4418e74b86e88d7135cafbd, type: 3}
+  - {fileID: 21300000, guid: 3a277312a4418e74b86e88d7135cafbd, type: 3}
+  - {fileID: 21300000, guid: 3a277312a4418e74b86e88d7135cafbd, type: 3}
+  - {fileID: 21300000, guid: da9a87784a583bb42b03ac7932e6baf8, type: 3}
+  - {fileID: 21300000, guid: da9a87784a583bb42b03ac7932e6baf8, type: 3}
+  - {fileID: 21300000, guid: da9a87784a583bb42b03ac7932e6baf8, type: 3}
+  - {fileID: 21300000, guid: da9a87784a583bb42b03ac7932e6baf8, type: 3}
+  - {fileID: 21300000, guid: 81ddb417301bdbc4686eee4e6b253679, type: 3}
+  - {fileID: 21300000, guid: 1b3dd3c1290355b4693b8fa75667fc47, type: 3}
+  - {fileID: 21300000, guid: 1b3dd3c1290355b4693b8fa75667fc47, type: 3}
+  - {fileID: 21300000, guid: 1b3dd3c1290355b4693b8fa75667fc47, type: 3}
+  - {fileID: 21300000, guid: 1b3dd3c1290355b4693b8fa75667fc47, type: 3}
+  - {fileID: 21300000, guid: 5312b74f4bf7e7a4a9a75bb3e0e27cee, type: 3}
+  - {fileID: 21300000, guid: 5312b74f4bf7e7a4a9a75bb3e0e27cee, type: 3}
+  - {fileID: 21300000, guid: 5312b74f4bf7e7a4a9a75bb3e0e27cee, type: 3}
+  - {fileID: 21300000, guid: 5312b74f4bf7e7a4a9a75bb3e0e27cee, type: 3}
+  - {fileID: 21300000, guid: 5312b74f4bf7e7a4a9a75bb3e0e27cee, type: 3}
+  - {fileID: 21300000, guid: 5312b74f4bf7e7a4a9a75bb3e0e27cee, type: 3}
+  - {fileID: 21300000, guid: 5312b74f4bf7e7a4a9a75bb3e0e27cee, type: 3}
+  - {fileID: 21300000, guid: a71bf4428ecb0c54a83110027efd3e03, type: 3}
+  - {fileID: 21300000, guid: a71bf4428ecb0c54a83110027efd3e03, type: 3}
+  - {fileID: 21300000, guid: a71bf4428ecb0c54a83110027efd3e03, type: 3}
+  - {fileID: 21300000, guid: a71bf4428ecb0c54a83110027efd3e03, type: 3}
+  - {fileID: 21300000, guid: a71bf4428ecb0c54a83110027efd3e03, type: 3}
   interval: 0.5
   displayImage: {fileID: 30357612}
   loopCutscene: 0
@@ -582,12 +605,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scheduledSounds:
-  - clip: {fileID: 8300000, guid: e9dcf771ec8d79b469496f4dc8e19c26, type: 3}
-    time: 23
-  - clip: {fileID: 8300000, guid: e19661f1f82fd79419cace4594af7b25, type: 3}
-    time: 25
-  - clip: {fileID: 8300000, guid: 98c23580b2e72a548a94a015b8c56b0d, type: 3}
-    time: 27
+  - clip: {fileID: 8300000, guid: d1d84b4db618cc24184ef7f4db2bfd1f, type: 3}
+    time: 7.5
   audioSource: {fileID: 1561258355}
 --- !u!1 &1561258354
 GameObject:
@@ -616,7 +635,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 98c23580b2e72a548a94a015b8c56b0d, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 526e2d8e5e44ec042a6eb97f972dd5f0, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1

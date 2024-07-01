@@ -701,6 +701,30 @@ MonoBehaviour:
   cutsceneImages:
   - {fileID: 21300000, guid: 71482183d0906b6489c391014a04760b, type: 3}
   - {fileID: 21300000, guid: c1b76683e24943d4aaec803968db47f1, type: 3}
+  - {fileID: 21300000, guid: c1b76683e24943d4aaec803968db47f1, type: 3}
+  - {fileID: 21300000, guid: c1b76683e24943d4aaec803968db47f1, type: 3}
+  - {fileID: 21300000, guid: c1b76683e24943d4aaec803968db47f1, type: 3}
+  - {fileID: 21300000, guid: 2c0371fab26dc7641a984dfe42faf3d8, type: 3}
+  - {fileID: 21300000, guid: 2caf946b1453e1a4ebc6a87289b406a7, type: 3}
+  - {fileID: 21300000, guid: 12341822dfb1642448502c2a6c1167ef, type: 3}
+  - {fileID: 21300000, guid: c45e82c99b34eae4797d3b780a55fb99, type: 3}
+  - {fileID: 21300000, guid: 31ab17a53e566634d80d3f8aef841f27, type: 3}
+  - {fileID: 21300000, guid: 31ab17a53e566634d80d3f8aef841f27, type: 3}
+  - {fileID: 21300000, guid: 31ab17a53e566634d80d3f8aef841f27, type: 3}
+  - {fileID: 21300000, guid: b99c979e42721ae4c8a825d0433e6441, type: 3}
+  - {fileID: 21300000, guid: c8c65339503d71d4f9cc4eec1b58d0cd, type: 3}
+  - {fileID: 21300000, guid: 16698168b76a52f48bbd9576284fdf9f, type: 3}
+  - {fileID: 21300000, guid: 9724df6874f392e40be49ad8ed08f096, type: 3}
+  - {fileID: 21300000, guid: 16698168b76a52f48bbd9576284fdf9f, type: 3}
+  - {fileID: 21300000, guid: 9724df6874f392e40be49ad8ed08f096, type: 3}
+  - {fileID: 21300000, guid: 16698168b76a52f48bbd9576284fdf9f, type: 3}
+  - {fileID: 21300000, guid: 9724df6874f392e40be49ad8ed08f096, type: 3}
+  - {fileID: 21300000, guid: 16698168b76a52f48bbd9576284fdf9f, type: 3}
+  - {fileID: 21300000, guid: 9724df6874f392e40be49ad8ed08f096, type: 3}
+  - {fileID: 21300000, guid: 16698168b76a52f48bbd9576284fdf9f, type: 3}
+  - {fileID: 21300000, guid: 9724df6874f392e40be49ad8ed08f096, type: 3}
+  - {fileID: 21300000, guid: 16698168b76a52f48bbd9576284fdf9f, type: 3}
+  - {fileID: 21300000, guid: 9724df6874f392e40be49ad8ed08f096, type: 3}
   interval: 0.5
   displayImage: {fileID: 30357612}
   loopCutscene: 0
@@ -721,11 +745,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scheduledSounds:
   - clip: {fileID: 8300000, guid: e9dcf771ec8d79b469496f4dc8e19c26, type: 3}
-    time: 23
-  - clip: {fileID: 8300000, guid: e19661f1f82fd79419cace4594af7b25, type: 3}
-    time: 25
-  - clip: {fileID: 8300000, guid: 98c23580b2e72a548a94a015b8c56b0d, type: 3}
-    time: 27
+    time: 10
   audioSource: {fileID: 1561258355}
 --- !u!114 &1347936336
 MonoBehaviour:
