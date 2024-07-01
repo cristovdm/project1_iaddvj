@@ -9,14 +9,15 @@ public class GuardMovement : MonoBehaviour
     [SerializeField] private float destructionRange = 10.0f; // Adjustable destruction range
     private Vector2 movementDirection;
     private Rigidbody2D rb;
-    private GameObject canvasChangeScene;
+
+    [SerializeField]
+    private CountdownTimer countdownTimer;
     private Animator animator; // Reference to Animator
     private bool isMoving; // Boolean to track movement
 
     void OnEnable()
     {
         Mine.OnMineExploded += HandleMineExploded;
-        canvasChangeScene = Resources.FindObjectsOfTypeAll<GameObject>().FirstOrDefault(g => g.name == "CanvasChangeScene");
     }
 
     void OnDisable()
@@ -30,6 +31,7 @@ public class GuardMovement : MonoBehaviour
         rb.freezeRotation = true;
         animator = GetComponent<Animator>(); // Initialize the Animator
         StartCoroutine(ChangeDirectionRoutine());
+        countdownTimer = FindObjectOfType<CountdownTimer>();
     }
 
     void Update()
@@ -77,23 +79,7 @@ public class GuardMovement : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            if (canvasChangeScene != null)
-            {
-                Money moneyComponent = canvasChangeScene.GetComponent<Money>();
-                if (moneyComponent != null)
-                {
-                    moneyComponent.UpdateAllUI();
-                    canvasChangeScene.SetActive(true);
-                }
-                else
-                {
-                    Debug.LogError("Money component not found on the GameObject.");
-                }
-            }
-            else
-            {
-                Debug.LogError("Canvas Change Scene not found");
-            }
+            countdownTimer.SetCountdownToZero();
         }
         else if (collision.gameObject.CompareTag("Wall"))
         {

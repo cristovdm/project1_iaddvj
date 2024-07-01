@@ -97,4 +97,9 @@ public class CountdownTimer : MonoBehaviour
         }
         Time.timeScale = 1; // Restablece el tiempo para la nueva escena
     }
+
+    public void SetCountdownToZero()
+    {
+        currentTime = 0;
+    }
 }

@@ -11,7 +11,7 @@ public class Gerard : MonoBehaviour
     private int targetIndex;
     private bool playerDetected;
     private AudioSource audioSource;
-    private GameObject canvasChangeScene;
+    
     private NavigationNode currentNode;
 
     [SerializeField] private LayerMask wallLayer;
@@ -21,14 +21,15 @@ public class Gerard : MonoBehaviour
     private List<NavigationNode> nodes = new List<NavigationNode>();
     private Vector2 previousDirection = Vector2.right; // Inicializar a la derecha
 
-    void OnEnable()
-    {
-        canvasChangeScene = Resources.FindObjectsOfTypeAll<GameObject>().FirstOrDefault(g => g.name == "CanvasChangeScene");
-    }
+    [SerializeField]
+    private CountdownTimer countdownTimer;
 
     private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
+
+        countdownTimer = FindObjectOfType<CountdownTimer>();
+
         audioSource = GetComponent<AudioSource>();
         if (triggerCollider == null)
         {
@@ -125,13 +126,13 @@ public class Gerard : MonoBehaviour
                 Vector2 newPosition = (Vector2)transform.position + direction * moveSpeed * Time.deltaTime;
                 transform.position = newPosition;
 
-                // Invertir el sprite basado en la dirección
+                // Invertir el sprite basado en la direcciï¿½n
                 if (direction.x != 0)
                 {
                     if (Mathf.Sign(direction.x) != Mathf.Sign(previousDirection.x))
                     {
                         Vector3 newScale = transform.localScale;
-                        newScale.x = Mathf.Abs(newScale.x) * Mathf.Sign(-direction.x); // Cambiar a -direction.x para invertir la lógica
+                        newScale.x = Mathf.Abs(newScale.x) * Mathf.Sign(-direction.x); // Cambiar a -direction.x para invertir la lï¿½gica
                         transform.localScale = newScale;
                         previousDirection = direction;
                     }
@@ -243,23 +244,7 @@ public class Gerard : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            if (canvasChangeScene != null)
-            {
-                Money moneyComponent = canvasChangeScene.GetComponent<Money>();
-                if (moneyComponent != null)
-                {
-                    moneyComponent.UpdateAllUI();
-                    canvasChangeScene.SetActive(true);
-                }
-                else
-                {
-                    Debug.LogError("Money component not found on the GameObject.");
-                }
-            }
-            else
-            {
-                Debug.LogError("Canvas Change Scene not found");
-            }
+            countdownTimer.SetCountdownToZero();
         }
     }
 

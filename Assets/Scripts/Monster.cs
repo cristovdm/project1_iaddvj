@@ -13,13 +13,14 @@ public class EnemyAI2D : MonoBehaviour
     [SerializeField] private float destructionRange = 10.0f;
 
     private AudioSource audioSource;
-    private GameObject canvasChangeScene;
+
+    [SerializeField]
+    private CountdownTimer countdownTimer;
 
 
     void OnEnable()
     {
         Mine.OnMineExploded += HandleMineExploded;
-        canvasChangeScene = Resources.FindObjectsOfTypeAll<GameObject>().FirstOrDefault(g => g.name == "CanvasChangeScene");
     }
 
     void OnDisable()
@@ -29,6 +30,8 @@ public class EnemyAI2D : MonoBehaviour
 
     void Start()
     {
+        countdownTimer = FindObjectOfType<CountdownTimer>();
+
         if (player == null)
         {
             player = GameObject.FindGameObjectWithTag("Player").transform;
@@ -87,23 +90,7 @@ public class EnemyAI2D : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            if (canvasChangeScene != null)
-            {
-                Money moneyComponent = canvasChangeScene.GetComponent<Money>();
-                if (moneyComponent != null)
-                {
-                    moneyComponent.UpdateAllUI();
-                    canvasChangeScene.SetActive(true);
-                }
-                else
-                {
-                    Debug.LogError("Money component not found on the GameObject.");
-                }
-            }
-            else
-            {
-                Debug.LogError("Canvas Change Scene not found");
-            }
+            countdownTimer.SetCountdownToZero();
         }
     }
 

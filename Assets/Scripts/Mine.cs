@@ -21,18 +21,18 @@ public class Mine : MonoBehaviour
 
     private bool isActive = false;
     private CircleCollider2D mineCollider;
-    private GameObject canvasChangeScene;
 
     public static event Action<Vector2> OnMineExploded;
 
-    void OnEnable()
-    {
-        canvasChangeScene = Resources.FindObjectsOfTypeAll<GameObject>().FirstOrDefault(g => g.name == "CanvasChangeScene");
-    }
+    [SerializeField]
+    private CountdownTimer countdownTimer;
+
 
     void Start()
     {
         mineCollider = GetComponent<CircleCollider2D>();
+
+        countdownTimer = FindObjectOfType<CountdownTimer>();
 
         if (mineLight == null || mineCollider == null)
         {
@@ -121,30 +121,12 @@ public class Mine : MonoBehaviour
 
         yield return new WaitForSeconds(0.5f);
 
-        // Emitir el evento de explosión
         OnMineExploded?.Invoke(transform.position);
 
-        // Calcular la distancia al jugador y cambiar de escena si está dentro del umbral
         float distanceToPlayer = Vector2.Distance(transform.position, player.transform.position);
         if (distanceToPlayer <= proximityThreshold)
         {
-            if (canvasChangeScene != null)
-            {
-                Money moneyComponent = canvasChangeScene.GetComponent<Money>();
-                if (moneyComponent != null)
-                {
-                    moneyComponent.UpdateAllUI(); 
-                    canvasChangeScene.SetActive(true); 
-                }
-                else
-                {
-                    Debug.LogError("Money component not found on the GameObject.");
-                }
-            }
-            else
-            {
-                Debug.LogError("Canvas Change Scene not found");
-            }
+            countdownTimer.SetCountdownToZero();
         }
 
         Destroy(gameObject);
