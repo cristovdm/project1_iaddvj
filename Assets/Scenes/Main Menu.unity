@@ -182,8 +182,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Cuisine Du Poubelle
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 1270d3dd2dc5d29498ef3c3024bc00e7, type: 2}
+  m_sharedMaterial: {fileID: -4303865872515565450, guid: 1270d3dd2dc5d29498ef3c3024bc00e7, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -284,7 +284,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: e250f3b038eaa774094eae752934c03e, type: 3}
+  m_audioClip: {fileID: 8300000, guid: c0e0fc5531b767e43a1f3f19b90af0d8, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.5
   m_Pitch: 1
@@ -396,6 +396,7 @@ GameObject:
   - component: {fileID: 844607372}
   - component: {fileID: 844607371}
   - component: {fileID: 844607370}
+  - component: {fileID: 844607373}
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
@@ -453,6 +454,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &844607373
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 844607369}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 870489a9cc01a2e448f88522bb9b2d8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &874518631
 GameObject:
   m_ObjectHideFlags: 0
@@ -512,8 +525,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: PLAY
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 1270d3dd2dc5d29498ef3c3024bc00e7, type: 2}
+  m_sharedMaterial: {fileID: -4303865872515565450, guid: 1270d3dd2dc5d29498ef3c3024bc00e7, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1072,7 +1085,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -3, y: -412}
+  m_AnchoredPosition: {x: -3, y: -239}
   m_SizeDelta: {x: 277.423, y: 99.4952}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2012149537
